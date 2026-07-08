@@ -1,0 +1,173 @@
+---
+// src/components/Hero.astro
+import { Image } from "astro:assets";
+
+// Importación de tus imágenes locales
+import logoHpe from "../assets/logo-hpe-2025-white.png";
+import logoAruba from "../assets/aruba.png";
+// Importamos el fondo de circuitos
+import bgCircuit from "../assets/content.png"; 
+---
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<section class="relative w-full min-h-[calc(100vh-6rem)] bg-gradient-to-b from-[#060b19] via-[#0b132b] to-[#111d42] flex items-center overflow-hidden">
+    
+    <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div 
+            class="absolute inset-0 bg-repeat opacity-[0.09] mix-blend-overlay"
+            style={`background-image: url(${bgCircuit.src}); background-size: 450px;`}
+        ></div>
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-[#060b19] via-transparent via-25% to-transparent"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-16 md:py-24 grid grid-cols-1 md:grid-cols-12 gap-12 items-center relative z-10">
+        
+        <div class="md:col-span-7 flex flex-col justify-center space-y-6 text-white text-center md:text-left min-h-[380px]">
+            <div>
+                <span id="hero-tag" class="inline-block bg-white/10 backdrop-blur-md text-tyta-amber text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full border border-white/10 transition-all duration-500">
+                    Centro Autorizado de Servicio
+                </span>
+            </div>
+            
+            <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight transition-all duration-500">
+                Garantice la continuidad con soporte <span class="text-transparent bg-clip-text bg-gradient-to-r from-tyta-amber to-amber-300">Directo de Fábrica</span>
+            </h1>
+            
+            <p id="hero-desc" class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto md:mx-0 font-normal leading-relaxed transition-all duration-500">
+                Ofrecemos soluciones avanzadas de TI respaldadas por las marcas líderes a nivel global, con ingenieros certificados para proteger su infraestructura crítica.
+            </p>
+            
+            <div class="pt-4 flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+                <a
+                    href="#contacto"
+                    class="bg-tyta-blue hover:bg-tyta-dark text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl text-center"
+                >
+                    Consulta Gratis
+                </a>
+                <a
+                    href="#servicios"
+                    class="bg-white/5 hover:bg-white/10 text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full transition-all duration-300 backdrop-blur-xs border border-white/10 text-center"
+                >
+                    Nuestras Soluciones
+                </a>
+            </div>
+        </div>
+
+        <div class="md:col-span-5 w-full relative h-[350px] sm:h-[420px] rounded-2xl overflow-hidden shadow-2xl border border-white/5 bg-slate-900/40 backdrop-blur-md">
+            
+            <div class="swiper hero-swiper w-full h-full">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide flex flex-col items-center justify-center p-6 bg-gradient-to-tr from-emerald-950/20 to-slate-900/10">
+                        <div class="w-11/12 max-w-[380px] filter drop-shadow-[0_8px_24px_rgba(0,180,134,0.2)] transition-transform duration-700 ease-out hover:scale-105 custom-float-img">
+                            <Image 
+                                src={logoHpe} 
+                                alt="HPE Authorized Service Center" 
+                                class="w-full h-auto object-contain"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide flex flex-col items-center justify-center p-6 bg-gradient-to-tr from-orange-950/10 to-slate-900/10">
+                        <div class="w-11/12 max-w-[360px] filter drop-shadow-[0_8px_32px_rgba(242,142,43,0.2)] transition-transform duration-700 ease-out hover:scale-105 custom-float-img">
+                            <Image 
+                                src={logoAruba} 
+                                alt="Aruba Networks Solutions" 
+                                class="w-full h-auto object-contain" 
+                            />
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="swiper-pagination !bottom-6"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_120%,rgba(0,180,134,0.03),transparent_50%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_120%,rgba(242,142,43,0.02),transparent_40%)] pointer-events-none"></div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" is:inline></script>
+<script is:inline>
+    const slideData = [
+        {
+            tag: "Centro Autorizado de Servicio",
+            title: 'Único Centro de Servicio de <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">Hewlett Packard Enterprise</span> en Costa Rica',
+            desc: "Garantizamos soporte técnico avanzado, diagnóstico preciso y repuestos legítimos directamente de fábrica para toda su infraestructura de servidores y almacenamiento."
+        },
+        {
+            tag: "Conectividad Edge-to-Cloud",
+            title: 'Redes empresariales seguras e inteligentes con <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-300">Aruba Networks</span>',
+            desc: "Modernice el entorno de red de su organización. Implementamos soluciones de Wi-Fi corporativo, conmutación avanzada y seguridad perimetral de última generación."
+        }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const tagEl = document.getElementById('hero-tag');
+        const titleEl = document.getElementById('hero-title');
+        const descEl = document.getElementById('hero-desc');
+
+        const swiper = new Swiper('.hero-swiper', {
+            loop: true,
+            effect: 'fade',
+            fadeEffect: { crossFade: true },
+            autoplay: {
+                delay: 5000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+                renderBullet: function (index, className) {
+                    return '<span class="' + className + ' !w-2.5 !h-2.5 !bg-white/30 [&.swiper-pagination-bullet-active]:!bg-white [&.swiper-pagination-bullet-active]:!w-6 !rounded-full !transition-all !duration-300"></span>';
+                },
+            },
+            on: {
+                slideChange: function () {
+                    const index = this.realIndex;
+                    const data = slideData[index];
+
+                    if (tagEl && titleEl && descEl && data) {
+                        [tagEl, titleEl, descEl].forEach(el => el.style.opacity = '0');
+                        
+                        setTimeout(() => {
+                            tagEl.textContent = data.tag;
+                            titleEl.innerHTML = data.title;
+                            descEl.textContent = data.desc;
+                            
+                            [tagEl, titleEl, descEl].forEach(el => el.style.opacity = '1');
+                        }, 250);
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+<style>
+    #hero-tag, #hero-title, #hero-desc {
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .custom-float-img {
+        animation: smoothFloatY 4s ease-in-out infinite;
+        will-change: padding-bottom, padding-top;
+    }
+
+    @keyframes smoothFloatY {
+        0%, 100% {
+            padding-bottom: 0px;
+            padding-top: 16px;
+        }
+        50% {
+            padding-bottom: 16px;
+            padding-top: 0px;
+        }
+    }
+</style>

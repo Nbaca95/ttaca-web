@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  /* Definimos los colores de T&TA usando la sintaxis de Tailwind v4 */
+  --color-tyta-blue: #00529B;     /* Azul corporativo principal */
+  --color-tyta-dark: #0A192F;     /* Azul oscuro para el fondo del Hero */
+  --color-tyta-light: #E6F0FA;    /* Azul muy claro para fondos de secciones */
+  --color-tyta-accent: #00A3E0;   /* Azul cian brillante para botones activos */
+  --color-tyta-amber: #ffa101;    /* Amber cian brillante para Navbar / botones activos */
+}
