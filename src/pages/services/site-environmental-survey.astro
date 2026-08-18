@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SiteEnvironmentalSurveyPage from '../../components/pages/services/Siteenvironmentalsurveypage.astro';
+import { getLocaleFromUrl, getTranslations } from '../../i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+<Layout title={t.services.siteEnvironmentalSurvey} description={t.servicesPages.siteEnvironmentalSurvey.metaDescription}>
+	<SiteEnvironmentalSurveyPage />
+</Layout>

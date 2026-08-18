@@ -1,0 +1,306 @@
+---
+// src/components/pages/ContactPage.astro
+import { Image } from "astro:assets";
+import bgContact from "../../assets/images/fondo-contact.jpg";
+import { getLocaleFromUrl, getTranslations, localizedPath } from "../../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+
+const topicOptions = [
+    { value: "it-outsourcing", label: t.services.itOutsourcing },
+    { value: "it-consulting", label: t.services.itConsulting },
+    { value: "hpe-authorized-center", label: t.services.hpeAuthorizedCenter },
+    { value: "site-environmental-survey", label: t.services.siteEnvironmentalSurvey },
+    { value: "other", label: t.contact.topicOther },
+];
+---
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Floating label: la etiqueta empieza dentro del campo (como un placeholder)
+       y sube arriba del borde al enfocar o cuando ya hay contenido. */
+    .float-label {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        color: #64748b; /* slate-500 */
+        pointer-events: none;
+        transition: all 0.15s ease-out;
+    }
+    .float-input:focus + .float-label,
+    .float-input:not(:placeholder-shown) + .float-label {
+        top: 0.4rem;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #00529B; /* tyta-blue */
+    }
+    .float-input:not(:focus):not(:placeholder-shown) + .float-label {
+        color: #475569; /* slate-600 */
+    }
+</style>
+
+<main class="relative bg-white overflow-hidden">
+    <!-- Fondo compartido por el encabezado y el formulario, disolviéndose a blanco -->
+    <div class="absolute inset-x-0 top-0 h-[560px] md:h-[950px] z-0 pointer-events-none">
+        <Image src={bgContact} alt="" class="w-full h-full object-cover object-top md:object-[center_28%]" />
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-900/90 from-0% via-slate-900/40 via-55% to-white to-95%"></div>
+    </div>
+
+    <!-- Encabezado -->
+    <section class="relative z-10 h-[420px] flex items-center justify-center">
+        <div class="max-w-3xl px-6 text-center text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h1>
+            <p class="text-lg text-slate-200">{t.contact.subtitle}</p>
+        </div>
+    </section>
+
+    <!-- Formulario + información -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 pb-20 grid md:grid-cols-5 gap-12">
+        <div class="reveal md:col-span-3">
+            <div class="bg-white shadow-sm rounded-2xl p-8 border border-slate-100">
+                <form id="contact-form" class="space-y-6" novalidate>
+                    <!-- Honeypot anti-spam: invisible para personas, los bots suelen rellenarlo -->
+                    <input
+                        type="checkbox"
+                        name="botcheck"
+                        class="hidden"
+                        style="display: none;"
+                        tabindex="-1"
+                        autocomplete="off"
+                    />
+
+                    <!-- TODO: reemplazar por tu Access Key real de https://web3forms.com -->
+                    <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+                    <input type="hidden" name="subject" value="Nuevo mensaje desde el sitio web T&TA" />
+
+                    <div class="relative">
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            data-validate
+                            placeholder=" "
+                            class="float-input peer w-full px-4 pt-6 pb-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-tyta-blue transition-colors"
+                        />
+                        <label for="name" class="float-label">{t.contact.name}</label>
+                    </div>
+
+                    <div class="relative">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            data-validate
+                            placeholder=" "
+                            class="float-input peer w-full px-4 pt-6 pb-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-tyta-blue transition-colors"
+                        />
+                        <label for="email" class="float-label">{t.contact.email}</label>
+                    </div>
+
+                    <div class="relative">
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            data-validate
+                            pattern="^[+]?[0-9\s\-().]{7,20}$"
+                            placeholder=" "
+                            class="float-input peer w-full px-4 pt-6 pb-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-tyta-blue transition-colors"
+                        />
+                        <label for="phone" class="float-label">{t.contact.phone}</label>
+                    </div>
+
+                    <div>
+                        <label for="topic" class="block text-sm font-bold text-slate-700 mb-2">{t.contact.topic}</label>
+                        <select
+                            id="topic"
+                            name="topic"
+                            class="w-full px-4 py-3 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-tyta-blue transition-colors text-slate-700"
+                        >
+                            <option value="">{t.contact.topicPlaceholder}</option>
+                            {topicOptions.map((option) => (
+                                <option value={option.value}>{option.label}</option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div class="relative">
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="5"
+                            required
+                            data-validate
+                            placeholder=" "
+                            class="float-input peer w-full px-4 pt-6 pb-2 rounded-lg border border-slate-200 bg-white focus:outline-none focus:ring-2 focus:ring-tyta-blue transition-colors resize-none"
+                        ></textarea>
+                        <label for="message" class="float-label">{t.contact.message}</label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        id="contact-submit"
+                        class="bg-tyta-blue hover:bg-tyta-dark text-white font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        {t.contact.submit}
+                    </button>
+
+                    <!-- Alerta de resultado (éxito/error) -->
+                    <div id="contact-result" class="hidden items-start gap-3 rounded-lg p-4 text-sm font-medium" role="status">
+                        <span id="contact-result-icon" class="text-lg leading-none"></span>
+                        <span id="contact-result-text"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="reveal md:col-span-2">
+            <div class="bg-white shadow-sm rounded-2xl p-8 space-y-6 border border-slate-100">
+                <h2 class="text-xl font-bold text-slate-900">{t.contactPage.infoTitle}</h2>
+
+                <div class="flex gap-3">
+                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <div>
+                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.addressLabel}</p>
+                        <p class="text-slate-700">{t.contactPage.addressValue}</p>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-1C7.42 18 2 12.58 2 6V3z"></path>
+                    </svg>
+                    <div>
+                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.phoneLabel}</p>
+                        <a href="tel:+50622217783" class="text-tyta-blue font-medium hover:underline">(506) 2221-7783</a>
+                    </div>
+                </div>
+
+                <div class="flex gap-3">
+                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+                    </svg>
+                    <div>
+                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.emailLabel}</p>
+                        <a href="mailto:info@ttaca.com" class="text-tyta-blue font-medium hover:underline">info@ttaca.com</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa: sección propia, ancho completo -->
+    <section class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
+        <div class="reveal rounded-2xl overflow-hidden border border-slate-100 shadow-lg">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d982.4949586287995!2d-84.0909722!3d9.935635600000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e38e821b12d9%3A0x29f32212706035e0!2sT%26TA%20de%20Centroamerica!5e0!3m2!1ses!2scr!4v1786474357134!5m2!1ses!2scr"
+                class="w-full h-72 md:h-[480px] block border-0"
+                allowfullscreen
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+                title={t.contactPage.mapTitle}
+            ></iframe>
+        </div>
+    </section>
+</main>
+
+<script
+    define:vars={{
+        submittingLabel: t.contact.submitting,
+        submitLabel: t.contact.submit,
+        successMessage: t.contact.success,
+        errorMessage: t.contact.error,
+    }}
+>
+    // Envío del formulario
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('contact-submit');
+    const resultEl = document.getElementById('contact-result');
+    const resultIcon = document.getElementById('contact-result-icon');
+    const resultText = document.getElementById('contact-result-text');
+
+    if (form && submitBtn && resultEl && resultIcon && resultText) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = submittingLabel;
+            resultEl.classList.add('hidden');
+            resultEl.classList.remove('flex');
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { Accept: 'application/json' },
+                    body: formData,
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    resultEl.className = 'flex items-start gap-3 rounded-lg p-4 text-sm font-medium bg-emerald-50 text-emerald-700 border border-emerald-200';
+                    resultIcon.textContent = '✓';
+                    resultText.textContent = successMessage;
+                    form.reset();
+                    document.querySelectorAll('#contact-form [data-validate]').forEach((field) => {
+                        field.classList.remove('border-red-400', 'border-emerald-400');
+                        field.classList.add('border-slate-200');
+                    });
+                } else {
+                    throw new Error(result.message || 'Submission failed');
+                }
+            } catch (error) {
+                resultEl.className = 'flex items-start gap-3 rounded-lg p-4 text-sm font-medium bg-red-50 text-red-700 border border-red-200';
+                resultIcon.textContent = '⚠';
+                resultText.textContent = errorMessage;
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = submitLabel;
+            }
+        });
+    }
+
+    // Validación visual en vivo
+    document.querySelectorAll('#contact-form [data-validate]').forEach((field) => {
+        const markValidity = () => {
+            field.classList.remove('border-red-400', 'border-emerald-400', 'border-slate-200');
+            if (!field.value) {
+                field.classList.add('border-slate-200');
+                return;
+            }
+            field.classList.add(field.checkValidity() ? 'border-emerald-400' : 'border-red-400');
+        };
+        field.addEventListener('blur', markValidity);
+        field.addEventListener('input', () => {
+            if (field.classList.contains('border-red-400') || field.classList.contains('border-emerald-400')) {
+                markValidity();
+            }
+        });
+    });
+
+    // Efecto de aparición al hacer scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>

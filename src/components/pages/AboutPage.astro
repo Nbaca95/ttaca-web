@@ -1,0 +1,250 @@
+---
+// src/components/pages/AboutPage.astro
+import { Image } from "astro:assets";
+import grupoImage from "../../assets/images/grupo1.png";
+import bgCircuit from "../../assets/content.png";
+import { getLocaleFromUrl, getTranslations } from "../../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+
+// Socios estratégicos con sus colores distintivos para el efecto hover
+const partnerLogos = [
+    { name: 'Kaspersky', colorClass: 'hover:text-[#005B94]' },
+    { name: 'VMware', colorClass: 'hover:text-[#607078]' },
+    { name: 'Thales', colorClass: 'hover:text-[#00A3E0]' },
+    { name: 'Microsoft', colorClass: 'hover:text-[#00A4EF]' },
+    { name: 'Veeam', colorClass: 'hover:text-[#00B259]' },
+    { name: 'Trend Micro', colorClass: 'hover:text-[#D71920]' },
+    { name: 'Micro Focus', colorClass: 'hover:text-[#38C6F4]' },
+    { name: 'Fortinet', colorClass: 'hover:text-[#EE3124]' }
+];
+---
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<style>
+    /* Estilos para animación de entrada */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Estilos del carrusel */
+    .testimonials-swiper { padding-bottom: 60px !important; }
+    .testimonials-swiper .swiper-button-prev,
+    .testimonials-swiper .swiper-button-next {
+        top: auto;
+        bottom: 0;
+        margin-top: 0;
+        width: 40px;
+        height: 40px;
+        background: white;
+        border-radius: 50%;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .testimonials-swiper .swiper-button-prev { left: calc(50% - 60px); }
+    .testimonials-swiper .swiper-button-next { right: calc(50% - 60px); }
+    .testimonials-swiper .swiper-pagination { bottom: 10px !important; }
+</style>
+
+<main class="bg-white">
+    <!-- Hero Section -->
+    <section class="relative w-full h-[500px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <Image src={grupoImage} alt="Equipo T&TA" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl px-6 text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-8">{t.aboutPage.hero.title}</h1>
+            <p class="text-lg md:text-xl leading-relaxed mb-6">{t.aboutPage.hero.intro}</p>
+            <p class="text-xl font-bold text-tyta-amber">{t.aboutPage.hero.tagline}</p>
+        </div>
+    </section>
+
+    <!-- Trayectoria / Línea de Tiempo -->
+    <section class="py-24 bg-slate-900 text-white overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20">
+                <span class="inline-block px-4 py-1 mb-4 text-sm bg-slate-800 rounded-full text-slate-300 border border-slate-700">
+                    {t.aboutPage.journey.badge}
+                </span>
+                <h2 class="text-4xl font-bold mb-6">{t.aboutPage.journey.title}</h2>
+                <p class="text-xl text-slate-300 leading-relaxed">{t.aboutPage.journey.text}</p>
+            </div>
+
+            <!-- Contenedor de la Línea de Tiempo -->
+            <div class="relative wrap overflow-hidden py-4">
+                <!-- Línea central vertical (oculta en móviles, visible en tablets/desktop) -->
+                <div class="hidden md:block absolute border-l-2 border-slate-700 h-full left-1/2 transform -translate-x-1/2"></div>
+
+                {t.aboutPage.journey.milestones.map((milestone, index) => {
+                    const isEven = index % 2 === 0;
+                    return (
+                        <div class={`mb-16 flex justify-between items-center w-full reveal ${isEven ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
+                            <!-- Espacio para diseño alternado en desktop -->
+                            <div class="hidden md:block w-5/12"></div>
+
+                            <!-- Indicador Central / Punto luminoso -->
+                            <div class="z-20 hidden md:flex items-center justify-center bg-slate-800 border-4 border-tyta-amber w-12 h-12 rounded-full shadow-lg absolute left-1/2 transform -translate-x-1/2">
+                                <div class="w-3 h-3 bg-tyta-amber rounded-full animate-pulse"></div>
+                            </div>
+
+                            <!-- Tarjeta de Contenido -->
+                            <div class="w-full md:w-5/12 bg-slate-800/90 border border-slate-700/80 p-8 rounded-2xl shadow-xl hover:border-tyta-amber/50 transition-all duration-300 group">
+                                <span class="inline-block px-3 py-1 mb-3 text-xs font-bold tracking-wider bg-tyta-amber/20 text-tyta-amber rounded-full border border-tyta-amber/30">
+                                    {milestone.year}
+                                </span>
+                                <h3 class="text-2xl font-bold mb-3 text-white group-hover:text-tyta-amber transition-colors duration-300">
+                                    {milestone.title}
+                                </h3>
+                                <p class="text-slate-300 leading-relaxed text-sm md:text-base">
+                                    {milestone.description}
+                                </p>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
+    </section>
+
+    <!-- Misión y Visión -->
+    <section class="bg-slate-50 py-20 px-6">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
+            <!-- Tarjeta de Misión -->
+            <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
+                <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🔍</div>
+                <h2 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.mission}</h2>
+                <p class="text-slate-600">{t.aboutPage.missionVision.missionText}</p>
+            </div>
+
+            <!-- Tarjeta de Visión -->
+            <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
+                <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🚀</div>
+                <h2 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.vision}</h2>
+                <p class="text-slate-600">{t.aboutPage.missionVision.visionText}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nuestros Valores -->
+    <section class="relative py-20 px-6 bg-gradient-to-b from-[#060b19] via-[#0b132b] to-[#111d42] overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div
+                class="absolute inset-0 bg-repeat opacity-[0.09] mix-blend-overlay"
+                style={`background-image: url(${bgCircuit.src}); background-size: 450px;`}
+            ></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto">
+            <h2 class="reveal text-4xl font-bold text-center mb-4 text-white">{t.aboutPage.values.title}</h2>
+            <p class="reveal text-slate-300 text-center mb-10 max-w-2xl mx-auto">{t.aboutPage.values.subtitle}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                {t.aboutPage.values.items.map((value) => (
+                    <div class="reveal relative overflow-hidden p-8 bg-slate-800/70 backdrop-blur-sm rounded-2xl border border-slate-700/80 text-center group hover:-translate-y-2 hover:shadow-xl hover:shadow-tyta-amber/10 hover:border-tyta-amber transition-all duration-300 flex flex-col items-center">
+                        <div class="text-5xl mb-4 transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">{value.icon}</div>
+                        <h4 class="font-bold text-tyta-amber mb-3 text-xl group-hover:text-amber-400 transition-colors">{value.title}</h4>
+                        <p class="text-sm text-slate-300 leading-relaxed flex-grow">{value.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Socios Estratégicos -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold text-slate-900 mb-16">{t.aboutPage.partners.title}</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center">
+                {partnerLogos.map((socio) => (
+                    <div class="group cursor-pointer">
+                        <div class={`h-16 flex items-center justify-center font-bold text-slate-400 border border-slate-100 rounded-lg bg-slate-50/50 grayscale group-hover:grayscale-0 ${socio.colorClass} transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-white`}>
+                            {socio.name}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="reveal py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <span class="inline-block px-4 py-1 mb-4 text-sm bg-slate-100 rounded-full text-slate-600">{t.aboutPage.successStories.badge}</span>
+            <h2 class="text-4xl font-bold text-slate-900 mb-4">{t.aboutPage.successStories.title}</h2>
+            <p class="text-slate-600 mb-16">{t.aboutPage.successStories.subtitle}</p>
+        </div>
+        <div class="max-w-4xl mx-auto px-6 relative">
+            <div class="testimonials-swiper swiper">
+                <div class="swiper-wrapper">
+                    {t.aboutPage.successStories.testimonials.map((testimonio) => (
+                        <div class="swiper-slide p-2">
+                            <div class="h-full flex flex-col bg-white p-8 rounded-2xl shadow-xl border border-slate-100 text-left relative">
+                                <div class="text-tyta-amber mb-4 text-2xl">★★★★★</div>
+                                <p class="text-slate-600 mb-2 italic flex-grow">"{testimonio.text}"</p>
+                                {t.aboutPage.successStories.translatedNote && (
+                                    <p class="text-xs text-slate-400 italic mb-4">{t.aboutPage.successStories.translatedNote}</p>
+                                )}
+                                <div class="border-t pt-4 mt-auto">
+                                    <h4 class="font-bold text-slate-900">{testimonio.name}</h4>
+                                    <p class="text-sm text-slate-500">{testimonio.role}, {testimonio.company}</p>
+                                </div>
+                                <div class="absolute bottom-6 right-8 text-slate-200 text-6xl pointer-events-none">”</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev !text-tyta-blue !w-10 !h-10"></div>
+                <div class="swiper-button-next !text-tyta-blue !w-10 !h-10"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Políticas -->
+    <section class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-4">{t.aboutPage.policies.title}</h2>
+            <p class="text-slate-400 mb-16">{t.aboutPage.policies.subtitle}</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+                {t.aboutPage.policies.items.map((politica) => (
+                    <div class="reveal group flex flex-col items-center gap-4 cursor-pointer">
+                        <div class="w-20 h-20 rounded-full border-2 border-slate-600 flex items-center justify-center text-3xl transition-all duration-300 group-hover:-translate-y-2 group-hover:scale-110 group-hover:bg-tyta-amber group-hover:border-tyta-amber group-hover:shadow-lg group-hover:shadow-tyta-amber/20">
+                            <span class="transform group-hover:rotate-6 transition-transform duration-300">{politica.icon}</span>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">{politica.label}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" is:inline></script>
+<script is:inline>
+    // Scroll Reveal Effect
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Swiper
+    document.addEventListener('DOMContentLoaded', () => {
+        new Swiper('.testimonials-swiper', {
+            loop: true, slidesPerView: 1, spaceBetween: 24, autoHeight: false,
+            breakpoints: { 768: { slidesPerView: 2 } },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            autoplay: { delay: 6000, disableOnInteraction: false }
+        });
+    });
+</script>

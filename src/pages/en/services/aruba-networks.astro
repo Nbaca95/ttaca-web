@@ -1,0 +1,12 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import BrandServicePage from '../../../components/pages/services/BrandServicePage.astro';
+import { getLocaleFromUrl, getTranslations } from '../../../i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+<Layout title={t.services.arubaNetworks} description={t.servicesPages.brands.arubaNetworks.metaDescription}>
+	<BrandServicePage brand="arubaNetworks" />
+</Layout>

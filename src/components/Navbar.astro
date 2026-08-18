@@ -1,14 +1,42 @@
 ---
 // src/components/Navbar.astro
 import { Image } from "astro:assets";
-// Importamos la versión estática en .webp y el GIF animado
 import logoEstatico from "../assets/logo-estatico.webp";
 import logoAnimado from "../assets/logo-animado.gif";
+import ThemeToggle from "./ThemeToggle.tsx";
+import {
+  getLocaleFromUrl,
+  getTranslations,
+  localizedPath,
+  stripLocalePrefix,
+} from "../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+const otherLocale = locale === "es" ? "en" : "es";
+const rawPath = stripLocalePrefix(Astro.url.pathname);
+
+const homeHref = localizedPath(locale, "/");
+const aboutHref = localizedPath(locale, "/about");
+const jobsHref = localizedPath(locale, "/jobs");
+const contactHref = localizedPath(locale, "/contact");
+const otherLocaleHref = localizedPath(otherLocale, rawPath);
+
+// Marcas dentro del sub-dropdown "Consultoría de TI"
+const brandServices = [
+  { slug: "veeam", label: t.services.veeam },
+  { slug: "aruba-networks", label: t.services.arubaNetworks },
+  { slug: "vmware", label: t.services.vmware },
+  { slug: "dell", label: t.services.dell },
+  { slug: "lenovo", label: t.services.lenovo },
+] as const;
+
+const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`);
 ---
 
 <div class="w-full sticky top-0 z-50 shadow-xs">
     <div
-        class="w-full bg-white border-b border-gray-100 py-2.5 text-xs text-slate-700 hidden md:block"
+        class="w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] py-2.5 text-xs text-[var(--color-text-secondary)] hidden md:block"
     >
         <div
             class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-center items-center gap-6"
@@ -128,7 +156,7 @@ import logoAnimado from "../assets/logo-animado.gif";
         </div>
     </div>
 
-    <header class="w-full bg-white border-b border-gray-100 relative">
+    <header class="w-full bg-[var(--color-bg)] border-b border-[var(--color-border)] relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-24">
                 <div
@@ -136,6 +164,7 @@ import logoAnimado from "../assets/logo-animado.gif";
                 >
                     <a
                         id="logo-link"
+                        href={homeHref}
                         class="cursor-pointer block focus:outline-none"
                     >
                         <Image
@@ -148,26 +177,32 @@ import logoAnimado from "../assets/logo-animado.gif";
                 </div>
 
                 <nav
-                    class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide ml-50 flex-grow justify-start"
+                    class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide ml-50 flex-grow justify-start h-full items-center"
                 >
                     <a
-                        href="#"
-                        class="text-tyta-amber border-b-2 border-tyta-amber px-1 pt-1"
+                        href={homeHref}
+                        aria-current={rawPath === "/" ? "page" : undefined}
+                        class="text-slate-700 hover:text-tyta-amber border-b-2 border-transparent hover:border-tyta-amber transition-all duration-200 px-1 py-2"
                     >
-                        Inicio
+                        {t.nav.home}
                     </a>
                     <a
-                        href="#"
-                        class="text-slate-700 hover:text-tyta-amber transition-colors px-1 pt-1"
+                        href={aboutHref}
+                        aria-current={rawPath === "/about" ? "page" : undefined}
+                        class="text-slate-700 hover:text-tyta-amber border-b-2 border-transparent hover:border-tyta-amber transition-all duration-200 px-1 py-2"
                     >
-                        Nosotros
+                        {t.nav.about}
                     </a>
 
-                    <div class="relative group px-1 pt-1">
+                    <div
+                        class="relative group px-1 py-2 border-b-2 border-transparent hover:border-tyta-amber transition-all duration-200"
+                    >
                         <button
+                            type="button"
+                            aria-haspopup="true"
                             class="text-slate-700 group-hover:text-tyta-amber flex items-center space-x-1 cursor-pointer transition-colors"
                         >
-                            <span>Servicios</span>
+                            <span>{t.nav.services}</span>
                             <svg
                                 class="w-4 h-4 transition-transform group-hover:rotate-180"
                                 fill="none"
@@ -183,26 +218,27 @@ import logoAnimado from "../assets/logo-animado.gif";
                         </button>
 
                         <div
-                            class="absolute left-0 mt-2 w-64 bg-white border border-gray-100 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2"
+                            class="absolute left-0 mt-2.5 w-64 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-2"
                         >
                             <a
-                                href="#"
+                                href={serviceHref("it-outsourcing")}
                                 class="block px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
                             >
-                                Outsourcing de TI
+                                {t.services.itOutsourcing}
                             </a>
                             <a
-                                href="#"
+                                href={serviceHref("hpe-authorized-center")}
                                 class="block px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
                             >
-                                Centro Autorizado HPE
+                                {t.services.hpeAuthorizedCenter}
                             </a>
 
                             <div class="relative group/sub">
-                                <button
-                                    class="w-full flex items-center justify-between px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium cursor-pointer transition-colors"
+                                <a
+                                    href={serviceHref("it-consulting")}
+                                    class="w-full flex items-center justify-between px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
                                 >
-                                    <span>Consultoría de TI</span>
+                                    <span>{t.services.itConsulting}</span>
                                     <svg
                                         class="w-4 h-4 text-gray-400 group-hover/sub:text-tyta-amber transition-colors"
                                         fill="none"
@@ -215,69 +251,95 @@ import logoAnimado from "../assets/logo-animado.gif";
                                             stroke-width="2"
                                             d="M9 5l7 7-7 7"></path>
                                     </svg>
-                                </button>
+                                </a>
 
                                 <div
-                                    class="absolute left-full top-0 ml-0.5 w-56 bg-white border border-gray-100 rounded-md shadow-xl opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 py-2"
+                                    class="absolute left-full top-0 ml-0.5 w-56 bg-[var(--color-bg)] border border-[var(--color-border)] rounded-md shadow-xl opacity-0 invisible group-hover/sub:opacity-100 group-hover/sub:visible transition-all duration-200 py-2"
                                 >
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                                        >Veeam</a
-                                    >
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                                        >Aruba Networks</a
-                                    >
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                                        >VMware</a
-                                    >
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                                        >Dell Technologies</a
-                                    >
-                                    <a
-                                        href="#"
-                                        class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                                        >Lenovo</a
-                                    >
+                                    {brandServices.map((brand) => (
+                                        <a
+                                            href={serviceHref(brand.slug)}
+                                            class="block px-4 py-2.5 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
+                                        >
+                                            {brand.label}
+                                        </a>
+                                    ))}
                                 </div>
                             </div>
 
                             <a
-                                href="#"
+                                href={serviceHref("site-environmental-survey")}
                                 class="block px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
                             >
-                                Site Environmental Survey
+                                {t.services.siteEnvironmentalSurvey}
                             </a>
                         </div>
                     </div>
 
                     <a
-                        href="#"
-                        class="text-slate-700 hover:text-tyta-amber transition-colors px-1 pt-1"
+                        href={jobsHref}
+                        aria-current={rawPath === "/jobs" ? "page" : undefined}
+                        class="text-slate-700 hover:text-tyta-amber border-b-2 border-transparent hover:border-tyta-amber transition-all duration-200 px-1 py-2"
                     >
-                        Bolsa de Empleo
+                        {t.nav.jobs}
                     </a>
                     <a
-                        href="#"
-                        class="text-slate-700 hover:text-tyta-amber transition-colors px-1 pt-1"
+                        href={contactHref}
+                        aria-current={rawPath === "/contact" ? "page" : undefined}
+                        class="text-slate-700 hover:text-tyta-amber border-b-2 border-transparent hover:border-tyta-amber transition-all duration-200 px-1 py-2"
                     >
-                        Contacto
+                        {t.nav.contact}
                     </a>
                 </nav>
 
-                <div class="hidden md:flex items-center flex-shrink-0">
+                <div class="hidden md:flex items-center flex-shrink-0 gap-4">
+                    {/* Selector de idioma con estilo tipo botón */}
+                    <div
+                        class="inline-flex items-center p-1 bg-slate-100 rounded-full border border-slate-200 text-xs font-bold"
+                        aria-label={t.nav.language}
+                    >
+                        <a
+                            href={locale === "es" ? undefined : otherLocaleHref}
+                            aria-current={locale === "es" ? "page" : undefined}
+                            class={`px-3 py-1.5 rounded-full transition-all duration-200 ${
+                                locale === "es"
+                                    ? "bg-white text-tyta-blue shadow-xs"
+                                    : "text-slate-500 hover:text-tyta-blue"
+                            }`}
+                        >
+                            ES
+                        </a>
+                        <a
+                            href={locale === "en" ? undefined : otherLocaleHref}
+                            aria-current={locale === "en" ? "page" : undefined}
+                            class={`px-3 py-1.5 rounded-full transition-all duration-200 ${
+                                locale === "en"
+                                    ? "bg-white text-tyta-blue shadow-xs"
+                                    : "text-slate-500 hover:text-tyta-blue"
+                            }`}
+                        >
+                            EN
+                        </a>
+                    </div>
+
+                    {/* Botón de Modo Claro/Oscuro visible pero inactivo (sin que funcione igual de momento) */}
+                    <div class="opacity-60 pointer-events-none">
+                        <ThemeToggle
+                            client:load
+                            labelSwitchToLight={t.nav.themeToLight}
+                            labelSwitchToDark={t.nav.themeToDark}
+                        />
+                    </div>
+
+                    {/* Botón Contáctanos comentado para el futuro */}
+                    {/* 
                     <a
-                        href="#"
+                        href={contactHref}
                         class="bg-tyta-blue hover:bg-tyta-dark text-white text-xs font-bold tracking-wider uppercase px-6 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                        Contáctanos
+                        {t.nav.contactCta}
                     </a>
+                    */}
                 </div>
 
                 <div class="flex md:hidden">
@@ -306,57 +368,125 @@ import logoAnimado from "../assets/logo-animado.gif";
 
     <div
         id="mobile-menu"
-        class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-3 shadow-lg transition-all duration-300 ease-in-out origin-top transform scale-y-0 opacity-0"
+        class="hidden md:hidden bg-[var(--color-bg)] border-b border-[var(--color-border)] px-4 pt-2 pb-4 space-y-3 shadow-lg transition-all duration-300 ease-in-out origin-top transform scale-y-0 opacity-0"
     >
-        <a href="#" class="block text-tyta-amber font-semibold text-sm py-1.5">Inicio</a>
+        <a href={homeHref} class="block text-tyta-amber font-semibold text-sm py-1.5">
+            {t.nav.home}
+        </a>
         <a
-            href="#"
+            href={aboutHref}
             class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
-            >Nosotros</a
         >
+            {t.nav.about}
+        </a>
         <div class="border-t border-gray-100 my-1"></div>
         <p
             class="text-xs font-bold uppercase text-slate-400 tracking-wider pt-1.5 pb-1"
         >
-            Servicios
+            {t.nav.services}
         </p>
-        <a href="#" class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-            >Outsourcing de TI</a
+        <a
+            href={serviceHref("it-outsourcing")}
+            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
         >
-        <a href="#" class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-            >Centro Autorizado HPE</a
+            {t.services.itOutsourcing}
+        </a>
+        <a
+            href={serviceHref("hpe-authorized-center")}
+            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
         >
-        
+            {t.services.hpeAuthorizedCenter}
+        </a>
+
         <div class="pl-3 space-y-1.5">
-            <p class="text-xs font-semibold text-slate-700 pt-1">Consultoría de TI</p>
-            <a href="#" class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue">Veeam</a>
-            <a href="#" class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue">Aruba Networks</a>
-            <a href="#" class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue">VMware</a>
-            <a href="#" class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue">Dell Technologies</a>
-            <a href="#" class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue">Lenovo</a>
+            <a
+                href={serviceHref("it-consulting")}
+                class="text-xs font-semibold text-slate-700 pt-1"
+            >
+                {t.services.itConsulting}
+            </a>
+            {brandServices.map((brand) => (
+                <a
+                    href={serviceHref(brand.slug)}
+                    class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue"
+                >
+                    {brand.label}
+                </a>
+            ))}
         </div>
 
-        <a href="#" class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-            >Site Environmental Survey</a
+        <a
+            href={serviceHref("site-environmental-survey")}
+            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
         >
+            {t.services.siteEnvironmentalSurvey}
+        </a>
         <div class="border-t border-gray-100 my-1"></div>
         <a
-            href="#"
+            href={jobsHref}
             class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
-            >Bolsa de Empleo</a
         >
+            {t.nav.jobs}
+        </a>
         <a
-            href="#"
+            href={contactHref}
             class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
-            >Contacto</a
         >
+            {t.nav.contact}
+        </a>
+
+        <div class="border-t border-gray-100 my-1"></div>
+        <div class="flex items-center justify-between pt-1">
+            {/* Selector de idioma móvil con estilo tipo botón */}
+            <div
+                class="inline-flex items-center p-1 bg-slate-100 rounded-full border border-slate-200 text-xs font-bold"
+                aria-label={t.nav.language}
+            >
+                <a
+                    href={locale === "es" ? undefined : otherLocaleHref}
+                    aria-current={locale === "es" ? "page" : undefined}
+                    class={`px-3 py-1.5 rounded-full transition-all duration-200 ${
+                        locale === "es"
+                            ? "bg-white text-tyta-blue shadow-xs"
+                            : "text-slate-500 hover:text-tyta-blue"
+                    }`}
+                >
+                    ES
+                </a>
+                <a
+                    href={locale === "en" ? undefined : otherLocaleHref}
+                    aria-current={locale === "en" ? "page" : undefined}
+                    class={`px-3 py-1.5 rounded-full transition-all duration-200 ${
+                        locale === "en"
+                            ? "bg-white text-tyta-blue shadow-xs"
+                            : "text-slate-500 hover:text-tyta-blue"
+                    }`}
+                >
+                    EN
+                </a>
+            </div>
+
+            {/* Botón de Modo Claro/Oscuro en menú móvil visible pero inactivo */}
+            <div class="opacity-60 pointer-events-none">
+                <ThemeToggle
+                    client:load
+                    labelSwitchToLight={t.nav.themeToLight}
+                    labelSwitchToDark={t.nav.themeToDark}
+                />
+            </div>
+        </div>
+
+        {/* Botón Contáctanos en menú móvil comentado para el futuro */}
+        {/* 
         <div class="pt-3">
             <a
-                href="#"
+                href={contactHref}
                 class="block text-center bg-tyta-blue hover:bg-tyta-dark transition-colors text-white text-xs font-bold uppercase py-3.5 rounded-full shadow-md"
-                >Contáctanos</a
             >
+                {t.nav.contactCta}
+            </a>
         </div>
+        */}
     </div>
 </div>
 
@@ -392,7 +522,6 @@ import logoAnimado from "../assets/logo-animado.gif";
     if (menuButton && mobileMenu) {
         menuButton.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
-            // Animación suave de Tailwind
             setTimeout(() => {
                 mobileMenu.classList.toggle("scale-y-0");
                 mobileMenu.classList.toggle("scale-y-100");

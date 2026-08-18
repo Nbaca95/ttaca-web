@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ItOutsourcingPage from '../../components/pages/services/Itoutsourcingpage.astro';
+import { getLocaleFromUrl, getTranslations } from '../../i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+<Layout title={t.services.itOutsourcing} description={t.servicesPages.itOutsourcing.metaDescription}>
+	<ItOutsourcingPage />
+</Layout>

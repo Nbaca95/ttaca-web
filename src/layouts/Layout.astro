@@ -1,24 +1,99 @@
 ---
-// Importamos el archivo de estilos donde configuramos Tailwind v4
 import '../styles/global.css';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Navbar from '../components/Navbar.astro';
+import {
+	locales,
+	defaultLocale,
+	getLocaleFromUrl,
+	getTranslations,
+	localizedPath,
+	stripLocalePrefix,
+	type Locale,
+} from '../i18n';
 
 interface Props {
 	title: string;
+	description?: string;
+	locale?: Locale;
+	noIndex?: boolean;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description,
+	locale = getLocaleFromUrl(Astro.url),
+	noIndex = false,
+} = Astro.props;
+
+const t = getTranslations(locale);
+const resolvedDescription = description ?? t.meta.defaultDescription;
+
+const siteName = 'T&TA de Centroamérica';
+const pageTitle = `${title} | ${siteName}`;
+
+const rawPath = stripLocalePrefix(Astro.url.pathname);
+
+const siteOrigin = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL(localizedPath(locale, rawPath), siteOrigin);
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={locale}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | T&TA de Centroamérica</title>
+
+		<title>{pageTitle}</title>
+		<meta name="description" content={resolvedDescription} />
+		{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+		<link rel="canonical" href={canonicalUrl} />
+		{locales.map((loc) => (
+			<link
+				rel="alternate"
+				hreflang={loc}
+				href={new URL(localizedPath(loc, rawPath), siteOrigin)}
+			/>
+		))}
+		<link
+			rel="alternate"
+			hreflang="x-default"
+			href={new URL(localizedPath(defaultLocale, rawPath), siteOrigin)}
+		/>
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={siteName} />
+		<meta property="og:title" content={pageTitle} />
+		<meta property="og:description" content={resolvedDescription} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:locale" content={locale === 'es' ? 'es_CR' : 'en_US'} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={pageTitle} />
+		<meta name="twitter:description" content={resolvedDescription} />
+
+		<script is:inline>
+			(function () {
+				var STORAGE_KEY = 'ttaca-theme';
+				var stored = localStorage.getItem(STORAGE_KEY);
+				var theme =
+					stored === 'light' || stored === 'dark'
+						? stored
+						: window.matchMedia('(prefers-color-scheme: dark)').matches
+							? 'dark'
+							: 'light';
+				document.documentElement.classList.toggle('dark', theme === 'dark');
+			})();
+		</script>
 	</head>
-	<body class="bg-white text-slate-900 antialiased">
+	<body class="bg-[var(--color-bg)] text-[var(--color-text-primary)] antialiased transition-colors duration-300">
+		<Navbar />
 		<slot />
+		<Footer />
+		<WhatsAppButton />
 	</body>
 </html>

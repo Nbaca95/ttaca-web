@@ -1,12 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HomePage from '../components/pages/HomePage.astro';
+import AboutPage from '../components/pages/AboutPage.astro';
 import { getLocaleFromUrl, getTranslations } from '../i18n';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
 ---
 
-<Layout title={t.nav.home} description={t.homePage.metaDescription}>
-	<HomePage />
+<Layout title={t.about.title} description={t.aboutPage.metaDescription}>
+	<AboutPage />
 </Layout>

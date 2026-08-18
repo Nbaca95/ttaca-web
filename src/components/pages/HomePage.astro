@@ -1,0 +1,217 @@
+---
+import Hero from "../Hero.astro";
+import { getLocaleFromUrl, getTranslations, localizedPath } from "../../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+const contactHref = localizedPath(locale, "/contact");
+const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`);
+
+// Marcas tecnológicas (mismo set que en la página "Nosotros")
+const partnerLogos = [
+    { name: 'Kaspersky', colorClass: 'hover:text-[#005B94]' },
+    { name: 'VMware', colorClass: 'hover:text-[#607078]' },
+    { name: 'Thales', colorClass: 'hover:text-[#00A3E0]' },
+    { name: 'Microsoft', colorClass: 'hover:text-[#00A4EF]' },
+    { name: 'Veeam', colorClass: 'hover:text-[#00B259]' },
+    { name: 'Trend Micro', colorClass: 'hover:text-[#D71920]' },
+    { name: 'Micro Focus', colorClass: 'hover:text-[#38C6F4]' },
+    { name: 'Fortinet', colorClass: 'hover:text-[#EE3124]' },
+];
+---
+
+<style>
+    /* Efecto de aparición al hacer scroll (mismo patrón que la página "Nosotros") */
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<Hero />
+
+<!-- Cifras -->
+<section class="py-16 bg-tyta-dark text-white">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
+        {t.homePage.stats.map((stat, index) => (
+            <div class="reveal" style={`transition-delay: ${index * 100}ms`}>
+                <div class="text-4xl md:text-5xl font-extrabold text-tyta-amber mb-2">
+                    <span class="stat-counter" data-target={stat.target} data-prefix={stat.prefix}>{stat.prefix}0</span>
+                </div>
+                <div class="text-sm text-slate-300">{stat.label}</div>
+            </div>
+        ))}
+    </div>
+</section>
+
+<!-- Servicios -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="reveal text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-4xl font-bold text-slate-900 mb-4">{t.homePage.services.title}</h2>
+            <p class="text-slate-600 text-lg">{t.homePage.services.subtitle}</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {t.homePage.services.items.map((service, index) => (
+                <a
+                    href={serviceHref(service.slug)}
+                    class="reveal group block p-8 bg-slate-50 rounded-2xl border border-slate-100 hover:border-tyta-amber hover:shadow-lg transition-all duration-300"
+                    style={`transition-delay: ${index * 100}ms`}
+                >
+                    <div class="text-4xl mb-4">{service.icon}</div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2 group-hover:text-tyta-blue transition-colors">
+                        {service.title}
+                    </h3>
+                    <p class="text-sm text-slate-600 mb-4">{service.description}</p>
+                    <span class="text-sm font-bold text-tyta-blue group-hover:text-tyta-amber transition-colors">
+                        {t.homePage.services.ctaLabel} →
+                    </span>
+                </a>
+            ))}
+        </div>
+    </div>
+</section>
+
+
+<!-- Partners Tecnológicos -->
+<section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="reveal">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">{t.partners.title}</h2>
+            <p class="text-slate-600 mb-16">{t.homePage.partners.subtitle}</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center">
+            {partnerLogos.map((socio, index) => (
+                <div class="reveal group cursor-pointer" style={`transition-delay: ${(index % 4) * 80}ms`}>
+                    <div class={`h-16 flex items-center justify-center font-bold text-slate-400 border border-slate-100 rounded-lg bg-white grayscale group-hover:grayscale-0 ${socio.colorClass} transition-all duration-300 hover:scale-105 hover:shadow-md`}>
+                        {socio.name}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- Clientes -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="reveal">
+            <h2 class="text-3xl font-bold text-slate-900 mb-2">{t.clients.title}</h2>
+            <p class="text-slate-600 mb-16">{t.homePage.clients.subtitle}</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
+            {t.homePage.clients.items.map((cliente, index) => (
+                <div class="reveal group cursor-pointer" style={`transition-delay: ${(index % 3) * 100}ms`}>
+                    {/* TODO: cuando tengamos los logos reales, reemplazar este div por
+                        <Image src={cliente.logo} alt={cliente.name} class="h-16 w-auto object-contain mx-auto" /> */}
+                    <div class="h-16 flex items-center justify-center px-2 text-center text-sm font-bold text-slate-400 border border-slate-100 rounded-lg bg-slate-50/50 grayscale group-hover:grayscale-0 group-hover:text-tyta-blue transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-white">
+                        {cliente.name}
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- Noticias y Novedades -->
+<section class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="reveal text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-4xl font-bold text-slate-900 mb-4">{t.homePage.news.title}</h2>
+            <p class="text-slate-600 text-lg">{t.homePage.news.subtitle}</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {t.homePage.news.items.map((noticia, index) => (
+                <article
+                    class="reveal bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                    style={`transition-delay: ${index * 120}ms`}
+                >
+                    <div class="h-40 bg-slate-200 flex items-center justify-center text-slate-400 text-sm">
+                        {/* TODO: imagen de la noticia */}
+                        {locale === 'es' ? 'Imagen próximamente' : 'Image coming soon'}
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 mb-3 text-xs">
+                            <span class="px-3 py-1 bg-tyta-light text-tyta-blue rounded-full font-bold">{noticia.category}</span>
+                            <span class="text-slate-400">{noticia.date}</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 mb-2">{noticia.title}</h3>
+                        <p class="text-sm text-slate-600">{noticia.excerpt}</p>
+                    </div>
+                </article>
+            ))}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Final -->
+<section class="relative py-24 bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#111d42] text-white text-center overflow-hidden">
+    <!-- Destellos ambientales de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,180,134,0.06),transparent_60%)] pointer-events-none"></div>
+    
+    <div class="reveal relative z-10 max-w-3xl mx-auto px-6">
+        <span class="inline-block bg-white/10 backdrop-blur-md text-tyta-amber text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full border border-white/10 mb-6">
+            {locale === 'es' ? 'Trabajemos juntos' : 'Let’s Work Together'}
+        </span>
+        <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-6">{t.homePage.finalCta.title}</h2>
+        <p class="text-base sm:text-lg text-slate-300 max-w-xl mx-auto mb-10 leading-relaxed">{t.homePage.finalCta.subtitle}</p>
+        
+        <a
+            href={contactHref}
+            class="group relative inline-flex items-center justify-center bg-tyta-amber text-slate-950 text-sm font-bold tracking-wider uppercase px-10 py-5 rounded-full overflow-hidden transition-all duration-300 shadow-[0_4px_25px_rgba(242,142,43,0.35)] hover:shadow-[0_6px_30px_rgba(242,142,43,0.5)] hover:-translate-y-0.5"
+        >
+            <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-amber-400/0 via-white/40 to-amber-400/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
+            <span class="relative z-10 flex items-center gap-3">
+                {t.homePage.finalCta.buttonLabel}
+                <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+            </span>
+        </a>
+    </div>
+</section>
+
+<script define:vars={{ numberLocale: locale === 'es' ? 'es-CR' : 'en-US' }}>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Conteo ascendente de las cifras
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const el = entry.target;
+                const target = parseInt(el.dataset.target, 10);
+                const prefix = el.dataset.prefix || '';
+                const duration = 1600;
+                const startTime = performance.now();
+
+                function tick(now) {
+                    const progress = Math.min((now - startTime) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(eased * target);
+                    el.textContent = prefix + current.toLocaleString(numberLocale);
+                    if (progress < 1) {
+                        requestAnimationFrame(tick);
+                    } else {
+                        el.textContent = prefix + target.toLocaleString(numberLocale);
+                    }
+                }
+                requestAnimationFrame(tick);
+                counterObserver.unobserve(el);
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-counter').forEach((el) => counterObserver.observe(el));
+    });
+</script>

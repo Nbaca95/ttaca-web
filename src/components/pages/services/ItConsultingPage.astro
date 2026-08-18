@@ -1,0 +1,35 @@
+---
+// src/components/pages/services/ItConsultingPage.astro
+import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+const content = t.servicesPages.itConsulting;
+
+const brands = [
+    { key: 'veeam', slug: 'veeam' },
+    { key: 'arubaNetworks', slug: 'aruba-networks' },
+    { key: 'vmware', slug: 'vmware' },
+    { key: 'dell', slug: 'dell' },
+    { key: 'lenovo', slug: 'lenovo' },
+] as const;
+---
+
+<main class="py-16 px-4">
+    <div class="max-w-3xl mx-auto text-center mb-12">
+        <h1 class="text-4xl font-bold mb-4">{content.title}</h1>
+        <p class="text-slate-600 text-lg">{content.subtitle}</p>
+    </div>
+    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
+        {brands.map((brand) => (
+            <a
+                href={localizedPath(locale, `/services/${brand.slug}`)}
+                class="group block p-10 bg-slate-100 rounded-lg text-center hover:bg-tyta-amber transition-all duration-300"
+            >
+                <span class="text-lg font-bold text-slate-800 group-hover:text-white transition-colors">
+                    {t.services[brand.key]}
+                </span>
+            </a>
+        ))}
+    </div>
+</main>
