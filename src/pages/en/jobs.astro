@@ -1,0 +1,13 @@
+---
+// src/pages/en/jobs.astro
+import Layout from '../../layouts/Layout.astro';
+import JobsPage from '../../components/pages/JobsPage.astro';
+import { getLocaleFromUrl, getTranslations } from '../../i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+<Layout title={t.nav?.jobs ?? 'Jobs'} description={t.homePage?.metaDescription ?? 'Career opportunities at T&TA'}>
+    <JobsPage />
+</Layout>

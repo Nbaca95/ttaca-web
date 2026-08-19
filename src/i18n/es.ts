@@ -99,6 +99,16 @@ export interface Dictionary {
       subtitle: string;
       items: { icon: string; label: string }[];
     };
+    jobBoard: {
+      title: string;
+      subtitle: string;
+      features: { icon: string; title: string; desc: string }[];
+    };
+    auth: {
+      register: { icon: string; text: string };
+      login: { icon: string; text: string };
+      forgotPassword: { icon: string; text: string };
+    };
   };
   homePage: {
     metaDescription: string;
@@ -162,6 +172,38 @@ export interface Dictionary {
       intro: string;
       items: { label: string; desc: string }[];
       cta: { title: string; linkLabel: string };
+    };
+  };
+  jobs: {
+    metaDescription: string;
+    hero: {
+      eyebrow: string;
+      title: string;
+      subtitle: string;
+    };
+    intro: {
+      title: string;
+      text: string;
+    };
+    openings: {
+      title: string;
+      subtitle: string;
+      empty: string;
+      applyButton: string;
+    };
+    form: {
+      title: string;
+      subtitle: string;
+      name: string;
+      email: string;
+      phone: string;
+      position: string;
+      message: string;
+      cvLabel: string;
+      submit: string;
+      submitting: string;
+      success: string;
+      error: string;
     };
   };
   partners: {
@@ -379,6 +421,41 @@ export const es: Dictionary = {
         },
       ],
     },
+    jobBoard: {
+      title: 'Bolsa de Empleo',
+      subtitle: 'Únete a nuestro equipo y ayuda a construir soluciones tecnológicas.',
+      features: [
+        {
+          icon: '💼',
+          title: 'Oportunidades',
+          desc: 'Explora vacantes actuales en el sector de TI y redes.',
+        },
+        {
+          icon: '🚀',
+          title: 'Crecimiento',
+          desc: 'Proyectos desafiantes que impulsarán tu carrera profesional.',
+        },
+        {
+          icon: '🤝',
+          title: 'Cultura',
+          desc: 'Un entorno colaborativo enfocado en la excelencia y la innovación.',
+        },
+      ],
+    },
+    auth: {
+      register: {
+        icon: '📝',
+        text: 'Registrarse',
+      },
+      login: {
+        icon: '🔑',
+        text: 'Iniciar Sesión',
+      },
+      forgotPassword: {
+        icon: '⚠️',
+        text: '¿No recuerdas tu contraseña?',
+      },
+    },
     partners: {
       title: 'Socios estratégicos que nos acompañan',
     },
@@ -436,7 +513,7 @@ export const es: Dictionary = {
           description: 'Gestión completa de su infraestructura tecnológica con personal especializado.',
         },
         {
-          icon: '🧭',
+          icon: '👥',
           slug: 'it-consulting',
           title: 'Consultoría de TI',
           description: 'Asesoría estratégica para optimizar sus decisiones tecnológicas.',
@@ -501,7 +578,7 @@ export const es: Dictionary = {
     finalCta: {
       title: '¿Listo para fortalecer su infraestructura tecnológica?',
       subtitle: 'Hablemos sobre cómo podemos ayudarle a alcanzar sus objetivos de negocio.',
-      buttonLabel: 'Contactar con un especialista',
+      buttonLabel: 'Contactar',
     },
   },
   servicesPages: {
@@ -615,15 +692,47 @@ export const es: Dictionary = {
       },
     },
   },
+  jobs: {
+    metaDescription: 'Únase al equipo de T&TA Centroamérica. Explore oportunidades de carrera en infraestructura tecnológica, soporte TI e ingeniería de sistemas.',
+    hero: {
+      eyebrow: 'Únete a Nuestro Equipo',
+      title: 'Inicia tu Carrera en T&TA',
+      subtitle: 'Se parte de un equipo de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.',
+    },
+    intro: {
+      title: '¿Por qué trabajar con nosotros?',
+      text: 'En T&TA creemos en nuestro mayor activo. Ofrecemos un entorno de trabajo dinámico, crecimiento profesional continuo y exposición directa a tecnologías de nivel empresarial.',
+    },
+    openings: {
+      title: 'Vacantes Disponibles',
+      subtitle: 'Conozca nuestras posiciones abiertas y envíenos tu CV.',
+      empty: 'No hay vacantes abiertas en este momento, pero siempre puedes enviarnos tu currículum para futuras oportunidades.',
+      applyButton: 'Postularse',
+    },
+    form: {
+      title: 'Envíanos tu Currículum',
+      subtitle: '¿No encuentras una posición afín? Deje sus datos y su CV aquí.',
+      name: 'Nombre Completo',
+      email: 'Correo Electrónico',
+      phone: 'Teléfono',
+      position: 'Puesto de Interés',
+      message: 'Carta de Presentación / Mensaje',
+      cvLabel: 'Adjuntar Currículum (PDF)',
+      submit: 'Enviar Solicitud',
+      submitting: 'Enviando...',
+      success: 'Solicitud enviada con éxito. ¡Gracias por su interés!',
+      error: 'Ocurrió un error. Por favor, inténtelo de nuevo más tarde.',
+    },
+  },
   partners: {
-    title: 'Partners tecnológicos',
+    title: 'Socios tecnológicos',
   },
   clients: {
     title: 'Empresas que confían en nosotros',
   },
   contact: {
     title: 'Contacto',
-    subtitle: 'Conversemos sobre las necesidades de tu infraestructura.',
+    subtitle: 'Conversemos sobre las necesidades de su infraestructura.',
     name: 'Nombre',
     email: 'Correo electrónico',
     phone: 'Teléfono',
@@ -633,7 +742,7 @@ export const es: Dictionary = {
     topicOther: 'Otro',
     submit: 'Enviar mensaje',
     submitting: 'Enviando...',
-    success: 'Mensaje enviado. Te contactaremos pronto.',
+    success: 'Mensaje enviado.',
     error: 'Ocurrió un error. Por favor intenta de nuevo.',
   },
   contactPage: {

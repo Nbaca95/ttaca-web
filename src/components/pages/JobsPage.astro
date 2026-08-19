@@ -1,0 +1,121 @@
+---
+// src/components/pages/JobsPage.astro
+import { getLocaleFromUrl, getTranslations } from "../../i18n";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = getTranslations(locale);
+---
+
+<style>
+    .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+
+<main class="relative bg-[#0b1329] text-slate-100 min-h-screen selection:bg-amber-500/30">
+    <!-- Fondo decorativo sutil -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-[20%] -right-[10%] w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[40%] -left-[10%] w-[400px] h-[400px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+    </div>
+
+    <!-- Encabezado -->
+    <section class="relative z-10 pt-24 pb-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto space-y-6">
+            <!-- Logotipo Institucional -->
+            <div class="flex justify-center mb-2">
+                <div class="inline-block p-3 rounded-2xl border border-slate-700/80 bg-slate-800/40 backdrop-blur-sm shadow-lg">
+                    <img 
+                        src="src/assets/logo-estatico.webp" 
+                        alt="T&TA Logo" 
+                        class="h-8 md:h-10 w-auto object-contain"
+                    />
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
+                {locale === 'en' ? 'Would you like to join our team?' : '¿Te gustaría formar parte de nuestro equipo?'}
+            </h1>
+            
+            <p class="text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+                {locale === 'en' 
+                    ? 'Be part of a high-level engineering team driving technological innovation in Central America.' 
+                    : 'Sea parte de un equipo de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.'}
+            </p>
+        </div>
+    </section>
+
+    <!-- Tarjetas de Acceso -->
+    <section class="relative z-10 max-w-7xl mx-auto px-6 pb-32">
+        <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {[
+                { 
+                    href: "https://cloud07.legadmi.com/apex/f?p=2072:64::::::",
+                    icon: "📝",
+                    title: locale === 'en' ? 'Step 1' : 'Paso 1',
+                    text: locale === 'en' ? 'Register' : 'Registrarse',
+                    desc: locale === 'en' ? 'Register in our portal to submit your application.' : 'Regístrese en nuestro portal para iniciar su proceso de postulación.'
+                },
+                { 
+                    href: "https://cloud07.legadmi.com/apex/f?p=2072:1:::::P1OS,SCHID:1,",
+                    icon: "🔑",
+                    title: locale === 'en' ? 'Step 2' : 'Paso 2',
+                    text: locale === 'en' ? 'Sign In' : 'Iniciar Sesión',
+                    desc: locale === 'en' ? 'Access your existing profile and manage your information.' : 'Ingrese a nuestro portal con sus credenciales registradas.'
+                },
+                { 
+                    href: "https://cloud07.legadmi.com/apex/f?p=2072:84::::84::&cs=3cwtXoJtMsJkRrrqsSKzr_6NQP_AxmcJfL0GP8h9cB5vLOcsCDxUvXaEuN7JqI8paUB8D3vVe_m7fXt4ce9_Wpg",
+                    icon: "⚠️",
+                    title: locale === 'en' ? 'Step 3' : 'Paso 3',
+                    text: locale === 'en' ? 'Forgot Password?' : 'Recuperar Contraseña',
+                    desc: locale === 'en' ? 'Recover your password quickly to sign back in.' : 'Recupérela de forma segura para recuperar el acceso a su cuenta.'
+                }
+            ].map((item) => (
+                <a 
+                    href={item.href}
+                    class="group relative overflow-hidden bg-slate-900/40 backdrop-blur-md border border-slate-800 hover:border-amber-500/30 rounded-3xl p-8 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(245,158,11,0.15)] flex flex-col justify-between"
+                >
+                    <div class="relative z-10 flex flex-col items-center text-center space-y-6">
+                        <!-- Contenedor del icono -->
+                        <div class="w-20 h-20 rounded-2xl bg-slate-800/80 border border-slate-700/50 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:bg-amber-500/15 group-hover:border-amber-500/30 transition-all duration-300 shadow-inner">
+                            {item.icon}
+                        </div>
+                        <div class="space-y-3">
+                            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">
+                                {item.title}
+                            </span>
+                            <h3 class="text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
+                                {item.text}
+                            </h3>
+                            <p class="text-sm text-slate-400 leading-relaxed font-normal">
+                                {item.desc}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Botón Continuar que aparece al hacer hover -->
+                    <div class="pt-6 mt-6 border-t border-slate-800/40 text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center justify-center gap-1 opacity-0 transform translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 relative z-10">
+                        {locale === 'en' ? 'Continue' : 'Continuar'} &rarr;
+                    </div>
+                </a>
+            ))}
+        </div>
+    </section>
+</main>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+</script>
