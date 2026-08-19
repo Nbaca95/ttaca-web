@@ -494,24 +494,33 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
     define:vars={{
         staticSrc: logoEstatico.src,
         animatedSrc: logoAnimado.src,
+        homeUrl: homeHref,
     }}
 >
-    // 1. Script de la animación del Logo
+    // 1. Script de la animación del Logo y redirección a inicio con transición natural
     const logoLink = document.getElementById("logo-link");
     const logoImg = document.getElementById("logo-img");
 
     if (logoLink && logoImg) {
         logoLink.addEventListener("click", (e) => {
             e.preventDefault();
-            logoImg.src = `${animatedSrc}?t=${new Date().getTime()}`;
-            logoImg.classList.remove("h-20");
-            logoImg.classList.add("h-24", "scale-60");
+            
+            // Forzar reinicio del GIF con timestamp y preparar clases de transición suave
+            logoImg.src = `${animatedSrc}?t=${Date.now()}`;
+            logoImg.classList.add("scale-110", "opacity-95", "transition-all", "duration-700");
 
+            // Aumentamos el tiempo total a 3000ms (3 segundos) para que la animación respire por completo
+            const animationDuration = 3000; 
+
+            // Hacemos el fade out 400ms antes de terminar para suavizar la salida
             setTimeout(() => {
-                logoImg.src = staticSrc;
-                logoImg.classList.remove("h-24", "scale-60");
-                logoImg.classList.add("h-20");
-            }, 3000);
+                logoImg.classList.add("opacity-0");
+            }, animationDuration - 400);
+
+            // Redirección final
+            setTimeout(() => {
+                window.location.href = homeUrl;
+            }, animationDuration);
         });
     }
 
