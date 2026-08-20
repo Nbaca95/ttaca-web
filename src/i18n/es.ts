@@ -462,7 +462,7 @@ export const es: Dictionary = {
     successStories: {
       badge: 'Casos de Éxito',
       title: 'Confianza que se construye con resultados',
-      subtitle: 'Ellos han confiado en nuestra experiencia.',
+      subtitle: 'Clientes que han confiado en nuestra experiencia.',
       translatedNote: '',
       testimonials: [
         {
@@ -697,7 +697,7 @@ export const es: Dictionary = {
     hero: {
       eyebrow: 'Únete a Nuestro Equipo',
       title: 'Inicia tu Carrera en T&TA',
-      subtitle: 'Se parte de un equipo de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.',
+      subtitle: 'Crea tu perfil y descrubre nuevas oportunidades laborales de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.',
     },
     intro: {
       title: '¿Por qué trabajar con nosotros?',

@@ -1,11 +1,18 @@
 ---
 import Hero from "../Hero.astro";
 import { getLocaleFromUrl, getTranslations, localizedPath } from "../../i18n";
+import { Image } from 'astro:assets';
+import noti1Img from "../../assets/images/Noti1.jpg";
+import noti2Img from "../../assets/images/Noti2.jpg";
+import noti3Img from "../../assets/images/Noti3.jpg";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
 const contactHref = localizedPath(locale, "/contact");
 const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`);
+
+// Array con las imágenes de las tarjetas de redes sociales
+const newsImages = [noti1Img, noti2Img, noti3Img];
 
 // Marcas tecnológicas (mismo set que en la página "Nosotros")
 const partnerLogos = [
@@ -148,7 +155,7 @@ const partnerLogos = [
     </div>
 </section>
 
-<!-- Noticias y Novedades -->
+<!-- Noticias y Novedades (Redes Sociales - Solo Imágenes Estáticas) -->
 <section class="py-20 bg-slate-50">
     <div class="max-w-7xl mx-auto px-6">
         <div class="reveal text-center max-w-2xl mx-auto mb-16">
@@ -156,21 +163,17 @@ const partnerLogos = [
             <p class="text-slate-600 text-lg">{t.homePage.news.subtitle}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {t.homePage.news.items.map((noticia, index) => (
+            {newsImages.map((imgSrc, index) => (
                 <article
-                    class="reveal bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                    class="reveal bg-slate-900 rounded-3xl border border-slate-800 shadow-xl shadow-slate-900/20 overflow-hidden hover:-translate-y-2 hover:shadow-2xl hover:border-tyta-amber transition-all duration-300 group flex flex-col"
                     style={`transition-delay: ${index * 120}ms`}
                 >
-                    <div class="h-40 bg-slate-200 flex items-center justify-center text-slate-400 text-sm">
-                        {locale === 'es' ? 'Imagen próximamente' : 'Image coming soon'}
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center gap-3 mb-3 text-xs">
-                            <span class="px-3 py-1 bg-tyta-light text-tyta-blue rounded-full font-bold">{noticia.category}</span>
-                            <span class="text-slate-400">{noticia.date}</span>
-                        </div>
-                        <h3 class="text-lg font-bold text-slate-900 mb-2">{noticia.title}</h3>
-                        <p class="text-sm text-slate-600">{noticia.excerpt}</p>
+                    <div class="w-full h-full relative overflow-hidden bg-slate-900">
+                        <Image 
+                            src={imgSrc} 
+                            alt={`Noticia Redes T&TA ${index + 1}`}
+                            class="w-full h-full object-cover block"
+                        />
                     </div>
                 </article>
             ))}
@@ -216,6 +219,7 @@ const partnerLogos = [
 
         // Conteo ascendente de las cifras
         const counterObserver = new IntersectionObserver((entries) => {
+            entries.preventDefault;
             entries.forEach((entry) => {
                 if (!entry.isIntersecting) return;
                 const el = entry.target;

@@ -211,7 +211,7 @@ export const en: Dictionary = {
     successStories: {
       badge: 'Success Stories',
       title: 'Trust Built on Results',
-      subtitle: 'They have trusted our experience.',
+      subtitle: 'Clients who have trusted in our expertise.',
       translatedNote: '',
       testimonials: [
         {

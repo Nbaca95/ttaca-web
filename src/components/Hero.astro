@@ -71,10 +71,10 @@ const sliderTextData = slides.map(({ tag, title, desc }) => ({ tag, title, desc 
         <div class="absolute inset-0 bg-gradient-to-b from-[#060b19] via-transparent via-25% to-transparent"></div>
     </div>
 
-    <!-- Contenedor principal: flex-col-reverse en móvil para que el carrusel esté arriba, y grid en escritorio -->
+    <!-- Contenedor principal -->
     <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:grid md:grid-cols-12 gap-8 md:gap-12 items-center relative z-10">
 
-        <!-- LADO IZQUIERDO (Texto y botones mejorados) -->
+        <!-- LADO IZQUIERDO (Texto y botones) -->
         <div class="w-full md:col-span-7 flex flex-col justify-center text-white text-center md:text-left">
             
             <!-- Tag -->
@@ -96,7 +96,7 @@ const sliderTextData = slides.map(({ tag, title, desc }) => ({ tag, title, desc 
                 {slides[0].desc}
             </p>
 
-            <!-- Botones de acción con efectos modernos, elegantes y sutiles al hover -->
+            <!-- Botones de acción -->
             <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
                 <a
                     href={contactHref}
@@ -120,23 +120,23 @@ const sliderTextData = slides.map(({ tag, title, desc }) => ({ tag, title, desc 
             </div>
         </div>
 
-        <!-- LADO DERECHO (Carrusel / Imagen) -->
-        <div class="w-full md:col-span-5 h-[240px] sm:h-[300px] md:h-[400px] flex items-center justify-center">
+        <!-- LADO DERECHO (Carrusel / Imagen con tamaño ampliado) -->
+        <div class="w-full md:col-span-5 h-[280px] sm:h-[360px] md:h-[480px] flex items-center justify-center">
             <div class="swiper hero-swiper w-full h-full">
                 <div class="swiper-wrapper">
                     {slides.map((slide) => (
                         <div class="swiper-slide flex items-center justify-center">
                             {slide.image ? (
-                                <div class="relative group flex justify-center custom-float-img">
-                                    <div class={`absolute inset-0 blur-3xl opacity-20 ${slide.tintClass}`}></div>
+                                <div class="relative group flex justify-center custom-float-img w-full px-4">
+                                    <div class={`absolute inset-0 blur-3xl opacity-25 ${slide.tintClass}`}></div>
                                     <Image
                                         src={slide.image}
                                         alt={slide.imageAlt}
-                                        class={`relative w-44 sm:w-56 md:w-72 h-auto object-contain transition-transform duration-700 group-hover:scale-110 ${slide.shadowClass}`}
+                                        class={`relative w-64 sm:w-80 md:w-[420px] max-h-[320px] md:max-h-[420px] h-auto object-contain transition-transform duration-700 group-hover:scale-105 ${slide.shadowClass}`}
                                     />
                                 </div>
                             ) : (
-                                <div class="text-6xl sm:text-8xl md:text-[120px] opacity-80 filter drop-shadow-2xl transition-transform duration-500 hover:scale-105 custom-float-img">
+                                <div class="text-7xl sm:text-9xl md:text-[150px] opacity-90 filter drop-shadow-2xl transition-transform duration-500 hover:scale-105 custom-float-img">
                                     {slide.icon}
                                 </div>
                             )}
