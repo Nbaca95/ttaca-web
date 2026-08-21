@@ -333,6 +333,8 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                     <button
                         id="mobile-menu-button"
                         type="button"
+                        aria-label="Abrir menú"
+                        aria-expanded="false"
                         class="text-gray-600 hover:text-tyta-blue focus:outline-none p-2 cursor-pointer"
                     >
                         <svg
@@ -355,69 +357,84 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
 
     <div
         id="mobile-menu"
-        class="hidden md:hidden bg-[var(--color-bg)] border-b border-[var(--color-border)] px-4 pt-2 pb-4 space-y-3 shadow-lg transition-all duration-300 ease-in-out origin-top transform scale-y-0 opacity-0"
+        class="hidden md:hidden bg-[var(--color-bg)] border-b border-[var(--color-border)] px-3 pt-3 pb-5 shadow-lg transition-all duration-300 ease-in-out origin-top transform scale-y-0 opacity-0"
     >
-        <a href={homeHref} class="block text-tyta-amber font-semibold text-sm py-1.5">
+        <a
+            href={homeHref}
+            aria-current={rawPath === "/" ? "page" : undefined}
+            class="mobile-link block font-semibold text-sm py-3 px-3 rounded-lg text-tyta-amber"
+        >
             {t.nav.home}
         </a>
         <a
             href={aboutHref}
-            class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
+            aria-current={rawPath === "/about" ? "page" : undefined}
+            class="mobile-link block text-slate-700 font-semibold text-sm py-3 px-3 rounded-lg"
         >
             {t.nav.about}
         </a>
-        <div class="border-t border-gray-100 my-1"></div>
-        <p
-            class="text-xs font-bold uppercase text-slate-400 tracking-wider pt-1.5 pb-1"
-        >
-            {t.nav.services}
-        </p>
-        <a
-            href={serviceHref("it-outsourcing")}
-            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-        >
-            {t.services.itOutsourcing}
-        </a>
-        <a
-            href={serviceHref("hpe-authorized-center")}
-            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-        >
-            {t.services.hpeAuthorizedCenter}
-        </a>
 
-        <div class="pl-3 space-y-1.5">
-            <a
-                href={serviceHref("it-consulting")}
-                class="text-xs font-semibold text-slate-700 pt-1"
-            >
-                {t.services.itConsulting}
-            </a>
-            {brandServices.map((brand) => (
+        <details class="mobile-accordion">
+            <summary class="flex items-center justify-between text-slate-700 font-semibold text-sm py-3 px-3 rounded-lg cursor-pointer list-none">
+                <span>{t.nav.services}</span>
+                <svg class="chevron w-4 h-4 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </summary>
+
+            <div class="pl-3 pb-1 space-y-0.5">
                 <a
-                    href={serviceHref(brand.slug)}
-                    class="block pl-3 text-slate-500 text-xs py-0.5 hover:text-tyta-blue"
+                    href={serviceHref("it-outsourcing")}
+                    class="mobile-link block text-slate-600 text-sm py-2.5 px-3 rounded-lg"
                 >
-                    {brand.label}
+                    {t.services.itOutsourcing}
                 </a>
-            ))}
-        </div>
+                <a
+                    href={serviceHref("hpe-authorized-center")}
+                    class="mobile-link block text-slate-600 text-sm py-2.5 px-3 rounded-lg"
+                >
+                    {t.services.hpeAuthorizedCenter}
+                </a>
 
-        <div class="border-t border-gray-100 my-1"></div>
+                <details class="mobile-accordion mobile-accordion-nested">
+                    <summary class="flex items-center justify-between text-slate-600 text-sm py-2.5 px-3 rounded-lg cursor-pointer list-none">
+                        <span>{t.services.itConsulting}</span>
+                        <svg class="chevron w-3.5 h-3.5 text-slate-300 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </summary>
+                    <div class="pl-3 space-y-0.5">
+                        {brandServices.map((brand) => (
+                            <a
+                                href={serviceHref(brand.slug)}
+                                class="mobile-link block text-slate-500 text-xs py-2 px-3 rounded-lg"
+                            >
+                                {brand.label}
+                            </a>
+                        ))}
+                    </div>
+                </details>
+            </div>
+        </details>
+
         <a
             href={jobsHref}
-            class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
+            aria-current={rawPath === "/jobs" ? "page" : undefined}
+            class="mobile-link block text-slate-700 font-semibold text-sm py-3 px-3 rounded-lg"
         >
             {t.nav.jobs}
         </a>
         <a
             href={contactHref}
-            class="block text-slate-700 font-semibold text-sm py-1.5 hover:text-tyta-blue transition-colors"
+            aria-current={rawPath === "/contact" ? "page" : undefined}
+            class="mobile-link block text-slate-700 font-semibold text-sm py-3 px-3 rounded-lg"
         >
             {t.nav.contact}
         </a>
 
-        <div class="border-t border-gray-100 my-1"></div>
-        <div class="flex items-center justify-between pt-1">
+        <div class="border-t border-[var(--color-border)] my-2"></div>
+
+        <div class="flex items-center justify-between px-3 py-1">
             {/* Selector de idioma móvil con estilo tipo botón */}
             <div
                 class="inline-flex items-center p-1 bg-slate-100 rounded-full border border-slate-200 text-xs font-bold"
@@ -446,23 +463,44 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                     EN
                 </a>
             </div>
-
-            
         </div>
-
-        {/* Botón Contáctanos en menú móvil comentado para el futuro */}
-        { 
-        <div class="pt-3">
-            <a
-                href={contactHref}
-                class="block text-center bg-tyta-blue hover:bg-tyta-dark transition-colors text-white text-xs font-bold uppercase py-3.5 rounded-full shadow-md"
-            >
-                {t.nav.contactCta}
-            </a>
-        </div>
-        }
     </div>
 </div>
+
+<style>
+    /* Links del menú móvil: hover suave consistente con el acento ámbar del desktop */
+    .mobile-link {
+        transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .mobile-link:hover {
+        background-color: color-mix(in srgb, var(--color-tyta-blue) 6%, transparent);
+        color: var(--color-tyta-blue);
+    }
+
+    .mobile-link[aria-current="page"] {
+        color: var(--color-tyta-amber);
+    }
+
+    /* Acordeón de Servicios / Consultoría de TI */
+    .mobile-accordion summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .mobile-accordion > summary:hover {
+        background-color: color-mix(in srgb, var(--color-tyta-blue) 6%, transparent);
+    }
+
+    .mobile-accordion[open] > summary .chevron {
+        transform: rotate(180deg);
+    }
+
+    .mobile-accordion-nested {
+        margin-left: 0.25rem;
+        border-left: 2px solid var(--color-border);
+        padding-left: 0.5rem;
+    }
+</style>
 
 <script
     define:vars={{
@@ -504,6 +542,9 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
 
     if (menuButton && mobileMenu) {
         menuButton.addEventListener("click", () => {
+            const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+            menuButton.setAttribute("aria-expanded", String(!isOpen));
+
             mobileMenu.classList.toggle("hidden");
             setTimeout(() => {
                 mobileMenu.classList.toggle("scale-y-0");
