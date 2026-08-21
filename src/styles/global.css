@@ -1,40 +1,27 @@
 @import "tailwindcss";
 
-/* Permite usar variantes dark: de Tailwind controladas por una clase,
-   en vez de solo por prefers-color-scheme del sistema operativo. */
-@custom-variant dark (&:where(.dark, .dark *));
+:root {
+    color-scheme: light;
+}
 
 @theme {
-	/* Colores de marca T&TA */
-	--color-tyta-blue: #00529B;     /* Azul corporativo principal */
-	--color-tyta-dark: #0A192F;     /* Azul oscuro para el fondo del Hero */
-	--color-tyta-light: #E6F0FA;    /* Azul muy claro para fondos de secciones */
-	--color-tyta-accent: #00A3E0;   /* Azul cian brillante para botones activos */
-	--color-tyta-amber: #ffa101;    /* Amber para acentos / Navbar / botones activos */
+    /* Colores de marca T&TA */
+    --color-tyta-blue: #00529B;    /* Azul corporativo principal */
+    --color-tyta-dark: #0A192F;    /* Azul oscuro para el fondo del Hero */
+    --color-tyta-light: #E6F0FA;   /* Azul muy claro para fondos de secciones */
+    --color-tyta-accent: #00A3E0;  /* Azul cian brillante para botones activos */
+    --color-tyta-amber: #ffa101;   /* Amber para acentos / Navbar / botones activos */
 }
 
-/* Tokens semánticos — tema claro (por defecto) */
+/* Tokens semánticos — único tema (claro) */
 :root {
-	--color-bg: #ffffff;
-	--color-bg-raised: #f8fafc;
-	--color-text-primary: #0f172a;
-	--color-text-secondary: #475569;
-	--color-border: #e2e8f0;
-	--color-interactive: #00529B;
-	--color-interactive-hover: #0A192F;
-	--color-accent: #ffa101;
-	--color-text-on-brand: #ffffff;
-}
-
-/* Tokens semánticos — tema oscuro */
-.dark {
-	--color-bg: #0A192F;
-	--color-bg-raised: #0f2440;
-	--color-text-primary: #f1f5f9;
-	--color-text-secondary: #94a3b8;
-	--color-border: #1e3a5f;
-	--color-interactive: #00A3E0;
-	--color-interactive-hover: #38bdf8;
-	--color-accent: #ffa101;
-	--color-text-on-brand: #0A192F;
+    --color-bg: #ffffff;
+    --color-bg-raised: #f8fafc;
+    --color-text-primary: #0f172a;
+    --color-text-secondary: #475569;
+    --color-border: #e2e8f0;
+    --color-interactive: #00529B;
+    --color-interactive-hover: #0A192F;
+    --color-accent: #ffa101;
+    --color-text-on-brand: #ffffff;
 }

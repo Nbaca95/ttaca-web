@@ -697,7 +697,7 @@ export const es: Dictionary = {
     hero: {
       eyebrow: 'Únete a Nuestro Equipo',
       title: 'Inicia tu Carrera en T&TA',
-      subtitle: 'Crea tu perfil y descrubre nuevas oportunidades laborales de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.',
+      subtitle: 'Se parte de un equipo de ingeniería de alto nivel que impulsa la innovación tecnológica en Centroamérica.',
     },
     intro: {
       title: '¿Por qué trabajar con nosotros?',

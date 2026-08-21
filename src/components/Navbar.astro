@@ -3,7 +3,7 @@
 import { Image } from "astro:assets";
 import logoEstatico from "../assets/logo-estatico.webp";
 import logoAnimado from "../assets/logo-animado.gif";
-import ThemeToggle from "./ThemeToggle.tsx";
+//import ThemeToggle from "./ThemeToggle.tsx";
 import {
   getLocaleFromUrl,
   getTranslations,
@@ -29,6 +29,7 @@ const brandServices = [
   { slug: "vmware", label: t.services.vmware },
   { slug: "dell", label: t.services.dell },
   { slug: "lenovo", label: t.services.lenovo },
+  { slug: "site-enviromental-survey", label: t.services.siteEnvironmentalSurvey },
 ] as const;
 
 const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`);
@@ -322,14 +323,7 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                         </a>
                     </div>
 
-                    {/* Botón de Modo Claro/Oscuro visible pero inactivo (sin que funcione igual de momento) */}
-                    <div class="opacity-60 pointer-events-none">
-                        <ThemeToggle
-                            client:load
-                            labelSwitchToLight={t.nav.themeToLight}
-                            labelSwitchToDark={t.nav.themeToDark}
-                        />
-                    </div>
+                    
 
                     {/* Botón Contáctanos comentado para el futuro */}
                     {/* 
@@ -466,18 +460,11 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                 </a>
             </div>
 
-            {/* Botón de Modo Claro/Oscuro en menú móvil visible pero inactivo */}
-            <div class="opacity-60 pointer-events-none">
-                <ThemeToggle
-                    client:load
-                    labelSwitchToLight={t.nav.themeToLight}
-                    labelSwitchToDark={t.nav.themeToDark}
-                />
-            </div>
+            
         </div>
 
         {/* Botón Contáctanos en menú móvil comentado para el futuro */}
-        {/* 
+        { 
         <div class="pt-3">
             <a
                 href={contactHref}
@@ -486,7 +473,7 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                 {t.nav.contactCta}
             </a>
         </div>
-        */}
+        }
     </div>
 </div>
 

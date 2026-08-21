@@ -75,22 +75,8 @@ const canonicalUrl = new URL(localizedPath(locale, rawPath), siteOrigin);
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={pageTitle} />
 		<meta name="twitter:description" content={resolvedDescription} />
-
-		<script is:inline>
-			(function () {
-				var STORAGE_KEY = 'ttaca-theme';
-				var stored = localStorage.getItem(STORAGE_KEY);
-				var theme =
-					stored === 'light' || stored === 'dark'
-						? stored
-						: window.matchMedia('(prefers-color-scheme: dark)').matches
-							? 'dark'
-							: 'light';
-				document.documentElement.classList.toggle('dark', theme === 'dark');
-			})();
-		</script>
 	</head>
-	<body class="bg-[var(--color-bg)] text-[var(--color-text-primary)] antialiased transition-colors duration-300">
+	<body class="bg-[var(--color-bg)] text-[var(--color-text-primary)] antialiased">
 		<Navbar />
 		<slot />
 		<Footer />
