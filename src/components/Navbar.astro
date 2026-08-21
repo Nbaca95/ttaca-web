@@ -29,7 +29,7 @@ const brandServices = [
   { slug: "vmware", label: t.services.vmware },
   { slug: "dell", label: t.services.dell },
   { slug: "lenovo", label: t.services.lenovo },
-  { slug: "site-enviromental-survey", label: t.services.siteEnvironmentalSurvey },
+  { slug: "site-environmental-survey", label: t.services.siteEnvironmentalSurvey },
 ] as const;
 
 const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`);
@@ -267,13 +267,6 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
                                     ))}
                                 </div>
                             </div>
-
-                            <a
-                                href={serviceHref("site-environmental-survey")}
-                                class="block px-4 py-3 text-sm text-slate-800 hover:bg-slate-50 hover:text-tyta-amber font-medium transition-colors"
-                            >
-                                {t.services.siteEnvironmentalSurvey}
-                            </a>
                         </div>
                     </div>
 
@@ -409,12 +402,6 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
             ))}
         </div>
 
-        <a
-            href={serviceHref("site-environmental-survey")}
-            class="block pl-3 text-slate-600 text-sm py-1 hover:text-tyta-blue"
-        >
-            {t.services.siteEnvironmentalSurvey}
-        </a>
         <div class="border-t border-gray-100 my-1"></div>
         <a
             href={jobsHref}
