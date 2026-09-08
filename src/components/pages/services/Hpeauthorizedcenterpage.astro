@@ -1,34 +1,283 @@
 ---
 // src/components/pages/services/HpeAuthorizedCenterPage.astro
-import { getLocaleFromUrl, getTranslations } from "../../../i18n";
+import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
 const content = t.servicesPages.hpeAuthorizedCenter;
+const contactHref = localizedPath(locale, "/contact");
 ---
 
-<main class="animate-fade-in">
-    <section class="bg-gradient-to-r from-slate-900 to-blue-900 py-20 px-4 text-white">
-        <div class="max-w-4xl mx-auto text-center">
-            <span class="text-tyta-amber font-semibold tracking-wider uppercase text-sm">{content.hero.eyebrow}</span>
-            <h1 class="text-5xl font-bold mb-6 mt-4">{content.hero.title}</h1>
-            <p class="text-xl text-blue-100">{content.hero.text}</p>
+<style>
+    /* Asegura el desplazamiento suave en toda la página */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+
+<main class="bg-slate-50 overflow-hidden">
+    <!-- Hero Section con estilo corporativo inmersivo -->
+    <section class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] py-24 px-4 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:400px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"></div>
+
+        <div class="relative max-w-5xl mx-auto text-center z-10">
+            <div class="inline-block mb-4">
+                <span class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg">
+                    {content.hero.eyebrow}
+                </span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6">
+                {content.hero.title}
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                {content.hero.text}
+            </p>
+        </div>
+
+        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-accent/20 blur-3xl pointer-events-none rounded-full"></div>
+    </section>
+
+    <!-- Tarjetas de Navegación Rápida basadas en content.items -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {content.items.map((item, index) => {
+                // Asignamos anclajes e iconos dinámicos según el elemento
+                const anchors = ["#area-soporte", "#area-infraestructura", "#area-respuestos"];
+                const icons = ["🛠️", "⚡", "📦"];
+                const badges = ["Soporte", "Infraestructura", "Componentes"];
+                const colors = ["text-tyta-blue", "text-emerald-700", "text-amber-700"];
+
+                return (
+                    <a href={anchors[index] || "#"} class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                        <div class="h-36 overflow-hidden relative bg-slate-900">
+                            <div class="absolute inset-0 bg-blue-950/30 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                            <img src={
+                                index === 0 ? "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" :
+                                index === 1 ? "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" :
+                                "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
+                            } alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
+                            <span class={`absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm ${colors[index]} font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm`}>
+                                {icons[index]} {badges[index]}
+                            </span>
+                        </div>
+                        <div class="p-6 flex-1 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-lg mb-2 group-hover:text-tyta-blue transition-colors">{item.title}</h3>
+                                <p class="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+                            </div>
+                        </div>
+                    </a>
+                );
+            })}
         </div>
     </section>
 
-    <section class="max-w-6xl mx-auto px-4 py-16">
-        <div class="grid md:grid-cols-3 gap-8">
-            {content.items.map((item) => (
-                <div class="p-8 border border-slate-200 rounded-xl hover:shadow-2xl hover:border-tyta-amber transition-all duration-300 transform hover:-translate-y-2">
-                    <h3 class="text-xl font-bold mb-4 text-slate-900">{item.title}</h3>
-                    <p class="text-slate-600">{item.desc}</p>
+    <!-- ========================================== -->
+    <!-- SECCIONES DETALLADAS DE VALOR HPE          -->
+    <!-- ========================================== -->
+
+    <!-- 1. Soporte Técnico Certificado -->
+    <section id="area-soporte" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-blue-500/20">
+                    🛡️ {locale === 'en' ? 'Authorized Excellence' : 'Excelencia Autorizada'}
                 </div>
-            ))}
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Certified HPE Technical Support' : 'Soporte Técnico Autorizado HPE'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'As an official authorized center, we deliver diagnostics, maintenance, and direct troubleshooting backed by Hewlett Packard Enterprise standards.'
+                        : 'Como centro autorizado oficial, brindamos diagnósticos, mantenimiento preventivo/correctivo y resolución directa respaldados por los estándares de Hewlett Packard Enterprise.'}
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">⚡ {locale === 'en' ? 'Original Diagnostics' : 'Diagnóstico Original'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Proprietary tools and official firmware testing.' : 'Herramientas propietarias y pruebas oficiales de firmware.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">⏱️ {locale === 'en' ? 'SLA Compliance' : 'Cumplimiento de SLA'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Rapid response times for business-critical hardware.' : 'Tiempos de respuesta rápidos para hardware crítico de negocio.'}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5">
+                <div class="relative bg-gradient-to-br from-blue-950 to-blue-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-blue-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Authorized Guarantees' : 'Garantías Autorizadas'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Certified manufacturer engineers' : 'Ingenieros certificados de fábrica'}</li>
+                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Direct access to HPE engineering portals' : 'Acceso directo a portales de ingeniería HPE'}</li>
+                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Rigorous quality compliance audits' : 'Auditorías rigurosas de cumplimiento'}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Infraestructura y Servidores Enterprise -->
+    <section id="area-infraestructura" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-5 order-2 lg:order-1">
+                <div class="relative bg-gradient-to-br from-emerald-950 to-emerald-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-emerald-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Enterprise Portfolio' : 'Portafolio Empresarial'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">🖥️ {locale === 'en' ? 'ProLiant Rack & Tower Servers' : 'Servidores ProLiant Rack y Torre'}</li>
+                            <li class="flex items-center gap-2.5">🗄️ {locale === 'en' ? 'SAN Switches & Storage Arrays' : 'Switches SAN y Arreglos de Almacenamiento'}</li>
+                            <li class="flex items-center gap-2.5">☁️ {locale === 'en' ? 'Hybrid cloud infrastructure setups' : 'Configuraciones de nube híbrida'}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-emerald-500/20">
+                    ⚙️ {locale === 'en' ? 'Hardware Core' : 'Núcleo de Hardware'}
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Advanced Enterprise Infrastructure' : 'Infraestructura Empresarial Avanzada'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'Deploy and maintain high-performance server architectures and storage networks engineered to scale seamlessly with your organizational demands.'
+                        : 'Implemente y mantenga arquitecturas de servidores y redes de almacenamiento de alto rendimiento diseñadas para escalar sin fricción con las demandas de su organización.'}
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">🔌 {locale === 'en' ? 'SAN Connectivity' : 'Conectividad SAN'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'High-speed Fibre Channel switch administration.' : 'Administración de switches Fibre Channel de alta velocidad.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">📈 {locale === 'en' ? 'Capacity Scaling' : 'Escalamiento de Capacidad'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Seamless hardware upgrades with zero downtime design.' : 'Actualizaciones de hardware sin interrupción operativa.'}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Servicios logísticos y almacenamiento de partes -->
+    <section id="area-respuestos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <div class="inline-flex items-center gap-2 bg-tyta-amber/10 text-tyta-amber px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 border border-tyta-amber/20">
+                📦 {locale === 'en' ? 'Logistics & Storage Services' : 'Servicios Logísticos y Almacenamiento'}
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                {locale === 'en' ? 'Part Storage & Logistics for HPE Contracts' : 'Almacenamiento y Logística para Niveles Contractuales HPE'}
+            </h2>
+            <p class="text-slate-600 mt-4 text-base sm:text-lg leading-relaxed">
+                {locale === 'en'
+                    ? 'T&TA de Centroamérica features proprietary warehouses for computer hardware parts, ensuring secure protection and delivery matching client SLA commitments.'
+                    : 'T&TA de Centroamérica cuenta con bodegas propias para el almacenaje de partes de equipos de cómputo, garantizando protección y entrega a sus clientes con tiempo de respuesta acorde a los niveles contractuales (SLA) adquiridos.'}
+            </p>
+        </div>
+
+        <!-- Cuadrícula de capacidades logísticas (8 puntos clave organizados) -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🕒</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? '24/7 Access' : 'Acceso 24/7'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Continuous availability for urgent dispatch and critical support.' : 'Disponibilidad continua para atención y despachos críticos.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📊</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Inventory Control' : 'Control de Inventario'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Rigorous tracking and precise stock management systems.' : 'Seguimiento riguroso y gestión precisa de existencias.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🔄</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Inbound & Outbound' : 'Entrada y Salida'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Optimized warehouse flow for replacement parts.' : 'Flujo optimizado para el ingreso y despacho de componentes.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🛡️</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Perimeter Security' : 'Seguridad Perimetral'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Protected facilities ensuring absolute asset safety.' : 'Instalaciones protegidas que aseguran la seguridad absoluta.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🇨🇷</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Nationwide Delivery' : 'Entrega en Costa Rica'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Part delivery service across the entire national territory.' : 'Servicio de entrega de partes en todo el territorio nacional.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📦</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Optimal Handling' : 'Manipulación Óptima'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Guaranteed professional care for delicate hardware.' : 'Garantía de manipulación de la mercancía de forma óptima.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📋</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Customs Nationalization' : 'Nacionalización'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Professional management of customs import processes.' : 'Gestión integral de nacionalización de partes y componentes.'}</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
+                <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">✈️</div>
+                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Export Management' : 'Gestión de Exportación'}</h4>
+                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Secure handling and processing for outbound international parts.' : 'Gestión especializada de exportación de partes cuando se requiera.'}</p>
+            </div>
+        </div>
+
+        {/* Panel de Resumen Ejecutivo y Trazabilidad */}
+        <div class="bg-slate-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-800 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="lg:col-span-8 space-y-3">
+                    <div class="inline-flex items-center gap-2 bg-tyta-amber text-slate-900 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase">
+                        SLA & Compliance
+                    </div>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        {locale === 'en' ? 'Committed to your operational uptime' : 'Comprometidos con su continuidad operativa'}
+                    </h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        {locale === 'en'
+                            ? 'Our warehouse infrastructure and logistics protocol are aligned to guarantee that mission-critical replacements arrive precisely when your contract demands.'
+                            : 'Nuestra infraestructura de bodegas y protocolo logístico están diseñados para asegurar que los repuestos críticos lleguen puntualmente bajo los más altos estándares de calidad.'}
+                    </p>
+                </div>
+                <div class="lg:col-span-4 flex justify-lg-end">
+                    <div class="w-full bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-slate-700/60 text-center">
+                        <span class="block text-3xl font-black text-tyta-amber mb-1">24 / 7</span>
+                        <span class="text-xs text-slate-300 uppercase tracking-widest font-bold">
+                            {locale === 'en' ? 'Logistics Availability' : 'Disponibilidad Logística'}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final Moderno -->
+    <section class="bg-white py-20 px-4 mt-8 border-t border-slate-200/60">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                {locale === 'en' ? 'Need certified assistance for your HPE infrastructure?' : '¿Necesita asistencia certificada para su infraestructura HPE?'}
+            </h2>
+            <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg">
+                {locale === 'en' 
+                    ? 'Get in touch with our certified engineers and secure your server ecosystem today.'
+                    : 'Póngase en contacto con nuestros ingenieros certificados y asegure su ecosistema de servidores hoy mismo.'}
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href={contactHref} class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
+                    <span class="relative z-10 flex items-center gap-2">
+                        {locale === 'en' ? 'Contact Support Team' : 'Contactar Soporte Técnico'}
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </a>
+            </div>
         </div>
     </section>
 </main>
-
-<style>
-    .animate-fade-in { animation: fadeIn 0.8s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-</style>

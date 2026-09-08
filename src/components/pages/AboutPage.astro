@@ -19,6 +19,22 @@ const partnerLogos = [
     { name: 'Micro Focus', colorClass: 'hover:text-[#38C6F4]' },
     { name: 'Fortinet', colorClass: 'hover:text-[#EE3124]' }
 ];
+
+// Certificaciones y alianzas oficiales para consultoría empresarial
+const certifications = [
+    { name: 'Hewlett Packard Enterprise (HPE)', category: locale === 'en' ? 'Enterprise Infrastructure Partner' : 'Socio de Infraestructura Empresarial', badgeId: 'hpe', color: '#01A982' },
+    { name: 'VMware Certified Professional', category: locale === 'en' ? 'Virtualization & Cloud Expert' : 'Experto en Virtualización y Nube', badgeId: 'vmware', color: '#717074' },
+    { name: 'Veeam Modern Data Protection', category: locale === 'en' ? 'Backup & Recovery Specialist' : 'Especialista en Resguardo y Recuperación', badgeId: 'veeam', color: '#00B259' },
+    { name: 'HPE Aruba Networking', category: locale === 'en' ? 'Edge-to-Cloud Connectivity' : 'Conectividad de Extremo a Nube', badgeId: 'aruba', color: '#FF8300' },
+    { name: 'Dell Technologies Partner', category: locale === 'en' ? 'Servers & Storage Solutions' : 'Soluciones de Servidores y Almacenamiento', badgeId: 'dell', color: '#0076CE' },
+    { name: 'Lenovo Enterprise Solutions', category: locale === 'en' ? 'Datacenter Hardware Expert' : 'Experto en Hardware de Centro de Datos', badgeId: 'lenovo', color: '#E2231A' },
+    { name: 'Cisco Select Partner', category: locale === 'en' ? 'Networking & Security' : 'Redes y Seguridad', badgeId: 'cisco', color: '#1BA0D7' },
+    { name: 'Microsoft Solutions Partner', category: locale === 'en' ? 'Cloud Platform & Infrastructure' : 'Plataforma en la Nube e Infraestructura', badgeId: 'microsoft', color: '#00A4EF' },
+    { name: 'ISO/IEC 27001', category: locale === 'en' ? 'Information Security Management' : 'Gestión de Seguridad de la Información', badgeId: 'iso27001', color: '#003DA5' },
+    { name: 'ITIL Foundation', category: locale === 'en' ? 'IT Service Management' : 'Gestión de Servicios de TI', badgeId: 'itil', color: '#00A9E0' },
+    { name: 'ISO/IEC 20000-1', category: locale === 'en' ? 'IT Service Management System' : 'Sistema de Gestión de Servicios de TI', badgeId: 'iso20000', color: '#003DA5' },
+    { name: 'PMP® – Project Management Professional', category: locale === 'en' ? 'Project Management' : 'Gestión de Proyectos', badgeId: 'pmp', color: '#6E2585' },
+];
 ---
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
@@ -57,7 +73,7 @@ const partnerLogos = [
 </style>
 
 <main class="bg-white">
-    <!-- Hero Section: Banner completo con la imagen 20anos.jpg ajustada -->
+    <!-- Hero Section: Banner completo con la imagen 20anos.jpg ajustada 
     <section class="relative w-full overflow-hidden bg-slate-950">
         <div class="w-full aspect-[16/9] sm:aspect-[21/9] md:h-[540px] lg:h-[620px]">
             <Image 
@@ -66,7 +82,7 @@ const partnerLogos = [
                 class="w-full h-full object-cover object-[center_30%]" 
             />
         </div>
-    </section>
+    </section>   -->
 
     <!-- Trayectoria / Línea de Tiempo -->
     <section class="py-24 bg-slate-900 text-white overflow-hidden relative">
@@ -166,49 +182,44 @@ const partnerLogos = [
         </div>
     </section>
 
-    <!-- Testimonios / Casos de Éxito con efecto de elevación y sombra -->
-    <section class="reveal py-24 bg-slate-50/50">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider uppercase bg-slate-200/60 rounded-full text-slate-700">{t.aboutPage.successStories.badge}</span>
-            <h2 class="text-4xl font-extrabold text-slate-900 mb-3 tracking-tight">{t.aboutPage.successStories.title}</h2>
-            <p class="text-slate-500 mb-16 max-w-xl mx-auto">{t.aboutPage.successStories.subtitle}</p>
+
+    <!-- Sección: Insignias y Alianzas Oficiales (Certificaciones) -->
+    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white border-t border-slate-100">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
+                {locale === 'en' ? 'Official Badges & Partnerships' : 'Insignias y Alianzas Oficiales'}
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">
+                {locale === 'en' ? 'Our Accreditations & Certifications' : 'Nuestras Acreditaciones y Certificaciones'}
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                {locale === 'en'
+                    ? 'Endorsements from world-class technology leaders guaranteeing the highest execution standards for your business projects.'
+                    : 'Avales de líderes tecnológicos globales que garantizan los más altos estándares de ejecución para los proyectos de su empresa.'}
+            </p>
         </div>
-        
-        <div class="max-w-5xl mx-auto px-6 relative">
-            <div class="testimonials-swiper swiper overflow-hidden">
-                <div class="swiper-wrapper !flex !items-stretch">
-                    {t.aboutPage.successStories.testimonials.map((testimonio) => (
-                        <div class="swiper-slide !h-auto p-3 flex">
-                            <div class="w-full h-full flex flex-col justify-between bg-white p-8 md:p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 text-left relative group hover:-translate-y-2 hover:shadow-2xl hover:shadow-slate-300/50 hover:border-tyta-amber transition-all duration-300">
-                                <div>
-                                    <!-- Estrellas decorativas -->
-                                    <div class="flex items-center gap-1 text-amber-400 mb-6 text-lg">
-                                        ★★★★★
-                                    </div>
-                                    
-                                    <p class="text-slate-600 text-base md:text-lg mb-6 leading-relaxed italic">
-                                        "{testimonio.text}"
-                                    </p>
-                                    
-                                    {t.aboutPage.successStories.translatedNote && (
-                                        <p class="text-xs text-slate-400 italic mb-6">{t.aboutPage.successStories.translatedNote}</p>
-                                    )}
-                                </div>
-                                
-                                <div class="border-t border-slate-100 pt-5 mt-auto flex items-center justify-between">
-                                    <div>
-                                        <h4 class="font-bold text-slate-900 text-base">{testimonio.name}</h4>
-                                        <p class="text-sm text-slate-500 font-medium">{testimonio.role}, <span class="text-slate-800">{testimonio.company}</span></p>
-                                    </div>
-                                    <div class="text-slate-200 text-5xl font-serif select-none group-hover:text-amber-400/30 transition-colors">”</div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert) => (
+                <div class="bg-slate-50/50 p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-tyta-blue/40 transition-all duration-300 flex flex-col items-center text-center group">
+                    <!-- Espacio reservado para cargar la imagen/insignia oficial de la certificación -->
+                    <div class="w-full h-32 bg-white rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center mb-5 group-hover:bg-blue-50/50 group-hover:border-tyta-blue/50 transition-colors">
+                        <svg class="w-8 h-8 text-slate-400 mb-1 group-hover:text-tyta-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-[11px] font-medium text-slate-400 group-hover:text-tyta-blue">
+                            {locale === 'en' ? 'Upload Badge Image' : 'Cargar insignia oficial'}
+                        </span>
+                    </div>
+
+                    <h3 class="font-extrabold text-slate-900 text-base mb-1 group-hover:text-tyta-blue transition-colors">
+                        {cert.name}
+                    </h3>
+                    <p class="text-xs text-slate-500 font-medium">
+                        {cert.category}
+                    </p>
                 </div>
-                <!-- Paginación minimalista -->
-                <div class="swiper-pagination !relative !bottom-0 mt-10"></div>
-            </div>
+            ))}
         </div>
     </section>
 

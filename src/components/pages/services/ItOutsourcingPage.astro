@@ -1,68 +1,418 @@
 ---
 // src/components/pages/services/ItOutsourcingPage.astro
-import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n";
+import { getLocaleFromUrl, localizedPath } from "../../../i18n";
 
 const locale = getLocaleFromUrl(Astro.url);
-const t = getTranslations(locale);
-const content = t.servicesPages.itOutsourcing;
 const contactHref = localizedPath(locale, "/contact");
 ---
 
-<main>
-    <!-- Hero Section -->
-    <section class="relative bg-gradient-to-r from-slate-900 to-blue-900 py-20 px-4 text-white overflow-hidden">
-        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10"></div>
-        <div class="relative max-w-5xl mx-auto text-center">
-            <span class="text-tyta-amber font-semibold tracking-wider uppercase text-sm">{content.hero.eyebrow}</span>
-            <h1 class="text-4xl md:text-6xl font-bold text-white mt-4 mb-6">{content.hero.title}</h1>
-            <p class="text-xl text-slate-300 max-w-3xl mx-auto">
-                {content.hero.intro}
+<style>
+    /* Asegura el desplazamiento suave en toda la página */
+    html {
+        scroll-behavior: smooth;
+    }
+</style>
+
+<main class="bg-slate-50 overflow-hidden">
+    <!-- Hero Section con estilo corporativo inmersivo -->
+    <section class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] py-24 px-4 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:400px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"></div>
+
+        <div class="relative max-w-5xl mx-auto text-center z-10">
+            <div class="inline-block mb-4">
+                <span class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg">
+                    {locale === 'en' ? 'Business Process & IT Outsourcing' : 'Outsourcing de Procesos y TI'}
+                </span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6">
+                {locale === 'en' ? 'Strategic Outsourcing & Specialized Talent' : 'Outsourcing Estratégico y Talento Especializado'}
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                {locale === 'en' 
+                    ? 'Managing and executing your daily business functions with a specialized focus on IT, finance, HR, marketing, and accounting.'
+                    : 'Gestionamos y ejecutamos las funciones empresariales diarias con un enfoque especializado en el área de TI, finanzas, RRHH, marketing y contabilidad.'}
             </p>
         </div>
+
+        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-accent/20 blur-3xl pointer-events-none rounded-full"></div>
     </section>
 
-    <!-- Propuesta de Valor -->
-    <section class="max-w-6xl mx-auto px-4 py-20">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="text-3xl font-bold text-slate-900 mb-6">{content.valueProp.title}</h2>
-                <p class="text-slate-600 mb-6 leading-relaxed">
-                    {content.valueProp.text}
+    <!-- 5 Tarjetas de Áreas de Especialización (Resumen superior) -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+            
+            <!-- TI -->
+            <a href="#area-ti" class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                <div class="h-36 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" alt="Tecnología e Infraestructura TI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm text-tyta-blue font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm">💻 TI</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">{locale === 'en' ? 'Information Technology' : 'Tecnología (TI)'}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Infrastructure, support, and specialized tech roles.' : 'Infraestructura, soporte y perfiles tecnológicos clave.'}</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Finanzas -->
+            <a href="#area-finanzas" class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                <div class="h-36 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?auto=format&fit=crop&w=600&q=80" alt="Finanzas y Contabilidad" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm text-emerald-700 font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm">📊 Finanzas</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">{locale === 'en' ? 'Finance & Accounting' : 'Finanzas y Contabilidad'}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Control, audits, and daily financial operations.' : 'Control, gestión contable y operaciones financieras.'}</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- RRHH -->
+            <a href="#area-rrhh" class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                <div class="h-36 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Recursos Humanos y Reclutamiento" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm text-purple-700 font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm">👥 RRHH</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">{locale === 'en' ? 'Human Resources' : 'Recursos Humanos'}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Talent acquisition, welfare, and labor legislation.' : 'Reclutamiento, gestión de personal y normativa.'}</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Marketing -->
+            <a href="#area-marketing" class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
+                <div class="h-36 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80" alt="Marketing y Estrategia" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm text-amber-700 font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm">📢 Marketing</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">{locale === 'en' ? 'Marketing' : 'Marketing'}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Brand positioning, campaigns, and strategies.' : 'Estrategias comerciales, campañas y posicionamiento.'}</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Gestión de Talento (Nueva Tarjeta 5) -->
+            <a href="#area-gestion" class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col sm:col-span-2 lg:col-span-1">
+                <div class="h-36 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80" alt="Gestión Integral de Talento" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <span class="absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm text-tyta-amber font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm">⭐ Gestión</span>
+                </div>
+                <div class="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">{locale === 'en' ? 'Talent Workflow' : 'Gestión de Talento'}</h3>
+                        <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Selection workflows and rigorous quality controls.' : 'Procesos de selección y controles de calidad.'}</p>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- SECCIONES DETALLADAS DE LAS ÁREAS          -->
+    <!-- ========================================== -->
+
+    <!-- 1. Área de Tecnología (TI) -->
+    <section id="area-ti" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-blue-500/20">
+                    💻 {locale === 'en' ? 'Specialized Domain' : 'Dominio Tecnológico'}
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Information Technology (IT) Outsourcing' : 'Outsourcing de Tecnología (TI)'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'We empower your technical infrastructure with certified engineers, robust cybersecurity solutions, server maintenance, and responsive technical help desk support.'
+                        : 'Potenciamos su infraestructura tecnológica con ingenieros certificados, ciberseguridad avanzada, administración de servidores y soporte técnico integral de alta disponibilidad.'}
                 </p>
-                <div class="space-y-4">
-                    {content.valueProp.features.map((feature) => (
-                        <div class="flex gap-4">
-                            <span class="text-tyta-amber text-2xl">{feature.icon}</span>
-                            <div>
-                                <h4 class="font-bold text-slate-900">{feature.title}</h4>
-                                <p class="text-sm text-slate-600">{feature.desc}</p>
-                            </div>
-                        </div>
-                    ))}
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">🛠️ {locale === 'en' ? 'Hardware & Networks' : 'Hardware y Redes'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Complete architecture upkeep and connectivity management.' : 'Mantenimiento de arquitectura y gestión de conectividad.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">🛡️ {locale === 'en' ? 'Cyber Defense' : 'Ciberdefensa'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Endpoint security oversight and active threat mitigation.' : 'Supervisión de endpoints y mitigación activa de amenazas.'}</p>
+                    </div>
                 </div>
             </div>
-            <div class="bg-slate-50 p-10 rounded-2xl border border-slate-200">
-                <h3 class="text-xl font-bold mb-6">{content.benefits.title}</h3>
-                <ul class="space-y-4">
-                    {content.benefits.items.map((item) => (
-                        <li class="flex items-center gap-3 text-slate-700">
-                            <span class="bg-tyta-amber/10 text-tyta-amber rounded-full p-1">✓</span>
-                            {item}
-                        </li>
-                    ))}
-                </ul>
+            <div class="lg:col-span-5">
+                <div class="relative bg-gradient-to-br from-blue-950 to-blue-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-blue-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Core Tech Standards' : 'Estándares Tecnológicos'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">⚡ {locale === 'en' ? 'High-availability uptime tracking' : 'Monitoreo de alta disponibilidad'}</li>
+                            <li class="flex items-center gap-2.5">🎓 {locale === 'en' ? 'Senior systems engineering experts' : 'Expertos en ingeniería de sistemas'}</li>
+                            <li class="flex items-center gap-2.5">🔄 {locale === 'en' ? 'Automated disaster recovery protocols' : 'Protocolos de recuperación automatizada'}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Final -->
-    <section class="bg-slate-100 py-16 px-4">
+    <!-- 2. Área de Finanzas y Contabilidad -->
+    <section id="area-finanzas" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-5 order-2 lg:order-1">
+                <div class="relative bg-gradient-to-br from-emerald-950 to-emerald-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-emerald-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Fiscal Execution Pillars' : 'Pilares de Ejecución Fiscal'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">📈 {locale === 'en' ? 'Dynamic liquidity forecasting' : 'Proyecciones dinámicas de liquidez'}</li>
+                            <li class="flex items-center gap-2.5">📋 {locale === 'en' ? 'Regulatory tax alignment' : 'Alineación tributaria regulatoria'}</li>
+                            <li class="flex items-center gap-2.5">💡 {locale === 'en' ? 'Capital allocation advisory' : 'Asesoría en asignación de capital'}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-emerald-500/20">
+                    📊 {locale === 'en' ? 'Financial Sector' : 'Sector Financiero'}
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Finance & Accounting Outsourcing' : 'Outsourcing de Finanzas y Contabilidad'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'Optimize your economic planning and bookkeeping with professional oversight, ensuring compliance, financial clarity, and informed business decision-making.'
+                        : 'Optimice su planificación económica y contabilidad con supervisión profesional, garantizando orden fiscal, claridad financiera y toma de decisiones asertiva.'}
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">📑 {locale === 'en' ? 'Ledgers & Audits' : 'Libros y Auditorías'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Rigorous transaction logs and reconciliation workflows.' : 'Registros transaccionales rigurosos y flujos de conciliación.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">📉 {locale === 'en' ? 'Expense Control' : 'Control de Gastos'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Strategic cost containment and margin expansion.' : 'Contención estratégica de costos y expansión de márgenes.'}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Área de Recursos Humanos -->
+    <section id="area-rrhh" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 bg-purple-500/10 text-purple-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-purple-500/20">
+                    👥 {locale === 'en' ? 'Human Capital' : 'Capital Humano'}
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Human Resources Outsourcing' : 'Outsourcing de Recursos Humanos'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'We manage the complete talent lifecycle—from recruiting to payroll processing and welfare programs—while strictly respecting local legal frameworks.'
+                        : 'Administramos el ciclo de vida completo del talento humano —desde la selección hasta la planilla y programas de bienestar— bajo riguroso cumplimiento normativo.'}
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-purple-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">🌟 {locale === 'en' ? 'Workplace Culture' : 'Clima Organizacional'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Programs designed to retain top performers and boost morale.' : 'Programas diseñados para retener talento clave y elevar la moral.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-purple-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">⚖️ {locale === 'en' ? 'Labor Compliance' : 'Cumplimiento Laboral'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Adherence to regional legal frameworks and payroll safety.' : 'Apego a marcos legales regionales y seguridad en planillas.'}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-5">
+                <div class="relative bg-gradient-to-br from-purple-950 to-purple-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-purple-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'HR Operations Focus' : 'Enfoque Operativo de RRHH'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">🎯 {locale === 'en' ? 'Targeted talent positioning' : 'Posicionamiento focalizado de talento'}</li>
+                            <li class="flex items-center gap-2.5">📊 {locale === 'en' ? 'Performance analytics metrics' : 'Métricas de analítica de desempeño'}</li>
+                            <li class="flex items-center gap-2.5">🤝 {locale === 'en' ? 'Smooth employee onboarding' : 'Inducción fluida para colaboradores'}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Área de Marketing -->
+    <section id="area-marketing" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-5 order-2 lg:order-1">
+                <div class="relative bg-gradient-to-br from-amber-950 to-amber-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-amber-800/50">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
+                    <div class="relative z-15">
+                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Market Growth Pillars' : 'Pilares de Expansión de Mercado'}</h3>
+                        <ul class="space-y-3 text-sm text-slate-200">
+                            <li class="flex items-center gap-2.5">🚀 {locale === 'en' ? 'Conversion rate optimization' : 'Optimización de tasas de conversión'}</li>
+                            <li class="flex items-center gap-2.5">🎨 {locale === 'en' ? 'Creative storytelling identity' : 'Identidad de narrativa creativa'}</li>
+                            <li class="flex items-center gap-2.5">📢 {locale === 'en' ? 'Omnichannel reach execution' : 'Ejecución de alcance omnicanal'}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <div class="inline-flex items-center gap-2 bg-amber-500/10 text-amber-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-amber-500/20">
+                    📢 {locale === 'en' ? 'Commercial Reach' : 'Alcance Comercial'}
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                    {locale === 'en' ? 'Marketing Outsourcing' : 'Outsourcing de Marketing'}
+                </h2>
+                <p class="text-slate-600 leading-relaxed">
+                    {locale === 'en'
+                        ? 'Accelerate your commercial reach and brand positioning with dedicated marketing strategies, digital content production, and data-driven campaigns.'
+                        : 'Acelere su alcance comercial y posicionamiento de marca con estrategias de marketing dedicadas, producción de contenido digital y campañas basadas en datos.'}
+                </p>
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">⚡ {locale === 'en' ? 'Performance Ads' : 'Anuncios de Rendimiento'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Data-driven paid media campaigns and lead funnels.' : 'Campañas de pauta pagada basadas en datos y embudos.'}</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-amber-300 transition-all">
+                        <h4 class="font-bold text-slate-900 text-sm mb-1">🌐 {locale === 'en' ? 'Brand Authority' : 'Autoridad de Marca'}</h4>
+                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Consistent digital footprint building and corporate presence.' : 'Construcción constante de huella digital y presencia.'}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. SECCIÓN DE PROCESO DE SELECCIÓN (ID: area-gestion) -->
+    <!-- ========================================== -->
+    <section id="area-gestion" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            
+            <!-- Izquierda: Proceso de Reclutamiento -->
+            <div class="lg:col-span-7 space-y-8">
+                <div>
+                    <div class="inline-flex items-center gap-2 bg-tyta-amber/10 text-tyta-amber px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 border border-tyta-amber/20">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        {locale === 'en' ? 'Selection Workflow' : 'Gestión Integral de Talento y Procesos'}
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        {locale === 'en' ? 'End-to-End Talent Selection Framework' : 'Metodología Integral de Selección de Talento'}
+                    </h2>
+                    <p class="text-slate-600 mt-4 leading-relaxed text-base">
+                        {locale === 'en'
+                            ? 'We handle the complete internal recruitment process for your company, from profile definition to hiring, ensuring total alignment with labor laws.'
+                            : 'Nos encargamos del proceso completo de reclutamiento interno para su organización, desde la estructuración de perfiles hasta la contratación final, garantizando sintonía legal.'}
+                    </p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <!-- Tarjeta 1 -->
+                    <div class="relative bg-white p-7 rounded-3xl border border-slate-200/80 shadow-md shadow-slate-100 hover:shadow-xl hover:border-tyta-blue/40 transition-all duration-300 group overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-tyta-blue to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-12 h-12 rounded-2xl bg-tyta-blue/10 text-tyta-blue flex items-center justify-center font-extrabold text-base mb-5 group-hover:scale-110 transition-transform">01</div>
+                        <h4 class="font-extrabold text-slate-900 text-lg mb-2">
+                            {locale === 'en' ? 'Mid & Executive Profiles' : 'Perfiles Operativos y Ejecutivos'}
+                        </h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            {locale === 'en' 
+                                ? 'Precise filtering for key operational functions and strategic leadership slots.'
+                                : 'Filtrado de precisión para funciones operativas clave y puestos de liderazgo estratégico.'}
+                        </p>
+                    </div>
+
+                    <!-- Tarjeta 2 -->
+                    <div class="relative bg-white p-7 rounded-3xl border border-slate-200/80 shadow-md shadow-slate-100 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300 group overflow-hidden">
+                        <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-tyta-amber to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <div class="w-12 h-12 rounded-2xl bg-tyta-amber/10 text-tyta-amber flex items-center justify-center font-extrabold text-base mb-5 group-hover:scale-110 transition-transform">02</div>
+                        <h4 class="font-extrabold text-slate-900 text-lg mb-2">
+                            {locale === 'en' ? 'Performance Tracking' : 'Seguimiento de Rendimiento'}
+                        </h4>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            {locale === 'en'
+                                ? 'Ongoing supervision framework to maximize employee output and satisfaction.'
+                                : 'Esquema de supervisión constante para maximizar el desempeño y la satisfacción.'}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Derecha: Tarjeta de Garantía de Calidad -->
+            <div class="lg:col-span-5">
+                <div class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] text-white p-8 sm:p-10 rounded-3xl shadow-2xl overflow-hidden border border-white/10">
+                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:300px]"></div>
+                    <div class="absolute -right-16 -bottom-16 w-48 h-48 bg-tyta-amber/20 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-tyta-amber mb-6 border border-white/15 shadow-inner">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+
+                        <h3 class="text-2xl sm:text-3xl font-extrabold mb-3 text-white tracking-tight">
+                            {locale === 'en' ? 'Quality Assurance' : 'Garantía de Calidad'}
+                        </h3>
+                        <p class="text-slate-300 text-sm leading-relaxed mb-8">
+                            {locale === 'en'
+                                ? 'Our primary objective is to guarantee service excellence through metrics, strict controls, and continuous evaluation.'
+                                : 'Nuestro propósito fundamental es asegurar la excelencia operativa mediante métricas, controles rigurosos y evaluación continua.'}
+                        </p>
+
+                        <div class="space-y-3.5">
+                            <div class="flex items-center gap-3.5 bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                <span class="bg-tyta-amber text-[#060b19] rounded-xl p-1.5 flex items-center justify-center font-black shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-200">{locale === 'en' ? 'Strict alignment with current labor laws' : 'Cumplimiento estricto de la legislación laboral'}</span>
+                            </div>
+
+                            <div class="flex items-center gap-3.5 bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                <span class="bg-tyta-amber text-[#060b19] rounded-xl p-1.5 flex items-center justify-center font-black shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-200">{locale === 'en' ? 'Ongoing client partnership enhancement' : 'Optimización constante de la sinergia con el cliente'}</span>
+                            </div>
+
+                            <div class="flex items-center gap-3.5 bg-white/5 backdrop-blur-sm p-3.5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                                <span class="bg-tyta-amber text-[#060b19] rounded-xl p-1.5 flex items-center justify-center font-black shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </span>
+                                <span class="text-xs sm:text-sm font-medium text-slate-200">{locale === 'en' ? 'Systematic development and evaluation controls' : 'Controles sistemáticos de desarrollo y evaluación'}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Final Moderno -->
+    <section class="bg-white py-20 px-4 mt-8 border-t border-slate-200/60">
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl font-bold text-slate-900 mb-6">{content.finalCta.title}</h2>
-            <p class="text-slate-600 mb-8">{content.finalCta.text}</p>
-            <div class="flex justify-center gap-4">
-                <a href={contactHref} class="bg-tyta-blue text-white px-8 py-3 rounded font-bold hover:bg-blue-800 transition-colors">
-                    {content.finalCta.buttonLabel}
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                {locale === 'en' ? 'Ready to optimize your business operations?' : '¿Listo para optimizar las operaciones de su empresa?'}
+            </h2>
+            <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg">
+                {locale === 'en' 
+                    ? 'Let us help you find the right talent and manage your critical business processes efficiently.'
+                    : 'Permítanos ayudarle a encontrar el talento ideal y gestionar sus procesos empresariales clave con total eficiencia.'}
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href={contactHref} class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5">
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
+                    <span class="relative z-10 flex items-center gap-2">
+                        {locale === 'en' ? 'Contact Our Team' : 'Contactar con el Equipo'}
+                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
                 </a>
             </div>
         </div>

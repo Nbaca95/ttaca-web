@@ -1,56 +1,461 @@
 ---
 // src/components/pages/services/BrandServicePage.astro
-import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n";
+import { getLocaleFromUrl, localizedPath } from "../../../i18n";
+import { Image } from "astro:assets";
+import veeamEcosystemImg from "../../../assets/images/Veeam.png";
+import veeamDashboardImg from "../../../assets/images/Veeam2.png";
 
 type BrandKey = 'veeam' | 'arubaNetworks' | 'vmware' | 'dell' | 'lenovo';
+
+interface BrandInfo {
+    name: string;
+    tagline: string;
+    whyTitle: string;
+    whyText: string;
+    benefits: string[];
+    solutionsTitle: string;
+    solutionsSubtitle: string;
+    solutions: { title: string; desc: string; }[];
+    cardTitle: string;
+    cardText: string;
+    ctaLabel: string;
+    badge?: string;
+    heroImage?: string;
+}
 
 interface Props {
     brand: BrandKey;
 }
 
 const { brand } = Astro.props;
-
 const locale = getLocaleFromUrl(Astro.url);
-const t = getTranslations(locale);
-const brandName = t.services[brand];
-const content = t.servicesPages.brands[brand];
+const isEn = locale === 'en';
 const contactHref = localizedPath(locale, "/contact");
+
+const brandData: Record<BrandKey, BrandInfo> = {
+    veeam: {
+        name: isEn ? "Veeam Data Platform & Cyber Resilience" : "Plataforma Veeam y Ciberresiliencia",
+        tagline: isEn 
+            ? "Secure your enterprise with radical data resilience. Unify backup, recovery, AI-powered threat detection, and automated compliance across virtual, physical, and cloud workloads." 
+            : "Protege tu empresa con una resiliencia de datos radical. Unifica el respaldo, la recuperación, la detección de amenazas mediante IA y el cumplimiento automatizado en cargas virtuales, físicas y en la nube.",
+        whyTitle: isEn ? "Why Choose Veeam Data Platform?" : "¿Por qué elegir Veeam Data Platform?",
+        whyText: isEn 
+            ? "As a trusted technology partner, we implement enterprise-grade solutions that eliminate downtime, guarantee data immutability against ransomware, and ensure clean, fast recovery every time." 
+            : "Como socio tecnológico de confianza, implementamos soluciones de nivel empresarial que eliminan el tiempo de inactividad, garantizan la inmutabilidad de los datos frente al ransomware y aseguran una recuperación limpia y rápida en todo momento.",
+        benefits: isEn ? [
+            "AI-powered threat defense and proactive malware detection during backups",
+            "Instant recovery of virtual machines and workloads in minutes, not hours",
+            "Hardware-agnostic flexibility spanning AWS, Azure, VMware, and physical servers",
+            "Built-in data immutability and air-gapped secure cloud storage compliance"
+        ] : [
+            "Defensa contra amenazas impulsada por IA y detección proactiva de malware en los respaldos",
+            "Recuperación instantánea de máquinas virtuales y cargas de trabajo en minutos, no en horas",
+            "Flexibilidad agnóstica de hardware que abarca AWS, Azure, VMware y servidores físicos",
+            "Inmutabilidad de datos integrada y cumplimiento de almacenamiento seguro en la nube"
+        ],
+        solutionsTitle: isEn ? "Comprehensive Solutions & Offerings" : "Soluciones y Ofertas Integrales",
+        solutionsSubtitle: isEn ? "Designed to meet the most demanding business continuity standards." : "Diseñadas para cumplir con los estándares más exigentes de continuidad del negocio.",
+        solutions: [
+            {
+                title: isEn ? "Backup & Replication" : "Backup & Replication",
+                desc: isEn ? "Fast, reliable, and secure data backup and instant recovery for all your critical workloads." : "Respaldo de datos rápido, confiable y seguro, con recuperación instantánea para todas tus cargas críticas."
+            },
+            {
+                title: isEn ? "Cloud Data Protection" : "Protección de Datos en la Nube",
+                desc: isEn ? "Native backup solutions optimized for Microsoft 365, AWS, Azure, and multi-cloud environments." : "Soluciones de respaldo nativas optimizadas para Microsoft 365, AWS, Azure y entornos multi-cloud."
+            },
+            {
+                title: isEn ? "Ransomware Recovery & Immutability" : "Recuperación de Ransomware e Inmutabilidad",
+                desc: isEn ? "Ensure absolute data isolation with air-gapped storage and instant clean data restoration." : "Garantiza un aislamiento absoluto de datos con almacenamiento aislado y restauración limpia instantánea."
+            },
+            {
+                title: isEn ? "Monitoring & Analytics (Veeam ONE)" : "Monitoreo y Analítica (Veeam ONE)",
+                desc: isEn ? "Intelligent monitoring, capacity planning, and compliance reporting for total infrastructure visibility." : "Monitoreo inteligente, planificación de capacidad y reportes de cumplimiento para visibilidad total de la infraestructura."
+            }
+        ],
+        cardTitle: isEn ? "Achieve True Data Resilience" : "Alcanza una Verdarera Resiliencia de Datos",
+        cardText: isEn 
+            ? "Request a tailored architecture assessment with our certified Veeam engineers to audit your recovery readiness and eliminate vulnerabilities." 
+            : "Solicita una evaluación de arquitectura personalizada con nuestros ingenieros certificados en Veeam para auditar tu preparación de recuperación y eliminar vulnerabilidades.",
+        ctaLabel: isEn ? "Schedule Veeam Assessment" : "Agendar Evaluación Veeam"
+    },
+    vmware: {
+        name: isEn ? "VMware by Broadcom – Cloud Foundation & Virtualization" : "VMware by Broadcom – Cloud Foundation y Virtualización",
+        tagline: isEn 
+            ? "Modernize your infrastructure with VMware. Transform traditional datacenters into virtualized, automated, and private cloud-ready platforms spanning compute, storage, networking, and modern applications." 
+            : "Modernice su infraestructura con VMware. Diseñamos e implementamos soluciones VMware para transformar centros de datos tradicionales en plataformas virtualizadas, automatizadas y preparadas para la nube privada.",
+        whyTitle: isEn ? "Professional VMware Services by T&TA" : "Servicios Especializados VMware en T&TA",
+        whyText: isEn 
+            ? "We provide end-to-end technical execution—from initial design and server consolidation to complex multi-site workload migrations, high availability configuration, and lifecycle optimization." 
+            : "Brindamos acompañamiento integral: desde el diseño y la consolidación de servidores hasta migraciones complejas de cargas de trabajo, alta disponibilidad, continuidad operativa y optimización continua.",
+        benefits: isEn ? [
+            "Infrastructure design, deployment, and VMware Cloud Foundation (VCF) integration",
+            "Seamless physical-to-virtual (P2V) and virtual-to-virtual workload migrations",
+            "Advanced software-defined networking (NSX) and virtual storage (vSAN) architecture",
+            "Operational continuity, disaster recovery planning, and robust cluster high availability"
+        ] : [
+            "Diseño de infraestructura, implementación e integración de VMware Cloud Foundation (VCF)",
+            "Migraciones profesionales de servidores físicos a virtuales (P2V) y consolidación de servidores",
+            "Arquitectura avanzada de redes virtualizadas (NSX) y almacenamiento definido por software (vSAN)",
+            "Garantía de alta disponibilidad, continuidad operativa y estrategias de recuperación ante desastres"
+        ],
+        solutionsTitle: isEn ? "Core VMware Solutions Portfolio" : "Portafolio de Soluciones Core VMware",
+        solutionsSubtitle: isEn ? "Empowering enterprise digital transformation with private cloud and modern application frameworks." : "Potenciando la transformación digital empresarial con nubes privadas y marcos de aplicaciones modernas.",
+        solutions: [
+            {
+                title: isEn ? "VMware vSphere" : "VMware vSphere",
+                desc: isEn ? "Industry-standard server virtualization platform for mission-critical enterprise workloads and consolidation." : "Virtualización líder de servidores y cargas empresariales con máxima eficiencia y rendimiento."
+            },
+            {
+                title: isEn ? "VMware Cloud Foundation (VCF)" : "VMware Cloud Foundation (VCF)",
+                desc: isEn ? "Turnkey private cloud platform integrating compute, storage, networking, security, and automated cloud management." : "Diseño e implementación de nubes privadas unificando cómputo, almacenamiento, redes y seguridad."
+            },
+            {
+                title: isEn ? "VMware vSAN & NSX Security" : "VMware vSAN y Seguridad NSX",
+                desc: isEn ? "Software-defined storage (HCI) combined with micro-segmentation and virtualized networking fabric." : "Almacenamiento definido por software (HCI) y redes virtualizadas de alta seguridad."
+            },
+            {
+                title: isEn ? "Kubernetes & Private AI Services" : "Kubernetes y Servicios Private AI",
+                desc: isEn ? "Modern container orchestration via vSphere Kubernetes Service and secure private infrastructure for AI workloads." : "Plataformas para aplicaciones modernas en contenedores e infraestructura privada para cargas de IA."
+            }
+        ],
+        cardTitle: isEn ? "Transform Your Datacenter with VMware" : "Transforme su Centro de Datos con VMware",
+        cardText: isEn 
+            ? "Connect with our certified infrastructure architects to design, audit, or migrate your environment to a high-performance VMware software-defined platform." 
+            : "Conecte con nuestros ingenieros expertos para evaluar, diseñar o migrar su entorno hacia una plataforma moderna impulsada por VMware.",
+        ctaLabel: isEn ? "Request VMware Consultation" : "Solicitar asesoría VMware →",
+        badge: "VMware Cloud Foundation",
+        heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+    },
+    dell: {
+        name: isEn ? "Dell Technologies – Enterprise Infrastructure" : "Dell Technologies – Infraestructura Empresarial",
+        tagline: isEn 
+            ? "Equip and modernize your datacenters with servers, storage, networking, and enterprise solutions from Dell Technologies. From new implementations to complete hardware refreshes, T&TA provides expert guidance." 
+            : "Equipamos y modernizamos centros de datos con servidores, almacenamiento, redes y soluciones empresariales Dell Technologies. Desde una nueva implementación hasta la actualización de infraestructura existente.",
+        whyTitle: isEn ? "Enterprise Support & Infrastructure Services" : "Soporte y Servicios de Infraestructura Dell",
+        whyText: isEn 
+            ? "Leverage our deep technical expertise across deployment, configuration, migration, proactive maintenance, and Dell ProSupport services to guarantee continuous business uptime." 
+            : "Aproveche nuestra experiencia técnica en implementación, configuración, migración, soporte avanzado ProSupport y mantenimiento preventivo para garantizar la continuidad operativa de su negocio.",
+        benefits: isEn ? [
+            "Comprehensive server infrastructure setup optimized for virtualization, databases, and AI",
+            "Unified block, file, and object storage deployment with enterprise data reduction",
+            "Advanced datacenter switching and server connectivity solutions",
+            "End-to-end ProSupport lifecycle management and hardware replacement services"
+        ] : [
+            "Configuración integral de servidores optimizados para virtualización, bases de datos y alta exigencia",
+            "Despliegue de almacenamiento unificado en bloques y archivos con alta capacidad de reducción de datos",
+            "Soluciones de conmutación avanzada para centros de datos y conectividad de alta velocidad",
+            "Gestión integral de ciclo de vida con servicios ProSupport y soporte técnico especializado"
+        ],
+        solutionsTitle: isEn ? "Dell Technology Portfolio" : "Portafolio Tecnológico Dell",
+        solutionsSubtitle: isEn ? "Reliable hardware architectures designed for scalability, performance, and workload resilience." : "Arquitecturas de hardware confiables diseñadas para escalabilidad, rendimiento y resiliencia.",
+        solutions: [
+            {
+                title: isEn ? "Dell PowerEdge Servers" : "Servidores Dell PowerEdge",
+                desc: isEn ? "High-performance rack and tower servers built for enterprise applications, databases, virtualization, and AI processing." : "Ideales para servidores empresariales, virtualización, bases de datos, IA y High Performance Computing (HPC)."
+            },
+            {
+                title: isEn ? "Dell PowerStore Storage" : "Almacenamiento Dell PowerStore",
+                desc: isEn ? "Scalable unified SAN and NAS storage platforms delivering predictable performance and automated data reduction." : "Almacenamiento unificado para bloques y archivos, ideal para consolidación y modernización de centros de datos."
+            },
+            {
+                title: isEn ? "Enterprise Datacenter Networking" : "Redes para Centros de Datos",
+                desc: isEn ? "High-speed enterprise switches and modular network fabrics designed for modern virtualized IT ecosystems." : "Infraestructura de red de alta velocidad para interconexión de servidores, almacenamiento y virtualización."
+            },
+            {
+                title: isEn ? "Corporate Endpoints & Workstations" : "PCs y Workstations Empresariales",
+                desc: isEn ? "Robust Latitude laptops, OptiPlex desktops, Precision workstations, monitors, and business docking accessories." : "Soluciones para usuarios finales: líneas Latitude, OptiPlex, Precision, monitores y accesorios corporativos."
+            }
+        ],
+        cardTitle: isEn ? "Upgrade Your Infrastructure with Dell" : "Actualice su Infraestructura con Dell",
+        cardText: isEn 
+            ? "Request customized hardware sizing configurations, bill-of-materials quotes, and official technical datasheets from our enterprise sales engineers." 
+            : "Solicite configuraciones a la medida, cotizaciones de listas de materiales y soporte técnico especializado de la mano de nuestros ingenieros.",
+        ctaLabel: isEn ? "Request Dell Proposal" : "Solicitar Propuesta Dell →",
+        badge: "Dell Enterprise Solutions",
+        heroImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80"
+    },
+    lenovo: {
+        name: isEn ? "Lenovo Enterprise Solutions – Datacenter & Workplace" : "Soluciones Lenovo Enterprise – Data Center y Dispositivos",
+        tagline: isEn 
+            ? "Implement Lenovo solutions for enterprise infrastructure, datacenters, and modern digital workplaces. From ThinkSystem servers and storage to ThinkAgile hyperconverged infrastructure and flexible TruScale services." 
+            : "Implementamos soluciones Lenovo para infraestructura empresarial, centros de datos y entornos de trabajo. Desde servidores ThinkSystem y almacenamiento hasta infraestructura hiperconvergente ThinkAgile y servicios flexibles.",
+        whyTitle: isEn ? "Smart Infrastructure & Flexible Services" : "Infraestructura Inteligente y Servicios Flexibles",
+        whyText: isEn 
+            ? "Combine industry-leading server reliability with innovative consumption models like Lenovo TruScale, bringing cloud-like flexibility directly to your on-premise infrastructure." 
+            : "Combine la confiabilidad superior de los servidores ThinkSystem con modelos de consumo flexible como Lenovo TruScale, simplificando la adquisición y gestión operativa de su infraestructura.",
+        benefits: isEn ? [
+            "ThinkSystem servers optimized for high-performance computing, databases, and AI workloads",
+            "ThinkAgile hyperconverged (HCI) systems simplifying hybrid cloud deployments",
+            "Lenovo TruScale infrastructure-as-a-service models with 24/7 remote monitoring and support",
+            "Complete digital workplace ecosystem featuring ThinkPad, ThinkCentre, and ThinkShield security"
+        ] : [
+            "Servidores ThinkSystem optimizados para cargas empresariales densas, bases de datos y procesamiento de IA",
+            "Sistemas hiperconvergentes ThinkAgile para simplificar la administración de nubes híbridas",
+            "Modelos de consumo Lenovo TruScale para obtener infraestructura sin la complejidad de adquisición tradicional",
+            "Ecosistema completo de dispositivos corporativos ThinkPad, ThinkCentre y seguridad ThinkShield"
+        ],
+        solutionsTitle: isEn ? "Lenovo Enterprise & Workplace Portfolio" : "Portafolio Lenovo Enterprise y Corporativo",
+        solutionsSubtitle: isEn ? "Smart technology designed to drive business efficiency and operational resilience." : "Tecnología inteligente diseñada para impulsar la eficiencia y la resiliencia operativa.",
+        solutions: [
+            {
+                title: isEn ? "ThinkSystem Rack & Tower Servers" : "Servidores ThinkSystem Rack y Torre",
+                desc: isEn ? "Robust server platforms engineered for demanding enterprise environments, virtualization, and AI acceleration." : "Servidores multinodo, de rack y torre optimizados para bases de datos, virtualización y cargas de IA."
+            },
+            {
+                title: isEn ? "ThinkSystem Storage & DS/DM/DG" : "Almacenamiento ThinkSystem (DS/DM/DG)",
+                desc: isEn ? "Comprehensive all-flash and hybrid unified storage arrays offering low latency and high availability." : "Almacenamiento all-flash, unificado e híbrido diseñado para garantizar acceso rápido y seguro a los datos."
+            },
+            {
+                title: isEn ? "ThinkAgile Hyperconverged Infrastructure" : "Infraestructura Hiperconvergente ThinkAgile",
+                desc: isEn ? "Turnkey HCI solutions combining compute, storage, and networking into a single scalable appliance." : "Soluciones HCI listas para operar, facilitando la virtualización avanzada y la consolidación de centros de datos."
+            },
+            {
+                title: isEn ? "ThinkPad, ThinkStation & ThinkShield" : "ThinkPad, ThinkStation y ThinkShield",
+                desc: isEn ? "Professional business laptops, powerful design workstations, and advanced endpoint security solutions." : "Laptops empresariales, workstations de alto rendimiento y seguridad integral para terminales corporativas."
+            }
+        ],
+        cardTitle: isEn ? "Empower Your Enterprise with Lenovo" : "Potencie su Empresa con Lenovo",
+        cardText: isEn 
+            ? "Discover how Lenovo enterprise hardware and flexible infrastructure services can optimize your total cost of ownership and accelerate growth." 
+            : "Descubra cómo las soluciones de hardware Lenovo y los servicios de infraestructura flexible pueden optimizar los costos operativos y acelerar la evolución de su organización.",
+        ctaLabel: isEn ? "Explore Lenovo Solutions" : "Conocer soluciones Lenovo →",
+        badge: "Lenovo Data Center",
+        heroImage: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80"
+    },
+    arubaNetworks: {
+        name: isEn ? "Aruba Networks – Edge-to-Cloud Networking" : "Aruba Networks – Redes de Extremo a Nube",
+        tagline: isEn 
+            ? "Deliver secure, high-performance wired, wireless, and SD-WAN connectivity powered by AI-driven automation and zero-trust security." 
+            : "Ofrece conectividad cableada, inalámbrica y SD-WAN segura y de alto rendimiento, impulsada por automatización basada en IA y seguridad Zero-Trust.",
+        whyTitle: isEn ? "Why Choose Aruba Enterprise Networking?" : "¿Por qué elegir Redes Empresariales Aruba?",
+        whyText: isEn 
+            ? "We design intelligent campus and branch networks that self-heal, optimize performance automatically, and enforce strict security policies across every connected device." 
+            : "Diseñamos redes de campus y sucursales inteligentes que se autorreparan, optimizan el rendimiento automáticamente y aplican políticas de seguridad estrictas en cada dispositivo conectado.",
+        benefits: isEn ? [
+            "Unified infrastructure management across wired, wireless, and WAN domains through Aruba Central",
+            "Advanced network access control and dynamic segmentation with ClearPass policy enforcement",
+            "AI-powered insights and automated troubleshooting that resolve connectivity issues proactively",
+            "Carrier-grade Wi-Fi 6, Wi-Fi 6E, and Wi-Fi 7 wireless performance for high-density environments"
+        ] : [
+            "Gestión unificada de infraestructura en dominios cableados, inalámbricos y WAN mediante Aruba Central",
+            "Control de acceso avanzado a la red y segmentación dinámica con aplicación de políticas ClearPass",
+            "Análisis impulsados por IA y resolución automatizada de problemas que optimizan la conectividad de forma proactiva",
+            "Rendimiento inalámbrico Wi-Fi 6, Wi-Fi 6E y Wi-Fi 7 de categoría portorreductora para entornos de alta densidad"
+        ],
+        solutionsTitle: isEn ? "Aruba Core Solutions Portfolio" : "Portafolio de Soluciones Core Aruba",
+        solutionsSubtitle: isEn ? "Secure, intelligent, and scalable connectivity for modern enterprises." : "Conectividad segura, inteligente y escalable para empresas modernas.",
+        solutions: [
+            {
+                title: isEn ? "Aruba CX Campus Switching" : "Conmutación de Campus Aruba CX",
+                desc: isEn ? "Intelligent, high-availability wired switching architecture designed for modern enterprise campus and data center needs." : "Arquitectura de conmutación cableada inteligente y de alta disponibilidad diseñada para campus modernos y centros de datos."
+            },
+            {
+                title: isEn ? "Wi-Fi Access Points & Mobility" : "Puntos de Acceso Wi-Fi y Movilidad",
+                desc: isEn ? "Industry-leading wireless access points delivering secure, lightning-fast connectivity and seamless user roaming." : "Puntos de acceso inalámbrico líderes en la industria que ofrecen conectividad ultrarrápida y segura."
+            },
+            {
+                title: isEn ? "ClearPass Policy Management" : "Gestión de Políticas ClearPass",
+                desc: isEn ? "Comprehensive network access control (NAC) and policy engine ensuring zero-trust security compliance for IoT and users." : "Control de acceso a la red (NAC) integral y motor de políticas que garantiza el cumplimiento de seguridad Zero-Trust."
+            },
+            {
+                title: isEn ? "Aruba Central Cloud Operations" : "Operaciones en la Nube Aruba Central",
+                desc: isEn ? "AI-driven cloud networking platform providing unified management, AIOps telemetry, and automated security orchestration." : "Plataforma de redes en la nube impulsada por IA que ofrece gestión unificada, telemetría AIOps y orquestación de seguridad."
+            }
+        ],
+        cardTitle: isEn ? "Upgrade Your Enterprise Network" : "Actualiza tu Red Empresarial",
+        cardText: isEn 
+            ? "Transform your connectivity infrastructure with high-performance Aruba networking solutions implemented by certified network engineers." 
+            : "Transforma tu infraestructura de conectividad con soluciones de red Aruba de alto rendimiento implementadas por ingenieros certificados",
+        ctaLabel: isEn ? "Consult Aruba Experts" : "Consultar Expertos Aruba",
+        badge: "Aruba Edge-to-Cloud",
+        heroImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80"
+    }
+};
+
+const content = brandData[brand];
 ---
 
-<main class="animate-fade-in py-16 px-4">
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-slate-900 to-blue-900 py-20 px-4 text-white rounded-2xl">
-        <h1 class="text-4xl text-center md:text-5xl font-bold text-white mb-6">{brandName}</h1>
-        <div class="w-24 h-1 bg-tyta-amber mx-auto mb-6"></div>
-        <p class="text-xl text-center text-slate-200 max-w-3xl mx-auto">
-            {content.tagline}
-        </p>
+<main class="animate-fade-in py-16 px-4 md:px-8 max-w-7xl mx-auto space-y-24">
+    <!-- Hero Section Moderno con Efecto Glow y Tarjeta Multimedia -->
+    <section class="relative bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 py-20 px-6 md:px-16 text-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-800/80">
+        <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/25 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
+        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-500/15 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-center relative z-10">
+            <div class="lg:col-span-7 space-y-6 text-left">
+                <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-widest shadow-inner">
+                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
+                    {content.badge ?? (isEn ? "Enterprise Technology Partner" : "Partner Tecnológico Autorizado")}
+                </span>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                    {content.name}
+                </h1>
+                <div class="w-24 h-1.5 bg-tyta-amber rounded-full shadow-lg shadow-amber-500/20"></div>
+                <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+                    {content.tagline}
+                </p>
+                <div class="pt-2 flex flex-wrap gap-4">
+                    <a
+                        href={contactHref}
+                        class="inline-flex items-center gap-2 bg-tyta-amber text-slate-950 px-7 py-3.5 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/10 transform hover:-translate-y-0.5"
+                    >
+                        {isEn ? "Request Solution Consultation" : "Solicitar Asesoría Experta"} →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Imagen Hero para marcas distintas a Veeam -->
+            {brand !== 'veeam' && content.heroImage && (
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/30 to-amber-500/20 rounded-2xl filter blur-xl transform scale-95 opacity-70"></div>
+                    <div class="relative rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl bg-slate-900/50 backdrop-blur-sm group">
+                        <img 
+                            src={content.heroImage} 
+                            alt={content.name}
+                            class="w-full h-[320px] md:h-[380px] object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-6">
+                            <div class="text-sm font-semibold text-slate-200 flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 bg-tyta-amber rounded-full shadow"></span>
+                                {isEn ? "Certified Enterprise Architecture" : "Arquitectura Empresarial Certificada"}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
     </section>
 
-    <!-- Detalles del Servicio -->
-    <section class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center mt-16">
-        <div class="space-y-6">
-            <h2 class="text-3xl font-bold text-slate-900">{content.whyTitle}</h2>
-            <p class="text-slate-600 leading-relaxed">{content.whyText}</p>
-            <ul class="space-y-3">
+    <!-- Sección exclusiva para Veeam -->
+    {brand === 'veeam' && (
+        <section class="space-y-12">
+            <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-blue-500/40 transition-all duration-300">
+                <div class="order-2 md:order-1 space-y-4">
+                    <span class="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-blue-100">
+                        {isEn ? "Ecosystem Integration" : "Integración del Ecosistema"}
+                    </span>
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                        {isEn ? "Unified Protection Across Any Workload" : "Protección Unificada en Cualquier Carga de Trabajo"}
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        {isEn 
+                            ? "Seamlessly connect and protect physical workloads, public clouds, SaaS services, identity providers, and AI platforms from a single centralized dashboard." 
+                            : "Conecta y protege sin problemas cargas de trabajo físicas, nubes públicas, servicios SaaS, proveedores de identidad y plataformas de IA desde un panel centralizado único."
+                        }
+                    </p>
+                </div>
+                <div class="order-1 md:order-2 rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
+                    <Image src={veeamEcosystemImg} alt="Veeam Data Platform Ecosystem" class="w-full h-auto object-contain rounded-xl" />
+                </div>
+            </div>
+
+            <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-amber-500/40 transition-all duration-300">
+                <div class="rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
+                    <Image src={veeamDashboardImg} alt="Veeam Data Platform Scorecard" class="w-full h-auto object-contain rounded-xl" />
+                </div>
+                <div class="space-y-4">
+                    <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-amber-100">
+                        {isEn ? "Data Platform Scorecard" : "Métricas de Resiliencia"}
+                    </span>
+                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                        {isEn ? "Complete Visibility and Compliance Health" : "Visibilidad Completa y Salud de Cumplimiento"}
+                    </h3>
+                    <p class="text-slate-600 leading-relaxed text-base">
+                        {isEn 
+                            ? "Monitor your security compliance, data recovery health, protection status, and immutability readiness in real time with automated intelligence." 
+                            : "Monitorea tu cumplimiento de seguridad, la salud de recuperación de datos, el estado de protección y la preparación de inmutabilidad en tiempo real con inteligencia automatizada."
+                        }
+                    </p>
+                </div>
+            </div>
+        </section>
+    )}
+
+    <!-- Sección de Soluciones y Portafolio -->
+    <section class="space-y-12">
+        <div class="text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">{content.solutionsTitle}</h2>
+            <div class="w-20 h-1.5 bg-tyta-amber mx-auto mb-4 rounded-full"></div>
+            <p class="text-slate-600 text-lg">{content.solutionsSubtitle}</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {content.solutions.map((sol, index) => (
+                <div class="group relative overflow-hidden rounded-3xl bg-white border border-slate-200/80 p-8 transition-all duration-500 hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1.5 flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-amber-500/5 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-125"></div>
+                    <div>
+                        <div class="w-14 h-14 bg-slate-900 text-tyta-amber rounded-2xl flex items-center justify-center font-bold text-xl mb-6 group-hover:bg-tyta-amber group-hover:text-slate-950 transition-all duration-300 shadow-md group-hover:rotate-6">
+                            0{index + 1}
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors">{sol.title}</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed">{sol.desc}</p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors">
+                        <span>{isEn ? "Enterprise Spec" : "Especificación Enterprise"}</span>
+                        <span class="ml-auto transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <!-- Sección de Beneficios y CTA -->
+    <section class="grid lg:grid-cols-12 gap-12 items-center pt-6">
+        <div class="lg:col-span-6 space-y-6">
+            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">{content.whyTitle}</h2>
+            <p class="text-slate-600 leading-relaxed text-base md:text-lg">{content.whyText}</p>
+            <ul class="space-y-4 pt-2">
                 {content.benefits.map((item) => (
-                    <li class="flex items-center gap-3">
-                        <span class="text-tyta-amber text-lg">●</span> {item}
+                    <li class="flex items-start gap-4 text-slate-700 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm transition-all duration-300 hover:border-blue-500/40 hover:shadow-md hover:bg-slate-50/50">
+                        <span class="text-tyta-amber bg-slate-900 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mt-0.5 shrink-0 shadow">✓</span> 
+                        <span class="leading-snug font-medium text-sm md:text-base text-slate-800">{item}</span>
                     </li>
                 ))}
             </ul>
         </div>
 
-        <!-- Tarjeta dinámica -->
-        <div class="bg-slate-900 p-8 rounded-2xl text-white transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl">
-            <h3 class="text-2xl font-bold mb-4 text-tyta-amber">{content.cardTitle}</h3>
-            <p class="text-slate-300">{content.cardText}</p>
-            <div class="mt-8">
+        <div class="lg:col-span-6 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 md:p-12 rounded-[2.5rem] text-white shadow-2xl border border-slate-800 relative overflow-hidden group">
+            <div class="absolute -top-24 -right-24 w-64 h-64 bg-tyta-amber/20 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
+            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-auto">
+                <span class="inline-block bg-tyta-amber/10 text-tyta-amber border border-tyta-amber/20 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-6">
+                    {isEn ? "Actionable Next Step" : "Siguiente Paso Estratégico"}
+                </span>
+                <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white tracking-tight">{content.cardTitle}</h3>
+                <p class="text-slate-300 leading-relaxed mb-8 text-base font-light">{content.cardText}</p>
+                <div>
+                    <a
+                        href={contactHref}
+                        class="inline-flex items-center justify-center w-full sm:w-auto bg-tyta-amber text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-0.5"
+                    >
+                        {content.ctaLabel}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Banner Inferior -->
+    <section class="bg-gradient-to-r from-slate-900 via-slate-950 to-blue-950 text-white rounded-[2rem] p-8 md:p-14 text-center shadow-2xl relative overflow-hidden border border-slate-800">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
+        <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+            <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+                {isEn ? "Architected for Absolute Reliability" : "Infraestructura Tecnológica de Alta Confiabilidad"}
+            </h3>
+            <p class="text-slate-300 text-base md:text-lg leading-relaxed font-light">
+                {isEn 
+                    ? "Integrate high-end infrastructure solutions tailored to your operational environment, backed by expert deployment and authorized local support." 
+                    : "Integre soluciones de infraestructura de alta gama adaptadas a su entorno operativo, respaldadas por despliegue experto y soporte local autorizado en T&TA de Centroamérica."
+                }
+            </p>
+            <div class="pt-2">
                 <a
                     href={contactHref}
-                    class="inline-block bg-white text-slate-900 px-6 py-2 rounded font-bold hover:bg-tyta-amber transition-colors"
+                    class="inline-flex items-center gap-2 bg-white text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-slate-100 transition-all shadow-lg hover:shadow-white/10"
                 >
-                    {content.ctaLabel}
+                    {isEn ? "Consult an Engineer" : "Consultar con un Ingeniero T&TA"} →
                 </a>
             </div>
         </div>
@@ -58,6 +463,6 @@ const contactHref = localizedPath(locale, "/contact");
 </main>
 
 <style>
-    .animate-fade-in { animation: fadeIn 0.8s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .animate-fade-in { animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 </style>

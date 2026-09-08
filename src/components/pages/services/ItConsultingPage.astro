@@ -5,31 +5,300 @@ import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n"
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
 const content = t.servicesPages.itConsulting;
+const contactHref = localizedPath(locale, "/contact");
 
 const brands = [
-    { key: 'veeam', slug: 'veeam' },
-    { key: 'arubaNetworks', slug: 'aruba-networks' },
-    { key: 'vmware', slug: 'vmware' },
-    { key: 'dell', slug: 'dell' },
-    { key: 'lenovo', slug: 'lenovo' },
+    { 
+        key: 'veeam', 
+        slug: 'veeam', 
+        descEs: 'Protección y recuperación de datos modernos.', 
+        descEn: 'Modern Data Protection & Recovery' 
+    },
+    { 
+        key: 'arubaNetworks', 
+        slug: 'aruba-networks', 
+        descEs: 'Redes empresariales y conectividad inalámbrica.', 
+        descEn: 'Enterprise Networking & Wireless' 
+    },
+    { 
+        key: 'vmware', 
+        slug: 'vmware', 
+        descEs: 'Infraestructura de virtualización y nube.', 
+        descEn: 'Virtualization & Cloud Infrastructure' 
+    },
+    { 
+        key: 'dell', 
+        slug: 'dell', 
+        descEs: 'Servidores, almacenamiento y cómputo avanzado.', 
+        descEn: 'Servers, Storage & Computing' 
+    },
+    { 
+        key: 'lenovo', 
+        slug: 'lenovo', 
+        descEs: 'Hardware empresarial confiable y de alto rendimiento.', 
+        descEn: 'Reliable Enterprise Hardware' 
+    },
 ] as const;
+
+const consultingAreas = [
+    { 
+        title: locale === 'en' ? 'IT Management' : 'Gestión de TI', 
+        icon: '📋', 
+        desc: locale === 'en' ? 'Strategic governance and operational alignment.' : 'Gobierno estratégico y alineación operativa tecnológica.' 
+    },
+    { 
+        title: locale === 'en' ? 'Assessment & Optimization' : 'Evaluación y Optimización', 
+        icon: '🔍', 
+        desc: locale === 'en' ? 'Deep architecture audits and performance tuning.' : 'Auditorías profundas de arquitectura y ajuste de rendimiento.' 
+    },
+    { 
+        title: locale === 'en' ? 'Virtualization & Protection' : 'Virtualización, Aplicaciones y Protección', 
+        icon: '💻', 
+        desc: locale === 'en' ? 'Secure environments and application availability.' : 'Entornos seguros y disponibilidad de aplicaciones.' 
+    },
+    { 
+        title: locale === 'en' ? 'Upgrades & Migration' : 'Actualización, Adecuación y Migración', 
+        icon: '🔄', 
+        desc: locale === 'en' ? 'Seamless transitions to modern platforms.' : 'Transiciones sin fricción hacia plataformas modernas.' 
+    },
+    { 
+        title: locale === 'en' ? 'Data Storage' : 'Almacenamiento de Datos', 
+        icon: '🗄️', 
+        desc: locale === 'en' ? 'Scalable, high-performance storage arrays.' : 'Arreglos de almacenamiento escalables y de alto rendimiento.' 
+    },
+    { 
+        title: locale === 'en' ? 'Redundancy & Availability' : 'Protección, Redundancia y Disponibilidad', 
+        icon: '🛡️', 
+        desc: locale === 'en' ? 'Business continuity and disaster recovery frameworks.' : 'Continuidad de negocio y marcos de recuperación.' 
+    },
+    { 
+        title: locale === 'en' ? 'Servers & Compute' : 'Servidores y Cómputo', 
+        icon: '⚡', 
+        desc: locale === 'en' ? 'High-density compute hardware implementations.' : 'Implementaciones de hardware de cómputo de alta densidad.' 
+    },
+    { 
+        title: locale === 'en' ? 'Hyperconvergence & Security' : 'Hiperconvergencia, Seguridad y Rendimiento', 
+        icon: '🔐', 
+        desc: locale === 'en' ? 'Integrated compute, storage, and advanced security.' : 'Cómputo integrado, almacenamiento y seguridad avanzada.' 
+    },
+    { 
+        title: locale === 'en' ? 'Networks & Mobility' : 'Redes y Movilidad', 
+        icon: '📶', 
+        desc: locale === 'en' ? 'Robust connectivity solutions for modern enterprises.' : 'Soluciones de conectividad robustas para empresas.' 
+    },
+    { 
+        title: locale === 'en' ? 'Wireless & Wired Design' : 'Diseño, Optimización Wireless y Cableadas', 
+        icon: '🌐', 
+        desc: locale === 'en' ? 'End-to-end network layout and tuning.' : 'Diseño y calibración integral de infraestructura de red.' 
+    },
+    { 
+        title: locale === 'en' ? 'Cybersecurity & Perimeter' : 'Ciberseguridad y Perímetro', 
+        icon: '🔒', 
+        desc: locale === 'en' ? 'Advanced threat protection and firewall deployment.' : 'Protección avanzada contra amenazas y despliegue de firewalls.' 
+    },
+    { 
+        title: locale === 'en' ? 'Cloud & Hybrid Integration' : 'Integración Cloud e Híbrida', 
+        icon: '☁️', 
+        desc: locale === 'en' ? 'Bridging on-premises systems with multi-cloud environments.' : 'Conexión de sistemas locales con entornos multi-nube.' 
+    }
+];
+
+const certifications = [
+    {
+        name: 'Hewlett Packard Enterprise (HPE)',
+        category: locale === 'en' ? 'Enterprise Infrastructure Partner' : 'Socio de Infraestructura Empresarial',
+        badgeId: 'hpe'
+    },
+    {
+        name: 'VMware Certified Professional',
+        category: locale === 'en' ? 'Virtualization & Cloud Expert' : 'Experto en Virtualización y Nube',
+        badgeId: 'vmware'
+    },
+    {
+        name: 'Veeam Modern Data Protection',
+        category: locale === 'en' ? 'Backup & Recovery Specialist' : 'Especialista en Resguardo y Recuperación',
+        badgeId: 'veeam'
+    },
+    {
+        name: 'HPE Aruba Networking',
+        category: locale === 'en' ? 'Edge-to-Cloud Connectivity' : 'Conectividad de Extremo a Nube',
+        badgeId: 'aruba'
+    },
+    {
+        name: 'Dell Technologies Partner',
+        category: locale === 'en' ? 'Servers & Storage Solutions' : 'Soluciones de Servidores y Almacenamiento',
+        badgeId: 'dell'
+    },
+    {
+        name: 'Lenovo Enterprise Solutions',
+        category: locale === 'en' ? 'Datacenter Hardware Expert' : 'Experto en Hardware de Centro de Datos',
+        badgeId: 'lenovo'
+    },
+    {
+        name: 'Cisco Select Partner',
+        category: locale === 'en' ? 'Networking & Security' : 'Redes y Seguridad',
+        badgeId: 'cisco'
+    },
+    {
+        name: 'Microsoft Solutions Partner',
+        category: locale === 'en' ? 'Cloud Platform & Infrastructure' : 'Plataforma en la Nube e Infraestructura',
+        badgeId: 'microsoft'
+    }
+];
 ---
 
-<main class="py-16 px-4">
-    <div class="max-w-3xl mx-auto text-center mb-12">
-        <h1 class="text-4xl font-bold mb-4">{content.title}</h1>
-        <p class="text-slate-600 text-lg">{content.subtitle}</p>
-    </div>
-    <div class="max-w-5xl mx-auto grid md:grid-cols-3 gap-6">
-        {brands.map((brand) => (
-            <a
-                href={localizedPath(locale, `/services/${brand.slug}`)}
-                class="group block p-10 bg-slate-100 rounded-lg text-center hover:bg-tyta-amber transition-all duration-300"
-            >
-                <span class="text-lg font-bold text-slate-800 group-hover:text-white transition-colors">
-                    {t.services[brand.key]}
+<main class="bg-slate-50 overflow-hidden">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] py-24 px-4 text-white overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:400px]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"></div>
+
+        <div class="relative max-w-4xl mx-auto text-center z-10">
+            <div class="inline-block mb-4">
+                <span class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg">
+                    {locale === 'en' ? 'Enterprise Technology Consulting' : 'Consultoría y Actualización Tecnológica'}
+                </span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6">
+                {content.title}
+            </h1>
+            <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                {locale === 'en'
+                    ? 'At T&TA de Centroamérica, we provide IT consulting services specializing in infrastructure and technology upgrades, delivering high-impact solutions.'
+                    : 'En T&TA de Centroamérica ofrecemos servicios de consultoría en TI, especializados en infraestructura y actualización tecnológica, con soluciones de alto impacto.'}
+            </p>
+        </div>
+        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-amber/15 blur-3xl pointer-events-none rounded-full"></div>
+    </section>
+
+    <!-- Áreas de Consultoría -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">Expertise Integral</span>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">
+                {locale === 'en' ? 'Our Consulting Core Areas' : 'Áreas Clave de Consultoría'}
+            </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {consultingAreas.map((area) => (
+                <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-700 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm">
+                            {area.icon}
+                        </div>
+                        <h4 class="font-extrabold text-slate-900 text-lg mb-2 group-hover:text-tyta-blue transition-colors">
+                            {area.title}
+                        </h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            {area.desc}
+                        </p>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <!-- Fondo Azul: Ingenieros Certificados y Marcas -->
+    <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:300px]"></div>
+        
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
+                    {locale === 'en' ? 'Certified Engineers' : 'Ingenieros Certificados'}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4 tracking-tight">
+                    {locale === 'en' ? 'Brands & Technological Ecosystems' : 'Marcas y Ecosistemas Tecnológicos'}
+                </h2>
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                    {locale === 'en' 
+                        ? 'At T&TA de Centroamérica features highly qualified and certified engineers across top-tier market solutions:'
+                        : 'En T&TA de Centroamérica contamos con ingenieros altamente calificados y certificados en las principales soluciones del mercado:'}
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                {brands.map((brand) => (
+                    <a
+                        href={localizedPath(locale, `/services/${brand.slug}`)}
+                        class="group bg-white/5 backdrop-blur-md p-7 rounded-2xl border border-white/10 hover:border-tyta-amber hover:bg-white/10 hover:scale-105 transition-all duration-300 flex flex-col justify-between shadow-lg"
+                    >
+                        <div>
+                            <span class="block text-lg font-extrabold text-white group-hover:text-tyta-amber transition-colors mb-2">
+                                {t.services[brand.key]}
+                            </span>
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                {locale === 'en' ? brand.descEn : brand.descEs}
+                            </p>
+                        </div>
+                        <div class="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center justify-center text-xs font-bold text-tyta-amber">
+                            {locale === 'en' ? 'Explore solution →' : 'Explorar solución →'}
+                        </div>
+                    </a>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva Sección: Certificaciones Oficiales y Alianzas -->
+    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
+                {locale === 'en' ? 'Official Badges & Partnerships' : 'Insignias y Alianzas Oficiales'}
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">
+                {locale === 'en' ? 'Our Accreditations & Certifications' : 'Nuestras Acreditaciones y Certificaciones'}
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                {locale === 'en'
+                    ? 'Endorsements from world-class technology leaders guaranteeing the highest execution standards for your business projects.'
+                    : 'Avales de líderes tecnológicos globales que garantizan los más altos estándares de ejecución para los proyectos de su empresa.'}
+            </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {certifications.map((cert) => (
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-tyta-blue/40 transition-all duration-300 flex flex-col items-center text-center group">
+                    <!-- Espacio reservado para cargar la imagen/insignia oficial de la certificación -->
+                    <div class="w-full h-32 bg-slate-100 rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center mb-5 group-hover:bg-blue-50/50 group-hover:border-tyta-blue/50 transition-colors">
+                        <svg class="w-8 h-8 text-slate-400 mb-1 group-hover:text-tyta-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-[11px] font-medium text-slate-400 group-hover:text-tyta-blue">
+                            {locale === 'en' ? 'Upload Badge Image' : 'Cargar insignia oficial'}
+                        </span>
+                    </div>
+
+                    <h3 class="font-extrabold text-slate-900 text-base mb-1 group-hover:text-tyta-blue transition-colors">
+                        {cert.name}
+                    </h3>
+                    <p class="text-xs text-slate-500 font-medium">
+                        {cert.category}
+                    </p>
+                </div>
+            ))}
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="bg-white py-20 px-4 border-t border-slate-200/60">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                {locale === 'en' ? 'Ready to elevate your IT infrastructure?' : '¿Listo para llevar su infraestructura de TI al siguiente nivel?'}
+            </h2>
+            <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg">
+                {locale === 'en' 
+                    ? 'Contact our team of certified specialists to design a customized strategy for your business.'
+                    : 'Póngase en contacto con nuestro equipo de especialistas certificados para diseñar una estrategia a la medida de su empresa.'}
+            </p>
+            <a href={contactHref} class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5">
+                <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
+                <span class="relative z-10 flex items-center gap-2">
+                    {locale === 'en' ? 'Schedule a Consultation' : 'Solicitar Consultoría'}
+                    <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </span>
             </a>
-        ))}
-    </div>
+        </div>
+    </section>
 </main>
