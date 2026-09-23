@@ -57,7 +57,6 @@ const partnerLogos = [
         background: #0f172a;
     }
 
-    /* Tarjetas con altura fija inicial para evitar empujar a las vecinas */
     .service-card {
         height: 320px;
         transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease, height 0.3s ease;
@@ -86,64 +85,63 @@ const partnerLogos = [
     </div>
 </section>
 
-<!-- Sección de Servicios con Fondo Blanco y Tarjetas de Alto Impacto -->
+<!-- Sección de Servicios -->
 <section class="py-24 bg-white text-slate-900 relative overflow-hidden">
-    <!-- Elementos decorativos sutiles de fondo en tonos claros -->
     <div class="absolute top-0 left-1/4 w-96 h-96 bg-tyta-blue/5 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-tyta-amber/5 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
         <div class="reveal text-center max-w-3xl mx-auto mb-20">
-            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
-                {locale === 'es' ? 'Soluciones Tecnológicas Integrales' : 'Comprehensive Tech Solutions'}
+            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+                {locale === 'es' ? 'Nuestros Servicios y Soluciones' : 'Our Services and Solutions'}
             </span>
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight text-slate-900">{t.homePage.services.title}</h2>
-            <p class="text-slate-600 text-lg leading-relaxed">{t.homePage.services.subtitle}</p>
+            <p class="text-slate-600 text-lg leading-relaxed mt-2">
+                {locale === 'es' ? 'Infraestructura, soporte y consultoría para su empresa.' : 'Infrastructure, support and consultancy for your company.'}
+            </p>
         </div>
         
-        <!-- Contenedor con Grid de Servicios con alineación superior para que la expansión hacia abajo sea limpia -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
-            {t.homePage.services.items.map((service, index) => (
-                <a
-                    href={serviceHref(service.slug)}
-                    class="reveal service-card group relative flex flex-col items-center text-center justify-between p-8 bg-slate-900 text-white rounded-3xl border border-slate-800 hover:border-tyta-amber hover:shadow-[0_20px_40px_rgba(15,23,42,0.25)] overflow-hidden"
-                    style={`transition-delay: ${index * 120}ms`}
-                >
-                    <!-- Efecto de brillo superior al hacer hover -->
-                    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-tyta-amber to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            {t.homePage.services.items.map((service, index) => {
+                const currentIcon = index === 1 ? "👥" : service.icon;
+                return (
+                    <a
+                        href={serviceHref(service.slug)}
+                        class="reveal service-card group relative flex flex-col items-center text-center justify-between p-8 bg-slate-900 text-white rounded-3xl border border-tyta-amber shadow-[0_20px_40px_rgba(15,23,42,0.25)] overflow-hidden"
+                        style={`transition-delay: ${index * 120}ms`}
+                    >
+                        <!-- Línea superior fija en amarillo -->
+                        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-tyta-amber to-transparent"></div>
 
-                    <div class="w-full flex flex-col items-center">
-                        <!-- Icono Centrado -->
-                        <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-3xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
-                            {service.icon}
-                        </div>
+                        <div class="w-full flex flex-col items-center">
+                            <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-3xl mb-6 transform group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300 shadow-inner">
+                                {currentIcon}
+                            </div>
 
-                        <!-- Título Visible Siempre -->
-                        <h3 class="text-xl font-bold text-white group-hover:text-tyta-amber transition-colors duration-200">
-                            {service.title}
-                        </h3>
+                            <!-- Título en blanco por defecto y amarillo al hacer hover -->
+                            <h3 class="text-xl font-bold text-white group-hover:text-tyta-amber transition-colors duration-200">
+                                {service.title}
+                            </h3>
 
-                        <!-- Descripción Oculta al Inicio y Revelada en Hover -->
-                        <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out w-full">
-                            <div class="overflow-hidden">
-                                <p class="text-sm text-slate-300 mt-4 leading-relaxed pt-1">
-                                    {service.description}
-                                </p>
+                            <div class="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-300 ease-out w-full">
+                                <div class="overflow-hidden">
+                                    <p class="text-sm text-slate-300 mt-4 leading-relaxed pt-1">
+                                        {service.description}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Botón de Acción Oculto al Inicio y Revelado en Hover -->
-                    <div class="w-full pt-6 mt-6 border-t border-slate-800/80 flex items-center justify-between opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-out">
-                        <span class="text-xs font-bold uppercase tracking-wider text-tyta-amber">
-                            {t.homePage.services.ctaLabel || (locale === 'es' ? 'Ver detalles' : 'View details')}
-                        </span>
-                        <span class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-tyta-amber border border-slate-700 group-hover:bg-tyta-amber group-hover:text-slate-950 transition-all duration-200">
-                            →
-                        </span>
-                    </div>
-                </a>
-            ))}
+                        <div class="w-full pt-6 mt-6 border-t border-slate-800/80 flex items-center justify-between opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 ease-out">
+                            <span class="text-xs font-bold uppercase tracking-wider text-tyta-amber">
+                                {t.homePage.services.ctaLabel || (locale === 'es' ? 'Ver detalles' : 'View details')}
+                            </span>
+                            <span class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-tyta-amber border border-slate-700 group-hover:bg-tyta-amber group-hover:text-slate-950 transition-all duration-200">
+                                →
+                            </span>
+                        </div>
+                    </a>
+                );
+            })}
         </div>
     </div>
 </section>
@@ -152,7 +150,9 @@ const partnerLogos = [
 <section class="py-20 bg-slate-50">
     <div class="max-w-7xl mx-auto px-6 text-center">
         <div class="reveal">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">{t.partners.title}</h2>
+            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+                {locale === 'es' ? 'Socios Tecnológicos' : 'Technology Partners'}
+            </span>
             <p class="text-slate-600 mb-16">{t.homePage.partners.subtitle}</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center">
@@ -171,7 +171,9 @@ const partnerLogos = [
 <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6 text-center">
         <div class="reveal">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-2">{t.clients.title}</h2>
+            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+                {locale === 'es' ? 'Empresas que confían en nosotros' : 'Trusted Companies'}
+            </span>
             <p class="text-slate-600 mb-16">{t.homePage.clients.subtitle}</p>
         </div>
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
@@ -189,8 +191,9 @@ const partnerLogos = [
 <!-- Casos de Éxito / Testimonios -->
 <section class="reveal py-24 bg-slate-50/50">
     <div class="max-w-7xl mx-auto px-6 text-center">
-        <span class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider uppercase bg-slate-200/60 rounded-full text-slate-700">{t.aboutPage.successStories.badge}</span>
-        <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">{t.aboutPage.successStories.title}</h2>
+        <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+            {t.aboutPage.successStories.badge}
+        </span>
         <p class="text-slate-500 mb-16 max-w-xl mx-auto">{t.aboutPage.successStories.subtitle}</p>
     </div>
     
@@ -231,7 +234,9 @@ const partnerLogos = [
 <section class="py-20 bg-slate-50">
     <div class="max-w-7xl mx-auto px-6">
         <div class="reveal text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-4">{t.homePage.news.title}</h2>
+            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+                {locale === 'es' ? 'Noticias y Novedades' : 'News & Updates'}
+            </span>
             <p class="text-slate-600 text-lg">{t.homePage.news.subtitle}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">

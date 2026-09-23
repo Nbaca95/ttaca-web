@@ -14,6 +14,9 @@ const topicOptions = [
     { value: "site-environmental-survey", label: t.services.siteEnvironmentalSurvey },
     { value: "other", label: t.contact.topicOther },
 ];
+
+// Configura aquí tu enlace de Setmore
+const setmoreBookingUrl = "https://tu-enlace-de-setmore.setmore.com";
 ---
 
 <style>
@@ -27,8 +30,7 @@ const topicOptions = [
         transform: translateY(0);
     }
 
-    /* Floating label: la etiqueta empieza dentro del campo (como un placeholder)
-       y sube arriba del borde al enfocar o cuando ya hay contenido. */
+    /* Floating label */
     .float-label {
         position: absolute;
         left: 1rem;
@@ -50,26 +52,30 @@ const topicOptions = [
 </style>
 
 <main class="relative bg-white overflow-hidden">
-    <!-- Fondo compartido por el encabezado y el formulario, disolviéndose a blanco -->
+    <!-- Fondo compartido por el encabezado y el formulario -->
     <div class="absolute inset-x-0 top-0 h-[560px] md:h-[950px] z-0 pointer-events-none">
         <Image src={bgContact} alt="" class="w-full h-full object-cover object-top md:object-[center_28%]" />
         <div class="absolute inset-0 bg-gradient-to-b from-slate-900/90 from-0% via-slate-900/40 via-55% to-white to-95%"></div>
     </div>
 
-    <!-- Encabezado -->
-    <section class="relative z-10 h-[420px] flex items-center justify-center">
+    <!-- Encabezado Armonizado -->
+    <section class="relative z-10 h-[460px] flex items-center justify-center">
         <div class="max-w-3xl px-6 text-center text-white">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">{t.contact.title}</h1>
-            <p class="text-lg text-slate-200">{t.contact.subtitle}</p>
+            <span class="inline-block px-6 py-2 mb-6 text-xs font-extrabold uppercase tracking-widest bg-slate-800 rounded-full text-tyta-amber border border-slate-700 shadow-md">
+                {locale === 'en' ? 'Contact Us' : 'Comuníquese con Nosotros'}
+            </span>
+            <p class="text-lg text-slate-200 max-w-2xl mx-auto">
+                {t.contact.subtitle}
+            </p>
         </div>
     </section>
 
     <!-- Formulario + información -->
     <section class="relative z-10 max-w-6xl mx-auto px-4 pb-20 grid md:grid-cols-5 gap-12">
+        <!-- Formulario -->
         <div class="reveal md:col-span-3">
             <div class="bg-white shadow-sm rounded-2xl p-8 border border-slate-100">
                 <form id="contact-form" class="space-y-6" novalidate>
-                    <!-- Honeypot anti-spam: invisible para personas, los bots suelen rellenarlo -->
                     <input
                         type="checkbox"
                         name="botcheck"
@@ -79,7 +85,6 @@ const topicOptions = [
                         autocomplete="off"
                     />
 
-                    <!-- TODO: reemplazar por tu Access Key real de https://web3forms.com -->
                     <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
                     <input type="hidden" name="subject" value="Nuevo mensaje desde el sitio web T&TA" />
 
@@ -149,15 +154,20 @@ const topicOptions = [
                         <label for="message" class="float-label">{t.contact.message}</label>
                     </div>
 
+                    <!-- Botón del formulario en color azul con efecto de flecha -->
                     <button
                         type="submit"
                         id="contact-submit"
-                        class="bg-tyta-blue hover:bg-tyta-dark text-white font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+                        class="group/btn inline-flex items-center justify-center bg-tyta-blue hover:bg-tyta-dark text-white font-bold uppercase tracking-wider text-sm px-8 py-4 rounded-full transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
                     >
-                        {t.contact.submit}
+                        <span class="flex items-center gap-2">
+                            {t.contact.submit}
+                            <svg class="w-4 h-4 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </span>
                     </button>
 
-                    <!-- Alerta de resultado (éxito/error) -->
                     <div id="contact-result" class="hidden items-start gap-3 rounded-lg p-4 text-sm font-medium" role="status">
                         <span id="contact-result-icon" class="text-lg leading-none"></span>
                         <span id="contact-result-text"></span>
@@ -166,47 +176,98 @@ const topicOptions = [
             </div>
         </div>
 
-        <!-- Información de contacto -->
-        <div class="reveal md:col-span-2">
-            <div class="bg-white shadow-sm rounded-2xl p-8 space-y-6 border border-slate-100">
-                <h2 class="text-xl font-bold text-slate-900">{t.contactPage.infoTitle}</h2>
+        <!-- Información de contacto y Agendamiento Setmore con estilo unificado -->
+        <div class="reveal md:col-span-2 space-y-6">
+            <!-- Tarjeta de Canales de Comunicación -->
+            <div class="bg-slate-900 rounded-3xl border border-tyta-amber p-8 space-y-6 shadow-[0_20px_40px_rgba(15,23,42,0.25)] relative overflow-hidden group">
+                <!-- Línea superior amarilla decorativa -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-tyta-amber to-transparent"></div>
 
-                <div class="flex gap-3">
-                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
+                <div>
+                    <h2 class="text-xl font-extrabold text-white tracking-tight">
+                        {locale === 'en' ? 'Communication Channels' : 'Canales de Comunicación'}
+                    </h2>
+                    <p class="text-xs text-slate-300 mt-1">
+                        {locale === 'en' ? 'We are ready to assist your enterprise.' : 'Estamos listos para atender sus requerimientos tecnológicos.'}
+                    </p>
+                </div>
+
+                <div class="flex gap-4 items-start">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shadow-inner flex-shrink-0">
+                        📍
+                    </div>
                     <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.addressLabel}</p>
-                        <p class="text-slate-700">{t.contactPage.addressValue}</p>
+                        <p class="text-xs font-bold uppercase tracking-wider text-tyta-amber mb-0.5">{t.contactPage.addressLabel}</p>
+                        <p class="text-slate-200 text-sm leading-relaxed">{t.contactPage.addressValue}</p>
                     </div>
                 </div>
 
-                <div class="flex gap-3">
-                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-1C7.42 18 2 12.58 2 6V3z"></path>
-                    </svg>
+                <div class="flex gap-4 items-start">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shadow-inner flex-shrink-0">
+                        📞
+                    </div>
                     <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.phoneLabel}</p>
-                        <a href="tel:+50622217783" class="text-tyta-blue font-medium hover:underline">(506) 2221-7783</a>
+                        <p class="text-xs font-bold uppercase tracking-wider text-tyta-amber mb-0.5">{t.contactPage.phoneLabel}</p>
+                        <a href="tel:+50622217783" class="text-slate-200 text-sm font-medium hover:text-tyta-amber transition-colors">(506) 2221-7783</a>
                     </div>
                 </div>
 
-                <div class="flex gap-3">
-                    <svg class="w-5 h-5 text-tyta-blue flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
-                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
-                    </svg>
+                <div class="flex gap-4 items-start">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-xl shadow-inner flex-shrink-0">
+                        ✉️
+                    </div>
                     <div>
-                        <p class="text-xs font-bold uppercase text-slate-400 mb-1">{t.contactPage.emailLabel}</p>
-                        <a href="mailto:info@ttaca.com" class="text-tyta-blue font-medium hover:underline">info@ttaca.com</a>
+                        <p class="text-xs font-bold uppercase tracking-wider text-tyta-amber mb-0.5">{t.contactPage.emailLabel}</p>
+                        <a href="mailto:info@ttaca.com" class="text-slate-200 text-sm font-medium hover:text-tyta-amber transition-colors">info@ttaca.com</a>
                     </div>
                 </div>
+            </div>
+
+            <!-- Tarjeta de Agendamiento -->
+            <div class="bg-slate-900 rounded-3xl border border-tyta-amber p-8 space-y-6 shadow-[0_20px_40px_rgba(15,23,42,0.25)] relative overflow-hidden group">
+                <!-- Línea superior amarilla decorativa -->
+                <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-tyta-amber to-transparent"></div>
+
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl shadow-inner flex-shrink-0">
+                        📅
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-lg text-white">
+                            {locale === 'en' ? 'Schedule a Session' : 'Agendar una sesión'}
+                        </h3>
+                        <p class="text-xs text-slate-300 mt-0.5">
+                            {locale === 'en' ? 'Pick a date & time for a Teams meeting' : 'Seleccione fecha y hora para reunión por Teams'}
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    {locale === 'en' 
+                        ? 'Book a direct slot with our technical experts through our scheduling calendar.' 
+                        : 'Reserve un espacio directamente en nuestro calendario digital.'}
+                </p>
+
+                <!-- Botón de color amarillo con efecto de flecha -->
+                <a
+                    href={setmoreBookingUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group/btn relative w-full inline-flex items-center justify-center bg-tyta-amber text-slate-950 text-sm font-bold tracking-wider uppercase py-4 px-6 rounded-full overflow-hidden transition-all duration-300 shadow-[0_4px_25px_rgba(242,142,43,0.35)] hover:shadow-[0_6px_30px_rgba(242,142,43,0.5)] hover:-translate-y-0.5"
+                >
+                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-amber-400/0 via-white/40 to-amber-400/0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 ease-out"></span>
+                    <span class="relative z-10 flex items-center gap-2">
+                        {locale === 'en' ? 'Book Online' : 'Reserva en línea'}
+                        <svg class="w-4 h-4 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Mapa: sección propia, ancho completo -->
+    <!-- Mapa -->
     <section class="relative z-10 max-w-6xl mx-auto px-4 pb-20">
         <div class="reveal rounded-2xl overflow-hidden border border-slate-100 shadow-lg">
             <iframe
@@ -229,7 +290,6 @@ const topicOptions = [
         errorMessage: t.contact.error,
     }}
 >
-    // Envío del formulario
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('contact-submit');
     const resultEl = document.getElementById('contact-result');
@@ -277,7 +337,6 @@ const topicOptions = [
         });
     }
 
-    // Validación visual en vivo
     document.querySelectorAll('#contact-form [data-validate]').forEach((field) => {
         const markValidity = () => {
             field.classList.remove('border-red-400', 'border-emerald-400', 'border-slate-200');
@@ -295,7 +354,6 @@ const topicOptions = [
         });
     });
 
-    // Efecto de aparición al hacer scroll
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) entry.target.classList.add('active');

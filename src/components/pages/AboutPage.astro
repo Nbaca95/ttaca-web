@@ -68,30 +68,24 @@ const certifications = [
     .testimonials-swiper .swiper-pagination-bullet-active {
         width: 28px;
         border-radius: 6px;
-        background: #0f172a; /* Color oscuro elegante o acento */
+        background: #0f172a;
     }
 </style>
 
 <main class="bg-white">
-    <!-- Hero Section: Banner completo con la imagen 20anos.jpg ajustada 
-    <section class="relative w-full overflow-hidden bg-slate-950">
-        <div class="w-full aspect-[16/9] sm:aspect-[21/9] md:h-[540px] lg:h-[620px]">
-            <Image 
-                src={grupoImage} 
-                alt="20 Años T&TA Costa Rica" 
-                class="w-full h-full object-cover object-[center_30%]" 
-            />
-        </div>
-    </section>   -->
-
     <!-- Trayectoria / Línea de Tiempo -->
     <section class="py-24 bg-slate-900 text-white overflow-hidden relative">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <span class="inline-block px-4 py-1 mb-4 text-sm bg-slate-800 rounded-full text-slate-300 border border-slate-700">
-                    {t.aboutPage.journey.badge}
+                <!-- Píldora superior armonizada con Home (Fondo Oscuro) -->
+                <span class="inline-block px-6 py-2 mb-6 text-xs font-extrabold uppercase tracking-widest bg-slate-800 rounded-full text-tyta-amber border border-slate-700 shadow-md">
+                    {t.aboutPage.journey.title}
                 </span>
-                <h2 class="text-4xl font-bold mb-6">{t.aboutPage.journey.title}</h2>
+                
+               <!-- <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+                    {locale === 'en' ? 'Our History & Evolution' : 'Nuestra Historia y Evolución'}
+                </h2> -->
+                
                 <p class="text-xl text-slate-300 leading-relaxed">{t.aboutPage.journey.text}</p>
             </div>
 
@@ -127,17 +121,29 @@ const certifications = [
 
     <!-- Misión y Visión -->
     <section class="bg-slate-50 py-20 px-6">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-            <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
-                <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🔍</div>
-                <h2 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.mission}</h2>
-                <p class="text-slate-600">{t.aboutPage.missionVision.missionText}</p>
+        <div class="max-w-7xl mx-auto">
+            <!-- Píldora de sección general (Fondo Blanco) -->
+            <div class="text-center max-w-2xl mx-auto mb-16">
+              <!--  <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-blue-50 text-tyta-blue rounded-full border border-blue-100 shadow-sm">
+                    {locale === 'en' ? 'Purpose & Direction' : 'Propósito y Dirección'}
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">
+                    {locale === 'en' ? 'Mission & Vision' : 'Misión y Visión'}
+                </h2> -->
             </div>
 
-            <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
-                <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🚀</div>
-                <h2 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.vision}</h2>
-                <p class="text-slate-600">{t.aboutPage.missionVision.visionText}</p>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
+                    <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🔍</div>
+                    <h3 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.mission}</h3>
+                    <p class="text-slate-600 leading-relaxed">{t.aboutPage.missionVision.missionText}</p>
+                </div>
+
+                <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
+                    <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🚀</div>
+                    <h3 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.vision}</h3>
+                    <p class="text-slate-600 leading-relaxed">{t.aboutPage.missionVision.visionText}</p>
+                </div>
             </div>
         </div>
     </section>
@@ -151,9 +157,14 @@ const certifications = [
             ></div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto">
-            <h2 class="reveal text-4xl font-bold text-center mb-4 text-white">{t.aboutPage.values.title}</h2>
-            <p class="reveal text-slate-300 text-center mb-10 max-w-2xl mx-auto">{t.aboutPage.values.subtitle}</p>
+        <div class="relative z-10 max-w-7xl mx-auto text-center">
+            <!-- Píldora superior armonizada con Home (Fondo Oscuro) -->
+            <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-slate-800 rounded-full text-tyta-amber border border-slate-700 shadow-md">
+                {locale === 'en' ? 'Our Values' : 'Nuestros Valores'}
+            </span>
+            <!-- <h2 class="reveal text-3xl sm:text-4xl font-extrabold text-white mb-4">{t.aboutPage.values.title}</h2> -->
+            <p class="reveal text-slate-300 mb-12 max-w-2xl mx-auto">{t.aboutPage.values.subtitle}</p>
+            
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {t.aboutPage.values.items.map((value) => (
                     <div class="reveal relative overflow-hidden p-8 bg-slate-800/70 backdrop-blur-sm rounded-2xl border border-slate-700/80 text-center group hover:-translate-y-2 hover:shadow-xl hover:shadow-tyta-amber/10 hover:border-tyta-amber transition-all duration-300 flex flex-col items-center">
@@ -166,32 +177,16 @@ const certifications = [
         </div>
     </section>
 
-    <!-- Socios Estratégicos -->
-    <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-slate-900 mb-16">{t.aboutPage.partners.title}</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center">
-                {partnerLogos.map((socio) => (
-                    <div class="group cursor-pointer">
-                        <div class={`h-16 flex items-center justify-center font-bold text-slate-400 border border-slate-100 rounded-lg bg-slate-50/50 grayscale group-hover:grayscale-0 ${socio.colorClass} transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-white`}>
-                            {socio.name}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    </section>
-
-
     <!-- Sección: Insignias y Alianzas Oficiales (Certificaciones) -->
     <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white border-t border-slate-100">
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
-                {locale === 'en' ? 'Official Badges & Partnerships' : 'Insignias y Alianzas Oficiales'}
+            <!-- Píldora superior armonizada con Home (Fondo Blanco) -->
+            <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-blue-50 text-tyta-blue rounded-full border border-blue-100 shadow-sm">
+                {locale === 'en' ? 'Accreditations, Certifications, and Official Partnerships' : 'Acreditaciones, Certificaciones y Alianzas oficiales'}
             </span>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">
-                {locale === 'en' ? 'Our Accreditations & Certifications' : 'Nuestras Acreditaciones y Certificaciones'}
-            </h2>
+          <!--  <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4">
+                {locale === 'en' ? 'Our Accreditations & Certifications' : 'Acreditaciones, Certificaciones y Alianzas oficiales'}
+            </h2> -->
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
                 {locale === 'en'
                     ? 'Endorsements from world-class technology leaders guaranteeing the highest execution standards for your business projects.'
@@ -202,7 +197,6 @@ const certifications = [
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {certifications.map((cert) => (
                 <div class="bg-slate-50/50 p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-tyta-blue/40 transition-all duration-300 flex flex-col items-center text-center group">
-                    <!-- Espacio reservado para cargar la imagen/insignia oficial de la certificación -->
                     <div class="w-full h-32 bg-white rounded-xl border-2 border-dashed border-slate-300 flex flex-col items-center justify-center mb-5 group-hover:bg-blue-50/50 group-hover:border-tyta-blue/50 transition-colors">
                         <svg class="w-8 h-8 text-slate-400 mb-1 group-hover:text-tyta-blue transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -226,8 +220,13 @@ const certifications = [
     <!-- Políticas -->
     <section class="py-20 bg-slate-900 text-white">
         <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold mb-4">{t.aboutPage.policies.title}</h2>
+            <!-- Píldora superior armonizada con Home (Fondo Oscuro) -->
+            <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-slate-800 rounded-full text-tyta-amber border border-slate-700 shadow-md">
+                {locale === 'en' ? 'Our Policies' : 'Nuestras Políticas'}
+            </span>
+            <!-- <h2 class="text-3xl sm:text-4xl font-extrabold mb-4">{t.aboutPage.policies.title}</h2> -->
             <p class="text-slate-400 mb-16">{t.aboutPage.policies.subtitle}</p>
+            
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
                 {t.aboutPage.policies.items.map((politica) => (
                     <div class="reveal group flex flex-col items-center gap-4 cursor-pointer">
@@ -253,7 +252,7 @@ const certifications = [
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Swiper Configuración Moderna (Sin flechas, transición fluida por puntos)
+    // Swiper Configuración Moderna
     document.addEventListener('DOMContentLoaded', () => {
         new Swiper('.testimonials-swiper', {
             loop: true, 

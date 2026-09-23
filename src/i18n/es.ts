@@ -462,7 +462,7 @@ export const es: Dictionary = {
     successStories: {
       badge: 'Casos de Éxito',
       title: 'Confianza que se construye con resultados',
-      subtitle: 'Clientes que han confiado en nuestra experiencia.',
+      subtitle: 'Clientes que confian en nuestra experiencia.',
       translatedNote: '',
       testimonials: [
         {
@@ -732,7 +732,7 @@ export const es: Dictionary = {
   },
   contact: {
     title: 'Contacto',
-    subtitle: 'Conversemos sobre las necesidades de su infraestructura.',
+    subtitle: 'Conversemos sobre las necesidades de su empresa.',
     name: 'Nombre',
     email: 'Correo electrónico',
     phone: 'Teléfono',
