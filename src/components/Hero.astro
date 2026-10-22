@@ -72,11 +72,15 @@ const slideVisuals = [
   },
 ];
 
-// Unimos los slides y filtramos únicamente los que no estén marcados como ocultos
-const slides = t.heroCarousel.slides
-  .map((slide, index) => ({
-    ...slide,
-    ...slideVisuals[index],
+// Orden en que se muestran los slides.
+// Los números son la posición ORIGINAL de cada slide en t.heroCarousel.slides y en slideVisuals:
+// 0 = HPE, 1 = Aruba, 2 = Outsourcing, 3 = Consultoría, 4 = Infraestructura física, 5 = Symantec
+const slideOrder = [0, 4, 5, 2, 3];
+
+const slides = slideOrder
+  .map((i) => ({
+    ...t.heroCarousel.slides[i],
+    ...slideVisuals[i],
   }))
   .filter((slide) => !slide.hidden);
 

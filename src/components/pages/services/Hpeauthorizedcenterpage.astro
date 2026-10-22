@@ -1,257 +1,826 @@
 ---
 // src/components/pages/services/HpeAuthorizedCenterPage.astro
-import { getLocaleFromUrl, getTranslations, localizedPath } from "../../../i18n";
+import { Image } from "astro:assets";
+import {
+    getLocaleFromUrl,
+    getTranslations,
+    localizedPath,
+} from "../../../i18n";
+
+// Imágenes provisionales para las tarjetas y sub-secciones NOTA: poder usar la imagen SoporteHPE.png
+import soporte from "../../../assets/images/soporte-hpe.jpg";
+import hero1Img from "../../../assets/images/SoporteHPE1.png";
+import hero2Img from "../../../assets/images/Finanzas.png";
+import hero4Img from "../../../assets/images/Marketing.png";
+import Synergy from "../../../assets/images/Synergy.png";
+import logoAruba from "../../../assets/images/RRHH.png";
+import servidores from "../../../assets/images/Proliant.png";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
-const content = t.servicesPages.hpeAuthorizedCenter;
 const contactHref = localizedPath(locale, "/contact");
+
+// Atajo para textos bilingües / traducciones
+const L = (es: string, en: string) => (locale === "en" ? en : es);
+
+// Tarjetas de navegación rápida superiores
+const summaryCards = [
+    {
+        id: "area-soporte",
+        image: soporte,
+        imageAlt: L(
+            "Soporte Técnico Autorizado HPE",
+            "Certified HPE Technical Support",
+        ),
+        cardTitle: L("Soporte Técnico Autorizado", "Authorized Tech Support"),
+        cardShort: L(
+            "Atención de garantías, diagnósticos y mantenimiento para ProLiant, Synergy, Alletra y más.",
+            "Warranty service, diagnostics, and maintenance for ProLiant, Synergy, Alletra, and more.",
+        ),
+    },
+    {
+        id: "area-instalacion",
+        image: hero2Img,
+        imageAlt: L(
+            "Instalación y Configuración de Servidores",
+            "Server Installation & Configuration",
+        ),
+        cardTitle: L("Instalación de Servidores", "Server Installation"),
+        cardShort: L(
+            "Montaje físico, configuración RAID, actualización de firmware y pruebas de estrés.",
+            "Physical mounting, RAID setup, firmware updates, and stress testing.",
+        ),
+    },
+    {
+        id: "area-respuestos",
+        image: hero4Img,
+        imageAlt: L(
+            "Servicios logísticos y almacenamiento",
+            "Logistics and parts storage",
+        ),
+        cardTitle: L("Logística y Almacenamiento", "Logistics & Part Storage"),
+        cardShort: L(
+            "Bodegas propias con control de inventario 24/7, nacionalización y cobertura nacional.",
+            "Proprietary warehouses with 24/7 stock control, customs clearance, and national coverage.",
+        ),
+    },
+];
+
+/* ------------------------------------------------------------------ */
+/* 1. CATÁLOGO Y MODELOS DE SOPORTE HPE                                */
+/* ------------------------------------------------------------------ */
+const hpeSupportLines = [
+    {
+        title: L(
+            "Servidores ProLiant (Rack / Torre)",
+            "ProLiant Servers (Rack / Tower)",
+        ),
+        desc: L(
+            "Mantenimiento correctivo/preventivo, reemplazo de fuentes, discos, placas madre y módulos de memoria en familias DL (Rack) y ML (Torre).",
+            "Corrective/preventive maintenance, replacement of PSUs, drives, motherboards, and RAM in DL (Rack) and ML (Tower) families.",
+        ),
+        image: servidores,
+        items: [
+            L(
+                "Reemplazo de partes en caliente (Hot-plug)",
+                "Hot-plug parts replacement",
+            ),
+            L(
+                "Actualización de iLO y ROM Firmware",
+                "iLO & ROM Firmware updates",
+            ),
+            L(
+                "Diagnósticos avanzados con Insight Diagnostics",
+                "Advanced diagnostics via Insight Diagnostics",
+            ),
+        ],
+    },
+    {
+        title: L(
+            "Infraestructura Synergy",
+            "Synergy Infrastructure",
+        ),
+        desc: L(
+            "Soporte especializado a nivel de chasis, módulos de cómputo (Compute Modules), interconexiones de red y gestión con HPE OneView.",
+            "Specialized support for chassis frames, compute modules, network interconnects, and HPE OneView management.",
+        ),
+        image: Synergy,
+        items: [
+            L(
+                "Mantenimiento a nivel de Frame y Midplane",
+                "Frame and Midplane maintenance",
+            ),
+            L(
+                "Reemplazo de módulos de cómputo y FC Switches",
+                "Compute modules & FC Switches replacement",
+            ),
+            L(
+                "Verificación de perfiles de servidor OneView",
+                "OneView server profile validation",
+            ),
+        ],
+    },
+    {
+        title: L(
+            "Almacenamiento Alletra & Primera",
+            "Alletra & Primera Storage Arrays",
+        ),
+        desc: L(
+            "Atención técnica para arreglos All-Flash y NVMe de misión crítica. Diagnóstico de controladoras, arreglos SSD y fuentes redundantes.",
+            "Technical service for mission-critical All-Flash & NVMe arrays. Diagnosis of controllers, SSD enclosures, and redundant PSUs.",
+        ),
+        image: hero2Img,
+        items: [
+            L(
+                "Mantenimiento de nodos y controladoras",
+                "Node & controller maintenance",
+            ),
+            L(
+                "Sustitución de unidades SSD sin interrupción",
+                "Zero-downtime SSD drive replacement",
+            ),
+            L(
+                "Análisis de salud con InfoSight AI",
+                "Health analysis with InfoSight AI",
+            ),
+        ],
+    },
+    {
+        title: L(
+            "Sistemas Hiperconvergentes SimpliVity",
+            "SimpliVity HCI Platforms",
+        ),
+        desc: L(
+            "Soporte integral a la capa de hardware y aceleradores OmniStack para plataformas hiperconvergentes empresariales.",
+            "End-to-end support for hardware layers and OmniStack accelerators in enterprise hyperconverged setups.",
+        ),
+        image: logoAruba,
+        items: [
+            L(
+                "Sustitución de aceleradores de tarjeta OmniStack",
+                "OmniStack card replacement",
+            ),
+            L(
+                "Mantenimiento de nodos de cómputo y almacenamiento",
+                "Compute & storage node maintenance",
+            ),
+            L("Pruebas de salud del clúster HCI", "HCI cluster health testing"),
+        ],
+    },
+    {
+        title: L(
+            "Almacenamiento MSA, Nimble & StoreEver",
+            "MSA, Nimble & StoreEver Storage",
+        ),
+        desc: L(
+            "Atención autorizada para cabezales SAN, expasiones de discos en caliente, librerías de cinta StoreEver y switches Fibre Channel.",
+            "Authorized support for SAN controllers, hot expansion enclosures, StoreEver tape libraries, and Fibre Channel switches.",
+        ),
+        image: hero4Img,
+        items: [
+            L(
+                "Reemplazo de drives SAS/SATA y Robótica LTO",
+                "SAS/SATA drive & LTO robotics replacement",
+            ),
+            L(
+                "Mantenimiento de switches SAN Brocade/HPE",
+                "Brocade/HPE SAN switch maintenance",
+            ),
+            L(
+                "Reconfiguración de pools y LUNs de respaldo",
+                "Pool & backup LUN re-configuration",
+            ),
+        ],
+    },
+];
+
+/* ------------------------------------------------------------------ */
+/* 2. SUB-ÁREAS DE INSTALACIÓN Y CONFIGURACIÓN                        */
+/* ------------------------------------------------------------------ */
+const installationPhases = [
+    {
+        step: "01",
+        title: L(
+            "Montaje Físico y Cableado Estructurado",
+            "Physical Mounting & Cabling",
+        ),
+        desc: L(
+            "Anclaje profesional en gabinete/rack, gestión térmica de flujo de aire, rotulación y canalización de cableado de red y energía redundante.",
+            "Professional rack anchoring, thermal airflow management, labeling, and redundant power/network cable routing.",
+        ),
+        image: hero2Img,
+    },
+    {
+        step: "02",
+        title: L(
+            "Configuración Lógica y Arreglos RAID",
+            "Logical Setup & RAID Configurations",
+        ),
+        desc: L(
+            "Configuración de controladoras Smart Array / MR, creación de volúmenes LUN/RAID (1, 5, 6, 10), provisioning de almacenamiento e iLO.",
+            "Smart Array / MR controller setup, LUN/RAID volume creation (1, 5, 6, 10), storage provisioning, and iLO management setup.",
+        ),
+        image: Synergy,
+    },
+    {
+        step: "03",
+        title: L(
+            "Actualizaciones y Pruebas de Estrés",
+            "Updates & Stress Validation",
+        ),
+        desc: L(
+            "Flash de Service Pack for ProLiant (SPP), actualización de firmwares críticos de fábrica y ejecución de pruebas térmicas y de carga sintética.",
+            "Flashing Service Pack for ProLiant (SPP), critical factory firmware updates, and synthetic load/thermal stress testing.",
+        ),
+        image: hero1Img,
+    },
+];
+
+/* ------------------------------------------------------------------ */
+/* 3. SUB-ÁREAS LOGÍSTICAS Y MANEJO DE PARTES                         */
+/* ------------------------------------------------------------------ */
+const logisticsSubAreas = [
+    {
+        title: L(
+            "Bodegas Propias y Custodia 24/7",
+            "Proprietary Warehousing & 24/7 Custody",
+        ),
+        desc: L(
+            "Infraestructura segura con climatización controlada y control antiestático (ESD) para partes sensibles como placas madre, procesadores y tarjetas de red.",
+            "Secure climate-controlled facilities with electrostatic discharge (ESD) protection for sensitive motherboards, CPUs, and NICs.",
+        ),
+        badge: "Control 24/7",
+        image: hero4Img,
+    },
+    {
+        title: L(
+            "Nacionalización y Gestión Aduanera",
+            "Customs Clearance & Import/Export",
+        ),
+        desc: L(
+            "Trámite expedito de desaduanaje para el ingreso inmediato de componentes de repuesto críticos directo desde los centros de distribución regional de HPE.",
+            "Expedited customs management for instant import of critical spare parts directly from HPE regional hubs.",
+        ),
+        badge: "Tránsito Exprés",
+        image: logoAruba,
+    },
+    {
+        title: L(
+            "Distribución y Cobertura Nacional",
+            "Nationwide Logistics & Delivery",
+        ),
+        desc: L(
+            "Logística dedicada para la entrega e instalación en sitio de repuestos en cualquier punto del territorio nacional bajo compromisos de SLA contractuales.",
+            "Dedicated logistics for on-site delivery and installation of spare parts anywhere nationwide under strict contractual SLAs.",
+        ),
+        badge: "Entrega en Sitio",
+        image: hero1Img,
+    },
+];
 ---
 
 <style>
-    /* Asegura el desplazamiento suave en toda la página */
     html {
         scroll-behavior: smooth;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+            opacity 0.8s ease-out,
+            transform 0.8s ease-out;
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
     }
 </style>
 
 <main class="bg-slate-50 overflow-hidden">
-    <!-- Hero Section con estilo corporativo inmersivo -->
-    <section class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] py-24 px-4 text-white overflow-hidden">
-        <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:400px]"></div>
-        <div class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"></div>
+    <!-- Hero Section -->
+    <section
+        class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] py-24 px-4 text-white overflow-hidden"
+    >
+        <div
+            class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"
+        >
+        </div>
 
-        <div class="relative max-w-5xl mx-auto text-center z-10">
+        <div
+            class="relative max-w-5xl mx-auto text-center z-10 reveal-on-scroll"
+        >
             <div class="inline-block mb-4">
-                <span class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg">
-                    {content.hero.eyebrow}
+                <span
+                    class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg"
+                >
+                    {L("Centro Autorizado HPE", "Authorized Center HPE")}
                 </span>
             </div>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6">
-                {content.hero.title}
+            <h1
+                class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6"
+            >
+                {
+                    L(
+                        "Servicios Especializados para Infraestructura HPE",
+                        "Specialized Services for HPE Infrastructure",
+                    )
+                }
             </h1>
-            <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-                {content.hero.text}
+            <p
+                class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed"
+            >
+                {
+                    L(
+                        "Garantizamos el máximo rendimiento y continuidad operativa de su centro de datos con soporte técnico oficial de fábrica, despliegue especializado de servidores y logística avanzada de repuestos.",
+                        "We guarantee maximum uptime and performance for your data center with official factory technical support, specialized server deployment, and advanced spare parts logistics.",
+                    )
+                }
             </p>
         </div>
 
-        <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-accent/20 blur-3xl pointer-events-none rounded-full"></div>
+        <div
+            class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-accent/20 blur-3xl pointer-events-none rounded-full"
+        >
+        </div>
     </section>
 
-    <!-- Tarjetas de Navegación Rápida basadas en content.items -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20">
+    <!-- Tarjetas de Navegación Rápida -->
+    <section
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-20 mb-20 reveal-on-scroll"
+    >
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.items.map((item, index) => {
-                // Asignamos anclajes e iconos dinámicos según el elemento
-                const anchors = ["#area-soporte", "#area-infraestructura", "#area-respuestos"];
-                const icons = ["🛠️", "⚡", "📦"];
-                const badges = ["Soporte", "Infraestructura", "Componentes"];
-                const colors = ["text-tyta-blue", "text-emerald-700", "text-amber-700"];
-
-                return (
-                    <a href={anchors[index] || "#"} class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col">
-                        <div class="h-36 overflow-hidden relative bg-slate-900">
-                            <div class="absolute inset-0 bg-blue-950/30 group-hover:bg-blue-950/0 transition-colors z-10"></div>
-                            <img src={
-                                index === 0 ? "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=600&q=80" :
-                                index === 1 ? "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=600&q=80" :
-                                "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=600&q=80"
-                            } alt={item.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90" />
-                            <span class={`absolute top-2.5 left-2.5 z-20 bg-white/90 backdrop-blur-sm ${colors[index]} font-bold text-[11px] px-2 py-0.5 rounded-md shadow-sm`}>
-                                {icons[index]} {badges[index]}
+            {
+                summaryCards.map((card) => (
+                    <a
+                        href={`#${card.id}`}
+                        class="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group flex flex-col"
+                    >
+                        <div class="h-36 overflow-hidden relative">
+                            <div class="absolute inset-0 bg-blue-950/20 group-hover:bg-blue-950/0 transition-colors z-10" />
+                            <Image
+                                src={card.image}
+                                alt={card.cardTitle}
+                                width={600}
+                                height={360}
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between gap-4">
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-tyta-amber transition-colors duration-300">
+                                    {card.cardTitle}
+                                </h3>
+                                <p class="text-xs text-slate-500 leading-relaxed">
+                                    {card.cardShort}
+                                </p>
+                            </div>
+                            <span class="inline-flex items-center gap-1.5 text-xs font-bold text-tyta-amber opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:gap-2.5 transition-all duration-300">
+                                {L("Ver detalle", "See details")}
+                                <svg
+                                    class="w-3.5 h-3.5"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2.5"
+                                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                                    />
+                                </svg>
                             </span>
                         </div>
-                        <div class="p-6 flex-1 flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-slate-900 text-lg mb-2 group-hover:text-tyta-blue transition-colors">{item.title}</h3>
-                                <p class="text-xs text-slate-500 leading-relaxed">{item.desc}</p>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 1. SOPORTE TÉCNICO AUTORIZADO HPE (EXPANDIDO CON SUB-SECCIONES)       -->
+    <!-- ==================================================================== -->
+    <!-- 1. SOPORTE TÉCNICO AUTORIZADO HPE (BANNER INMERSIVO) -->
+    <section
+        id="area-soporte"
+        class="w-full p-0 border-b border-slate-200/60 scroll-mt-24 reveal-on-scroll"
+    >
+        <div class="space-y-12">
+            <!-- Banner Inmersivo de Fondo con Texto Sobrepuesto -->
+            <div
+                class="relative w-full min-h-[680px] sm:min-h-[600px] lg:min-h-[560px] overflow-hidden flex items-center"
+            >
+                <!-- Imagen de Fondo Principal -->
+                <Image
+                    src={hero1Img}
+                    alt={L(
+                        "Soporte Técnico Autorizado HPE",
+                        "Certified HPE Technical Support",
+                    )}
+                    width={1600}
+                    height={800}
+                    class="absolute inset-0 w-full h-full object-cover object-[center_top] md:object-[center_10%]"
+                />
+
+                <!-- Overlay de Degradado Oscuro -->
+                <div
+                    class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/30"
+                >
+                </div>
+
+                <!-- Contenido sobrepuesto -->
+                <div
+                    class="relative z-10 w-full px-6 py-16 sm:px-10 sm:py-16 lg:px-16 lg:py-20 max-w-5xl space-y-6 text-white"
+                >
+                    <!-- Etiqueta -->
+                    <div
+                        class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md text-tyta-amber px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-widest uppercase border border-white/15 shadow-md"
+                    >
+                        {L("Excelencia Autorizada", "Authorized Excellence")}
+                    </div>
+
+                    <!-- Título -->
+                    <h2
+                        class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white drop-shadow-sm"
+                    >
+                        {
+                            L(
+                                "Soporte Técnico Autorizado HPE",
+                                "Certified HPE Technical Support",
+                            )
+                        }
+                    </h2>
+
+                    <!-- Descripción -->
+                    <p
+                        class="text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed font-normal max-w-3xl"
+                    >
+                        {
+                            L(
+                                "Como Centro de Servicio Autorizado oficial de Hewlett Packard Enterprise, brindamos atención técnica especializada, diagnósticos originales, sustitución de partes de fábrica y resolución de garantías directas para todo el ecosistema de servidores y almacenamiento empresarial.",
+                                "As an official Hewlett Packard Enterprise Authorized Service Center, we deliver specialized technical care, genuine factory diagnostics, original spare parts replacement, and direct warranty handling across the full enterprise server and storage lineup.",
+                            )
+                        }
+                    </p>
+
+                    <!-- Lista rápida de Garantías -->
+                    <div
+                        class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-semibold text-slate-200"
+                    >
+                        <div
+                            class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10"
+                        >
+                            <span
+                                class="w-2 h-2 rounded-full bg-tyta-amber shrink-0"
+                            ></span>
+                            {
+                                L(
+                                    "Garantías Oficiales HPE",
+                                    "Official HPE Warranties",
+                                )
+                            }
+                        </div>
+
+                        <div
+                            class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10"
+                        >
+                            <span
+                                class="w-2 h-2 rounded-full bg-tyta-amber shrink-0"
+                            ></span>
+                            {
+                                L(
+                                    "Ingenieros Certificados",
+                                    "Certified Engineers",
+                                )
+                            }
+                        </div>
+
+                        <div
+                            class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10"
+                        >
+                            <span
+                                class="w-2 h-2 rounded-full bg-tyta-amber shrink-0"
+                            ></span>
+                            {
+                                L(
+                                    "Diagnosticos y mantenimientos",
+                                    "Diagnostics and Maintenance",
+                                )
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Botón 
+                    <div class="pt-4">
+                        <a
+                            href={contactHref}
+                            class="inline-flex items-center gap-2 bg-tyta-amber text-slate-950 font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full hover:bg-amber-400 transition-colors shadow-lg"
+                        >
+                            {L("Más información", "Learn more")}
+
+                            <svg
+                                class="w-4 h-4"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Sub-sección: Tarjetas de Familias de Equipos HPE (Permanecen abajo) -->
+            <div class="pt-6">
+                <h3
+                    class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6"
+                >
+                    {
+                        L(
+                            "Modelos y Plataformas Soportadas",
+                            "Supported HPE Lines & Models",
+                        )
+                    }
+                </h3>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {
+                        hpeSupportLines.map((line) => (
+                            <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+                                <div class="relative h-44 overflow-hidden">
+                                    <Image
+                                        src={line.image}
+                                        alt={line.title}
+                                        width={600}
+                                        height={360}
+                                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                    />
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                                    <h4 class="absolute bottom-3 left-4 right-4 font-extrabold text-white text-lg tracking-tight">
+                                        {line.title}
+                                    </h4>
+                                </div>
+
+                                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        {line.desc}
+                                    </p>
+
+                                    <div class="pt-3 border-t border-slate-100">
+                                        <ul class="space-y-2">
+                                            {line.items.map((item) => (
+                                                <li class="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
+                                                    {item}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 2. INSTALACIÓN Y CONFIGURACIÓN DE SERVIDORES (EXPANDIDO)            -->
+    <!-- ==================================================================== -->
+    <section
+        id="area-instalacion"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24 reveal-on-scroll"
+    >
+        <div class="space-y-12">
+            <div class="max-w-3xl space-y-4">
+                <div
+                    class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-emerald-500/20"
+                >
+                    {L("Despliegue Profesional", "Professional Deployment")}
+                </div>
+                <h2
+                    class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight"
+                >
+                    {
+                        L(
+                            "Instalación y Puesta en Marcha de Servidores",
+                            "Server Installation & Commissioning",
+                        )
+                    }
+                </h2>
+                <p class="text-slate-600 leading-relaxed text-base">
+                    {
+                        L(
+                            "Asegure un despliegue sin fallas de sus nuevos servidores e infraestructura de centro de datos. Ejecutamos protocolos rigurosos que abarcan desde el montaje físico hasta el tuning lógico de rendimiento.",
+                            "Ensure a flawless rollout of your new servers and data center gear. We execute rigorous protocols spanning from physical mounting to logical performance tuning.",
+                        )
+                    }
+                </p>
+            </div>
+
+            <!-- Fases Visuales del Servicio de Instalación -->
+            <div class="grid lg:grid-cols-3 gap-6">
+                {
+                    installationPhases.map((phase) => (
+                        <div class="bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+                            <div class="relative h-48 overflow-hidden">
+                                <Image
+                                    src={phase.image}
+                                    alt={phase.title}
+                                    width={600}
+                                    height={360}
+                                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/30 to-transparent" />
+                                <span class="absolute top-4 left-4 bg-emerald-500/90 backdrop-blur-md text-white font-extrabold text-xs px-3 py-1 rounded-full">
+                                    {L("Fase", "Phase")} {phase.step}
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900 text-lg mb-2">
+                                        {phase.title}
+                                    </h3>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        {phase.desc}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                );
-            })}
-        </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- SECCIONES DETALLADAS DE VALOR HPE          -->
-    <!-- ========================================== -->
-
-    <!-- 1. Soporte Técnico Certificado -->
-    <section id="area-soporte" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
-        <div class="grid lg:grid-cols-12 gap-10 items-center">
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-blue-500/20">
-                    🛡️ {locale === 'en' ? 'Authorized Excellence' : 'Excelencia Autorizada'}
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                    {locale === 'en' ? 'Certified HPE Technical Support' : 'Soporte Técnico Autorizado HPE'}
-                </h2>
-                <p class="text-slate-600 leading-relaxed">
-                    {locale === 'en'
-                        ? 'As an official authorized center, we deliver diagnostics, maintenance, and direct troubleshooting backed by Hewlett Packard Enterprise standards.'
-                        : 'Como centro autorizado oficial, brindamos diagnósticos, mantenimiento preventivo/correctivo y resolución directa respaldados por los estándares de Hewlett Packard Enterprise.'}
-                </p>
-                <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
-                        <h4 class="font-bold text-slate-900 text-sm mb-1">⚡ {locale === 'en' ? 'Original Diagnostics' : 'Diagnóstico Original'}</h4>
-                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Proprietary tools and official firmware testing.' : 'Herramientas propietarias y pruebas oficiales de firmware.'}</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-blue-300 transition-all">
-                        <h4 class="font-bold text-slate-900 text-sm mb-1">⏱️ {locale === 'en' ? 'SLA Compliance' : 'Cumplimiento de SLA'}</h4>
-                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Rapid response times for business-critical hardware.' : 'Tiempos de respuesta rápidos para hardware crítico de negocio.'}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:col-span-5">
-                <div class="relative bg-gradient-to-br from-blue-950 to-blue-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-blue-800/50">
-                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
-                    <div class="relative z-15">
-                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Authorized Guarantees' : 'Garantías Autorizadas'}</h3>
-                        <ul class="space-y-3 text-sm text-slate-200">
-                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Certified manufacturer engineers' : 'Ingenieros certificados de fábrica'}</li>
-                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Direct access to HPE engineering portals' : 'Acceso directo a portales de ingeniería HPE'}</li>
-                            <li class="flex items-center gap-2.5">✔️ {locale === 'en' ? 'Rigorous quality compliance audits' : 'Auditorías rigurosas de cumplimiento'}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 2. Infraestructura y Servidores Enterprise -->
-    <section id="area-infraestructura" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24">
-        <div class="grid lg:grid-cols-12 gap-10 items-center">
-            <div class="lg:col-span-5 order-2 lg:order-1">
-                <div class="relative bg-gradient-to-br from-emerald-950 to-emerald-900 text-white p-8 rounded-3xl shadow-xl overflow-hidden border border-emerald-800/50">
-                    <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:200px]"></div>
-                    <div class="relative z-15">
-                        <h3 class="text-xl font-bold mb-4">{locale === 'en' ? 'Enterprise Portfolio' : 'Portafolio Empresarial'}</h3>
-                        <ul class="space-y-3 text-sm text-slate-200">
-                            <li class="flex items-center gap-2.5">🖥️ {locale === 'en' ? 'ProLiant Rack & Tower Servers' : 'Servidores ProLiant Rack y Torre'}</li>
-                            <li class="flex items-center gap-2.5">🗄️ {locale === 'en' ? 'SAN Switches & Storage Arrays' : 'Switches SAN y Arreglos de Almacenamiento'}</li>
-                            <li class="flex items-center gap-2.5">☁️ {locale === 'en' ? 'Hybrid cloud infrastructure setups' : 'Configuraciones de nube híbrida'}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
-                <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-emerald-500/20">
-                    ⚙️ {locale === 'en' ? 'Hardware Core' : 'Núcleo de Hardware'}
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                    {locale === 'en' ? 'Advanced Enterprise Infrastructure' : 'Infraestructura Empresarial Avanzada'}
-                </h2>
-                <p class="text-slate-600 leading-relaxed">
-                    {locale === 'en'
-                        ? 'Deploy and maintain high-performance server architectures and storage networks engineered to scale seamlessly with your organizational demands.'
-                        : 'Implemente y mantenga arquitecturas de servidores y redes de almacenamiento de alto rendimiento diseñadas para escalar sin fricción con las demandas de su organización.'}
-                </p>
-                <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
-                        <h4 class="font-bold text-slate-900 text-sm mb-1">🔌 {locale === 'en' ? 'SAN Connectivity' : 'Conectividad SAN'}</h4>
-                        <p class="text-xs text-slate-500">{locale === 'en' ? 'High-speed Fibre Channel switch administration.' : 'Administración de switches Fibre Channel de alta velocidad.'}</p>
-                    </div>
-                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-emerald-300 transition-all">
-                        <h4 class="font-bold text-slate-900 text-sm mb-1">📈 {locale === 'en' ? 'Capacity Scaling' : 'Escalamiento de Capacidad'}</h4>
-                        <p class="text-xs text-slate-500">{locale === 'en' ? 'Seamless hardware upgrades with zero downtime design.' : 'Actualizaciones de hardware sin interrupción operativa.'}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. Servicios logísticos y almacenamiento de partes -->
-    <section id="area-respuestos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <div class="inline-flex items-center gap-2 bg-tyta-amber/10 text-tyta-amber px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 border border-tyta-amber/20">
-                📦 {locale === 'en' ? 'Logistics & Storage Services' : 'Servicios Logísticos y Almacenamiento'}
-            </div>
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-                {locale === 'en' ? 'Part Storage & Logistics for HPE Contracts' : 'Almacenamiento y Logística para Niveles Contractuales HPE'}
-            </h2>
-            <p class="text-slate-600 mt-4 text-base sm:text-lg leading-relaxed">
-                {locale === 'en'
-                    ? 'T&TA de Centroamérica features proprietary warehouses for computer hardware parts, ensuring secure protection and delivery matching client SLA commitments.'
-                    : 'T&TA de Centroamérica cuenta con bodegas propias para el almacenaje de partes de equipos de cómputo, garantizando protección y entrega a sus clientes con tiempo de respuesta acorde a los niveles contractuales (SLA) adquiridos.'}
-            </p>
-        </div>
-
-        <!-- Cuadrícula de capacidades logísticas (8 puntos clave organizados) -->
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🕒</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? '24/7 Access' : 'Acceso 24/7'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Continuous availability for urgent dispatch and critical support.' : 'Disponibilidad continua para atención y despachos críticos.'}</p>
+                    ))
+                }
             </div>
 
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📊</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Inventory Control' : 'Control de Inventario'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Rigorous tracking and precise stock management systems.' : 'Seguimiento riguroso y gestión precisa de existencias.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🔄</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Inbound & Outbound' : 'Entrada y Salida'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Optimized warehouse flow for replacement parts.' : 'Flujo optimizado para el ingreso y despacho de componentes.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🛡️</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Perimeter Security' : 'Seguridad Perimetral'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Protected facilities ensuring absolute asset safety.' : 'Instalaciones protegidas que aseguran la seguridad absoluta.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">🇨🇷</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Nationwide Delivery' : 'Entrega en Costa Rica'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Part delivery service across the entire national territory.' : 'Servicio de entrega de partes en todo el territorio nacional.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-teal-500/10 text-teal-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📦</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Optimal Handling' : 'Manipulación Óptima'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Guaranteed professional care for delicate hardware.' : 'Garantía de manipulación de la mercancía de forma óptima.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">📋</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Customs Nationalization' : 'Nacionalización'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Professional management of customs import processes.' : 'Gestión integral de nacionalización de partes y componentes.'}</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-md hover:border-tyta-amber/50 transition-all duration-300 group">
-                <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 flex items-center justify-center font-bold text-lg mb-4 group-hover:scale-110 transition-transform">✈️</div>
-                <h4 class="font-bold text-slate-900 text-base mb-1.5">{locale === 'en' ? 'Export Management' : 'Gestión de Exportación'}</h4>
-                <p class="text-xs text-slate-500 leading-relaxed">{locale === 'en' ? 'Secure handling and processing for outbound international parts.' : 'Gestión especializada de exportación de partes cuando se requiera.'}</p>
-            </div>
-        </div>
-
-        {/* Panel de Resumen Ejecutivo y Trazabilidad */}
-        <div class="bg-slate-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-800 relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="grid lg:grid-cols-12 gap-8 items-center relative z-10">
-                <div class="lg:col-span-8 space-y-3">
-                    <div class="inline-flex items-center gap-2 bg-tyta-amber text-slate-900 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase">
-                        SLA & Compliance
-                    </div>
-                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                        {locale === 'en' ? 'Committed to your operational uptime' : 'Comprometidos con su continuidad operativa'}
+            <!-- Panel de Garantía de Puesta en Marcha -->
+            <div
+                class="bg-gradient-to-r from-emerald-950 to-emerald-900 text-white p-8 rounded-3xl shadow-xl border border-emerald-800/50 flex flex-col md:flex-row items-center justify-between gap-6"
+            >
+                <div class="space-y-2">
+                    <h3 class="text-xl font-bold">
+                        {
+                            L(
+                                "¿Listo para desplegar nuevos servidores?",
+                                "Ready to deploy new servers?",
+                            )
+                        }
                     </h3>
-                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                        {locale === 'en'
-                            ? 'Our warehouse infrastructure and logistics protocol are aligned to guarantee that mission-critical replacements arrive precisely when your contract demands.'
-                            : 'Nuestra infraestructura de bodegas y protocolo logístico están diseñados para asegurar que los repuestos críticos lleguen puntualmente bajo los más altos estándares de calidad.'}
+                    <p class="text-xs text-emerald-200 max-w-2xl">
+                        {
+                            L(
+                                "Nuestros ingenieros entregan documentación técnica detallada, mapa de puertos, inventario de seriales y reporte de salud tras cada instalación.",
+                                "Our engineers deliver detailed technical documentation, port maps, serial inventories, and health status reports after every installation.",
+                            )
+                        }
                     </p>
                 </div>
-                <div class="lg:col-span-4 flex justify-lg-end">
-                    <div class="w-full bg-slate-800/80 backdrop-blur-md p-5 rounded-2xl border border-slate-700/60 text-center">
-                        <span class="block text-3xl font-black text-tyta-amber mb-1">24 / 7</span>
-                        <span class="text-xs text-slate-300 uppercase tracking-widest font-bold">
-                            {locale === 'en' ? 'Logistics Availability' : 'Disponibilidad Logística'}
-                        </span>
+                <a
+                    href={contactHref}
+                    class="shrink-0 bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-extrabold uppercase tracking-wider px-6 py-3.5 rounded-full shadow-lg transition-colors"
+                >
+                    {L("Solicitar Instalación", "Schedule Installation")}
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================================================================== -->
+    <!-- 3. LOGÍSTICA Y ALMACENAMIENTO DE PARTES (EXPANDIDO CON SUB-ÁREAS)    -->
+    <!-- ==================================================================== -->
+    <section
+        id="area-respuestos"
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal-on-scroll"
+    >
+        <div class="space-y-12">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <div
+                    class="inline-flex items-center gap-2 bg-tyta-amber/10 text-tyta-amber px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border border-tyta-amber/20"
+                >
+                    {
+                        L(
+                            "Servicios Logísticos y Almacenamiento",
+                            "Logistics & Storage Services",
+                        )
+                    }
+                </div>
+                <h2
+                    class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight"
+                >
+                    {
+                        L(
+                            "Almacenamiento y Logística para Contratos HPE",
+                            "Part Storage & Logistics for HPE Contracts",
+                        )
+                    }
+                </h2>
+                <p class="text-slate-600 text-base leading-relaxed">
+                    {
+                        L(
+                            "T&TA de Centroamérica cuenta con bodegas propias especializadas para la custodia de componentes de hardware, garantizando protección técnica y distribución inmediata para el cumplimiento estricto de Acuerdos de Nivel de Servicio (SLA).",
+                            "T&TA de Centroamérica operates specialized proprietary warehouses for hardware parts custody, ensuring technical protection and immediate delivery to satisfy contractual SLAs.",
+                        )
+                    }
+                </p>
+            </div>
+
+            <!-- Sub-áreas Logísticas con Tarjetas e Imágenes -->
+            <div class="grid md:grid-cols-3 gap-8">
+                {
+                    logisticsSubAreas.map((area) => (
+                        <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
+                            <div class="relative h-48 overflow-hidden">
+                                <Image
+                                    src={area.image}
+                                    alt={area.title}
+                                    width={600}
+                                    height={360}
+                                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                                <span class="absolute top-4 left-4 bg-tyta-amber text-slate-950 font-black text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm">
+                                    {area.badge}
+                                </span>
+                            </div>
+                            <div class="p-6 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-extrabold text-slate-900 text-lg mb-2">
+                                        {area.title}
+                                    </h3>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        {area.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <!-- Panel de Trazabilidad y SLA 24/7 -->
+            <div
+                class="bg-slate-900 text-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-800 relative overflow-hidden"
+            >
+                <div
+                    class="absolute top-0 right-0 w-64 h-64 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"
+                >
+                </div>
+
+                <div
+                    class="grid lg:grid-cols-12 gap-8 items-center relative z-10"
+                >
+                    <div class="lg:col-span-8 space-y-3">
+                        <div
+                            class="inline-flex items-center gap-2 bg-tyta-amber text-slate-900 px-3 py-1 rounded-full text-xs font-black tracking-widest uppercase"
+                        >
+                            SLA & Compliance
+                        </div>
+                        <h3
+                            class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight"
+                        >
+                            {
+                                L(
+                                    "Comprometidos con su continuidad operativa",
+                                    "Committed to your operational uptime",
+                                )
+                            }
+                        </h3>
+                        <p
+                            class="text-slate-300 text-sm sm:text-base leading-relaxed"
+                        >
+                            {
+                                L(
+                                    "Nuestra infraestructura logística está conectada en tiempo real para despachos críticos en horarios nocturnos o fines de semana, asegurando el reemplazo de componentes de misión crítica a tiempo.",
+                                    "Our logistics infrastructure is connected 24/7 for critical dispatches during nights or weekends, ensuring time-critical hardware replacements arrive as contracted.",
+                                )
+                            }
+                        </p>
+                    </div>
+                    <div class="lg:col-span-4 flex justify-lg-end">
+                        <div
+                            class="w-full bg-slate-800/80 backdrop-blur-md p-6 rounded-2xl border border-slate-700/60 text-center"
+                        >
+                            <span
+                                class="block text-4xl font-black text-tyta-amber mb-1"
+                                >24 / 7</span
+                            >
+                            <span
+                                class="text-xs text-slate-300 uppercase tracking-widest font-bold"
+                            >
+                                {
+                                    L(
+                                        "Disponibilidad Logística",
+                                        "Logistics Availability",
+                                    )
+                                }
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -259,25 +828,78 @@ const contactHref = localizedPath(locale, "/contact");
     </section>
 
     <!-- CTA Final Moderno -->
-    <section class="bg-white py-20 px-4 mt-8 border-t border-slate-200/60">
+    <section
+        class="bg-white py-20 px-4 mt-8 border-t border-slate-200/60 reveal-on-scroll"
+    >
         <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                {locale === 'en' ? 'Need certified assistance for your HPE infrastructure?' : '¿Necesita asistencia certificada para su infraestructura HPE?'}
+            <h2
+                class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight"
+            >
+                {
+                    L(
+                        "¿Necesita asistencia certificada para su infraestructura HPE?",
+                        "Need certified assistance for your HPE infrastructure?",
+                    )
+                }
             </h2>
-            <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg">
-                {locale === 'en' 
-                    ? 'Get in touch with our certified engineers and secure your server ecosystem today.'
-                    : 'Póngase en contacto con nuestros ingenieros certificados y asegure su ecosistema de servidores hoy mismo.'}
+            <p
+                class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg"
+            >
+                {
+                    L(
+                        "Póngase en contacto con nuestros ingenieros certificados y asegure su ecosistema de servidores hoy mismo.",
+                        "Get in touch with our certified engineers and secure your server ecosystem today.",
+                    )
+                }
             </p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href={contactHref} class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5">
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
+                <a
+                    href={contactHref}
+                    class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5"
+                >
+                    <span
+                        class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"
+                    ></span>
                     <span class="relative z-10 flex items-center gap-2">
-                        {locale === 'en' ? 'Contact Support Team' : 'Contactar Soporte Técnico'}
-                        <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        {L("Contactar Soporte Técnico", "Contact Support Team")}
+                        <svg
+                            class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            ><path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg
+                        >
                     </span>
                 </a>
             </div>
         </div>
     </section>
 </main>
+
+<!-- Script para activar la animación al hacer scroll -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: "0px",
+            threshold: 0.15,
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll(".reveal-on-scroll").forEach((section) => {
+            observer.observe(section);
+        });
+    });
+</script>
