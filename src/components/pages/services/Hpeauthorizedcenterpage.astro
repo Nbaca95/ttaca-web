@@ -11,7 +11,7 @@ import {
 import soporte from "../../../assets/images/soporte-hpe.jpg";
 import hero1Img from "../../../assets/images/SoporteHPE1.png";
 import instalacion from "../../../assets/images/Instalacion.png";
-import alletra from "../../../assets/images/alletra-Family-v1.gif";
+import alletra from "../../../assets/images/Alletra-Family-v1.webm";
 import almacenamiento from "../../../assets/images/Almacenamiento.png";
 import Synergy from "../../../assets/images/Synergy.png";
 import simplivity from "../../../assets/images/Simplivity.png";
@@ -560,15 +560,25 @@ const logisticsSubAreas = [
                 hpeSupportLines.map((line) => (
                     <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col lg:flex-row group">
                         {/* Imagen lateral / superior en móvil */}
-                        <div class="relative lg:w-1/2 h-56 lg:h-auto overflow-hidden">
-                            <Image
-                                src={line.image}
-                                alt={line.title}
-                                width={800}
-                                height={500}
-                                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                            />
-                            <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent" />
+                        <div class="relative lg:w-1/2 h-56 lg:h-auto overflow-hidden bg-slate-100">
+                            {typeof line.image === "string" ? (
+                                <video
+                                    src={line.image}
+                                    autoplay
+                                    loop
+                                    muted
+                                    playsinline
+                                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                                />
+                            ) : (
+                                <Image
+                                    src={line.image}
+                                    alt={line.title}
+                                    width={800}
+                                    height={500}
+                                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                />
+                            )}
                             {/* Título sobre la imagen solo en móvil */}
                             <h4 class="absolute bottom-4 left-6 right-6 lg:hidden font-extrabold text-white text-xl tracking-tight">
                                 {line.title}
