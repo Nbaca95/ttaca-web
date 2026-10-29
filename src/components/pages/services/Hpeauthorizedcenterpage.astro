@@ -10,10 +10,11 @@ import {
 // Imágenes provisionales para las tarjetas y sub-secciones NOTA: poder usar la imagen SoporteHPE.png
 import soporte from "../../../assets/images/soporte-hpe.jpg";
 import hero1Img from "../../../assets/images/SoporteHPE1.png";
-import hero2Img from "../../../assets/images/Finanzas.png";
-import hero4Img from "../../../assets/images/Marketing.png";
+import instalacion from "../../../assets/images/Instalacion.png";
+import alletra from "../../../assets/images/alletra-Family-v1.gif";
+import almacenamiento from "../../../assets/images/Almacenamiento.png";
 import Synergy from "../../../assets/images/Synergy.png";
-import logoAruba from "../../../assets/images/RRHH.png";
+import simplivity from "../../../assets/images/Simplivity.png";
 import servidores from "../../../assets/images/Proliant.png";
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -40,7 +41,7 @@ const summaryCards = [
     },
     {
         id: "area-instalacion",
-        image: hero2Img,
+        image: instalacion,
         imageAlt: L(
             "Instalación y Configuración de Servidores",
             "Server Installation & Configuration",
@@ -53,7 +54,7 @@ const summaryCards = [
     },
     {
         id: "area-respuestos",
-        image: hero4Img,
+        image: almacenamiento,
         imageAlt: L(
             "Servicios logísticos y almacenamiento",
             "Logistics and parts storage",
@@ -129,7 +130,7 @@ const hpeSupportLines = [
             "Atención técnica para arreglos All-Flash y NVMe de misión crítica. Diagnóstico de controladoras, arreglos SSD y fuentes redundantes.",
             "Technical service for mission-critical All-Flash & NVMe arrays. Diagnosis of controllers, SSD enclosures, and redundant PSUs.",
         ),
-        image: hero2Img,
+        image: alletra,
         items: [
             L(
                 "Mantenimiento de nodos y controladoras",
@@ -154,7 +155,7 @@ const hpeSupportLines = [
             "Soporte integral a la capa de hardware y aceleradores OmniStack para plataformas hiperconvergentes empresariales.",
             "End-to-end support for hardware layers and OmniStack accelerators in enterprise hyperconverged setups.",
         ),
-        image: logoAruba,
+        image: simplivity,
         items: [
             L(
                 "Sustitución de aceleradores de tarjeta OmniStack",
@@ -176,7 +177,7 @@ const hpeSupportLines = [
             "Atención autorizada para cabezales SAN, expasiones de discos en caliente, librerías de cinta StoreEver y switches Fibre Channel.",
             "Authorized support for SAN controllers, hot expansion enclosures, StoreEver tape libraries, and Fibre Channel switches.",
         ),
-        image: hero4Img,
+        image: almacenamiento,
         items: [
             L(
                 "Reemplazo de drives SAS/SATA y Robótica LTO",
@@ -208,7 +209,7 @@ const installationPhases = [
             "Anclaje profesional en gabinete/rack, gestión térmica de flujo de aire, rotulación y canalización de cableado de red y energía redundante.",
             "Professional rack anchoring, thermal airflow management, labeling, and redundant power/network cable routing.",
         ),
-        image: hero2Img,
+        image: instalacion,
     },
     {
         step: "02",
@@ -250,7 +251,7 @@ const logisticsSubAreas = [
             "Secure climate-controlled facilities with electrostatic discharge (ESD) protection for sensitive motherboards, CPUs, and NICs.",
         ),
         badge: "Control 24/7",
-        image: hero4Img,
+        image: almacenamiento,
     },
     {
         title: L(
@@ -262,7 +263,7 @@ const logisticsSubAreas = [
             "Expedited customs management for instant import of critical spare parts directly from HPE regional hubs.",
         ),
         badge: "Tránsito Exprés",
-        image: logoAruba,
+        image: simplivity,
     },
     {
         title: L(
@@ -537,58 +538,71 @@ const logisticsSubAreas = [
                 </div>
             </div>
 
-            <!-- Sub-sección: Tarjetas de Familias de Equipos HPE (Permanecen abajo) -->
-            <div class="pt-6">
-                <h3
-                    class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6"
-                >
-                    {
-                        L(
-                            "Modelos y Plataformas Soportadas",
-                            "Supported HPE Lines & Models",
-                        )
-                    }
-                </h3>
+            <!-- ==================================================================== -->
+    <!-- Sub-sección: Tarjetas y Plataformas Soportadas HPE -->
+    <!-- ==================================================================== -->
+    <!-- Sub-sección: Tarjetas y Plataformas Soportadas HPE -->
+    <!-- ==================================================================== -->
+    <div class="pt-6 space-y-6">
+        <h3
+            class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6"
+        >
+            {
+                L(
+                    "Modelos y Plataformas Soportadas",
+                    "Supported HPE Lines & Models",
+                )
+            }
+        </h3>
 
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {
-                        hpeSupportLines.map((line) => (
-                            <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group">
-                                <div class="relative h-44 overflow-hidden">
-                                    <Image
-                                        src={line.image}
-                                        alt={line.title}
-                                        width={600}
-                                        height={360}
-                                        class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                                    />
-                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
-                                    <h4 class="absolute bottom-3 left-4 right-4 font-extrabold text-white text-lg tracking-tight">
-                                        {line.title}
-                                    </h4>
-                                </div>
+        <div class="space-y-6">
+            {
+                hpeSupportLines.map((line) => (
+                    <div class="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col lg:flex-row group">
+                        {/* Imagen lateral / superior en móvil */}
+                        <div class="relative lg:w-1/2 h-56 lg:h-auto overflow-hidden">
+                            <Image
+                                src={line.image}
+                                alt={line.title}
+                                width={800}
+                                height={500}
+                                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/80 via-slate-950/20 to-transparent" />
+                            {/* Título sobre la imagen solo en móvil */}
+                            <h4 class="absolute bottom-4 left-6 right-6 lg:hidden font-extrabold text-white text-xl tracking-tight">
+                                {line.title}
+                            </h4>
+                        </div>
 
-                                <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                    <p class="text-xs text-slate-600 leading-relaxed">
-                                        {line.desc}
-                                    </p>
-
-                                    <div class="pt-3 border-t border-slate-100">
-                                        <ul class="space-y-2">
-                                            {line.items.map((item) => (
-                                                <li class="flex items-center gap-2 text-xs text-slate-700 font-medium">
-                                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
-                                                    {item}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
+                        {/* Contenido de la tarjeta */}
+                        <div class="p-8 lg:w-1/2 flex flex-col justify-between space-y-6">
+                            <div class="space-y-3">
+                                {/* Título visible en pantallas grandes */}
+                                <h4 class="hidden lg:block font-extrabold text-slate-900 text-2xl tracking-tight">
+                                    {line.title}
+                                </h4>
+                                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                                    {line.desc}
+                                </p>
                             </div>
-                        ))
-                    }
-                </div>
-            </div>
+
+                            <div class="pt-4 border-t border-slate-100">
+                                <ul class="grid sm:grid-cols-2 gap-3">
+                                    {line.items.map((item) => (
+                                        <li class="flex items-center gap-2 text-xs text-slate-700 font-medium">
+                                            <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0" />
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
         </div>
     </section>
 
