@@ -17,7 +17,7 @@ const contactHref = localizedPath(locale, "/contact");
 const L = (es: string, en: string) => (locale === 'en' ? en : es);
 
 /* ------------------------------------------------------------------ */
-/*  ÁREAS CON SECCIÓN DETALLADA                                       */
+/*  ÁREAS CON SECCIÓN DETALLADA (BANNER INMERSIVO)                    */
 /* ------------------------------------------------------------------ */
 const areas = [
     {
@@ -27,42 +27,52 @@ const areas = [
         cardTitle: L("Tecnología (TI)", "Information Technology"),
         cardShort: L("Soporte, servidores, redes y seguridad.", "Support, servers, networks and security."),
         badge: L("Dominio Tecnológico", "Technology"),
-        title: L("Outsourcing de Tecnología (TI)", "Information Technology (IT) Outsourcing"),
+        title: L("Tecnología e Infraestructura (TI)", "Information & Infrastructure Technology"),
         intro: L(
-            "Asumimos la operación diaria de la tecnología de su empresa: desde la mesa de ayuda que atiende a sus colaboradores hasta la administración de servidores, redes y seguridad. Usted cuenta con un equipo técnico dedicado y un servicio medible, sin el costo de contratar, capacitar y retener personal propio de TI.",
-            "We take over the day-to-day operation of your company's technology: from the help desk that supports your employees to the administration of servers, networks and security. You get a dedicated technical team and a measurable service, without the cost of hiring, training and retaining in-house IT staff."
+            "Asumimos la operación integral y el gobierno de la tecnología de su empresa. Garantizamos la continuidad operativa mediante la administración proactiva de centros de datos, redes de alta disponibilidad y ciberseguridad avanzada, liberando a su organización de la carga técnica y operativa.",
+            "We assume the comprehensive operation and governance of your company's technology. We guarantee operational continuity through proactive data center management, high-availability networks, and advanced cybersecurity."
         ),
         services: [
             {
-                title: L("Mesa de ayuda y soporte a usuarios", "Help desk and user support"),
-                desc: L("Atención de incidentes y solicitudes de sus colaboradores, remota y en sitio, con tiempos de respuesta definidos.", "Handling of incidents and requests from your employees, remote and on-site, with defined response times."),
+                title: L("Mesa de ayuda y soporte técnico N1/N2/N3", "Help Desk and N1/N2/N3 Tech Support"),
+                desc: L("Resolución estructurada de incidentes y requerimientos de usuarios finales bajo estrictos acuerdos de nivel de servicio (SLA).", "Structured resolution of end-user incidents and requests under strict Service Level Agreements (SLAs)."),
             },
             {
-                title: L("Servidores y almacenamiento", "Servers and storage"),
-                desc: L("Administración, actualización y monitoreo de servidores y almacenamiento, físicos o virtualizados.", "Administration, updates and monitoring of physical or virtualized servers and storage."),
+                title: L("Administración de Servidores y Cloud", "Server & Cloud Administration"),
+                desc: L("Gestión, virtualización, respaldo y monitoreo 24/7 de entornos físicos, híbridos y en la nube (AWS, Azure, On-Premise).", "Management, virtualization, backup and 24/7 monitoring of physical, hybrid, and cloud environments."),
             },
             {
-                title: L("Redes y conectividad", "Networks and connectivity"),
-                desc: L("Configuración y supervisión de la red local, el Wi-Fi corporativo y los enlaces de comunicación.", "Setup and supervision of your local network, corporate Wi-Fi and communication links."),
+                title: L("Redes corporativas y conectividad", "Corporate Networks & Connectivity"),
+                desc: L("Diseño, configuración y seguridad de redes LAN/WAN, enlaces VPN corporativos y conectividad Wi-Fi empresarial.", "Design, configuration and security of LAN/WAN networks, corporate VPN links, and enterprise Wi-Fi."),
             },
             {
-                title: L("Seguridad y respaldos", "Security and backups"),
-                desc: L("Protección de equipos y datos, gestión de antivirus y políticas de respaldo con planes de recuperación.", "Protection of devices and data, antivirus management and backup policies with recovery plans."),
+                title: L("Ciberseguridad y continuidad", "Cybersecurity & Business Continuity"),
+                desc: L("Implementación de políticas de respaldo automatizadas, firewalls, gestión de endpoints y planes de recuperación ante desastres.", "Implementation of automated backup policies, firewalls, endpoint management, and disaster recovery plans."),
             },
         ],
-        panelTitle: L("Qué recibe su empresa", "What your company gets"),
+        extraInfo: {
+            title: L("Excelencia Operativa y Monitoreo Preventivo", "Operational Excellence & Preventive Monitoring"),
+            description: L(
+                "Nuestra arquitectura de soporte incorpora herramientas de telemetría predictiva, gestión centralizada de parches de seguridad y diagnósticos en tiempo real para anticiparnos a cualquier fallo potencial en la infraestructura.",
+                "Our support architecture incorporates predictive telemetry tools, centralized security patch management, and real-time diagnostics to anticipate any potential infrastructure failure."
+            ),
+            items: [
+                L("Auditorías periódicas de vulnerabilidades y estado de red", "Periodic vulnerability audits and network health checks"),
+                L("Planes de contingencia ante caídas y respaldos inmutables", "Contingency plans against outages and immutable backups"),
+                L("Inventario automatizado de activos tecnológicos y licencias", "Automated inventory of technological assets and software licenses"),
+                L("Gestión directa con fabricantes para resolución de garantías", "Direct manufacturer liaison for warranty resolution")
+            ]
+        },
+        panelTitle: L("Beneficios clave para su operación", "Key benefits for your operation"),
         panelItems: [
-            L("Personal técnico dedicado a su operación", "Technical staff dedicated to your operation"),
-            L("Monitoreo preventivo de la infraestructura", "Preventive monitoring of your infrastructure"),
-            L("Reportes periódicos de incidentes y desempeño", "Regular incident and performance reports"),
+            L("Reducción drástica de tiempos de inactividad (Downtime)", "Drastic reduction in downtime"),
+            L("Especialistas certificados en diversas tecnologías", "Certified specialists across various technologies"),
+            L("Optimización y predictibilidad del presupuesto de TI", "Optimization and predictability of IT budget"),
         ],
         theme: {
-            badge: "bg-blue-500/10 text-blue-700 border-blue-500/20",
+            badge: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+            dotColor: "bg-blue-400",
             hover: "hover:border-blue-300",
-            check: "bg-blue-50 text-blue-600",
-            panel: "from-blue-950 to-blue-900 border-blue-800/50",
-            fade: "from-blue-950 via-blue-950/60 to-transparent",
-            dot: "bg-blue-500/20 text-blue-300",
         },
     },
     {
@@ -72,42 +82,52 @@ const areas = [
         cardTitle: L("Finanzas y Contabilidad", "Finance & Accounting"),
         cardShort: L("Contabilidad, conciliaciones e impuestos.", "Accounting, reconciliations and taxes."),
         badge: L("Finanzas y Contabilidad", "Finance & Accounting"),
-        title: L("Outsourcing de Finanzas y Contabilidad", "Finance & Accounting Outsourcing"),
+        title: L("Gestión Financiera y Contable", "Financial & Accounting Management"),
         intro: L(
-            "Llevamos la contabilidad y las operaciones financieras de su empresa con procesos ordenados y al día. Registramos, conciliamos y reportamos para que usted tenga información confiable al cierre de cada mes y cumpla a tiempo con sus obligaciones fiscales.",
-            "We run your company's accounting and financial operations with orderly, up-to-date processes. We record, reconcile and report so you have reliable information at every month-end and meet your tax obligations on time."
+            "Blindamos la salud financiera de su empresa con rigor contable, transparencia y estricto apego al marco fiscal vigente. Transformamos datos complejos en reportes claros para la toma de decisiones estratégicas y gerenciales en cada cierre de periodo.",
+            "We safeguard your company's financial health with accounting rigor, transparency, and strict adherence to the current tax framework. We transform complex data into clear reports for strategic decision-making."
         ),
         services: [
             {
-                title: L("Contabilidad general", "General accounting"),
-                desc: L("Registro de transacciones, cierres mensuales y elaboración de estados financieros.", "Transaction recording, monthly closings and preparation of financial statements."),
+                title: L("Contabilidad general y cierres", "General Accounting & Closings"),
+                desc: L("Registro contable automatizado, conciliaciones bancarias exhaustivas y emisión oportuna de estados financieros.", "Automated bookkeeping, comprehensive bank reconciliations, and timely issuance of financial statements."),
             },
             {
-                title: L("Cuentas por pagar y por cobrar", "Payables and receivables"),
-                desc: L("Control de facturas, pagos a proveedores y seguimiento de cobros a clientes.", "Invoice control, supplier payments and follow-up on customer collections."),
+                title: L("Gestión de tesorería y flujos", "Treasury & Cash Flow Management"),
+                desc: L("Control riguroso de cuentas por pagar a proveedores y optimización del ciclo de cuentas por cobrar a clientes.", "Rigorous control of accounts payable to suppliers and optimization of the accounts receivable cycle."),
             },
             {
-                title: L("Conciliaciones bancarias", "Bank reconciliations"),
-                desc: L("Verificación periódica de movimientos para detectar diferencias y mantener los saldos al día.", "Regular review of transactions to detect differences and keep balances up to date."),
+                title: L("Cumplimiento fiscal y tributario", "Tax & Fiscal Compliance"),
+                desc: L("Preparación, cálculo y presentación de declaraciones de impuestos corporativos ante las autoridades competentes.", "Preparation, calculation, and filing of corporate tax returns with competent authorities."),
             },
             {
-                title: L("Obligaciones fiscales", "Tax obligations"),
-                desc: L("Preparación de declaraciones de impuestos y apoyo ante revisiones de las autoridades tributarias.", "Preparation of tax returns and support during reviews by tax authorities."),
+                title: L("Análisis financiero y presupuestario", "Financial & Budget Analysis"),
+                desc: L("Evaluación de desviaciones presupuestarias, control de gastos operativos y proyecciones de flujo de caja.", "Evaluation of budget variances, operating expense control, and cash flow projections."),
             },
         ],
-        panelTitle: L("Resultados para su negocio", "Results for your business"),
+        extraInfo: {
+            title: L("Control y Gobernanza Financiera", "Financial Control & Governance"),
+            description: L(
+                "Proporcionamos visibilidad financiera en tiempo real mediante tableros de control gerencial, permitiendo a la alta dirección anticipar escenarios de liquidez, evaluar riesgos fiscales y mantener un control estricto sobre el presupuesto operativo.",
+                "We provide real-time financial visibility through management dashboards, enabling upper management to anticipate liquidity scenarios, assess tax risks, and maintain strict control over the operating budget."
+            ),
+            items: [
+                L("Proyecciones financieras y de flujo de caja a mediano plazo", "Mid-term financial and cash flow projections"),
+                L("Optimización de capital de trabajo y estructura de costos", "Working capital and cost structure optimization"),
+                L("Soporte integral y representación ante auditorías fiscales", "Comprehensive support and representation during tax audits"),
+                L("Evaluación de rentabilidad por líneas de negocio o productos", "Profitability evaluation by business lines or products")
+            ]
+        },
+        panelTitle: L("Resultados garantizados", "Guaranteed results"),
         panelItems: [
-            L("Información financiera lista cada cierre de mes", "Financial information ready at every month-end"),
-            L("Menor riesgo de multas por incumplimiento", "Lower risk of penalties for non-compliance"),
-            L("Reportes claros de flujo de caja y gastos", "Clear cash flow and expense reports"),
+            L("Información financiera confiable y a tiempo", "Reliable and timely financial information"),
+            L("Mitigación total de riesgos por sanciones tributarias", "Total mitigation of risks from tax penalties"),
+            L("Visibilidad absoluta de la rentabilidad del negocio", "Absolute visibility into business profitability"),
         ],
         theme: {
-            badge: "bg-emerald-500/10 text-emerald-700 border-emerald-500/20",
+            badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+            dotColor: "bg-emerald-400",
             hover: "hover:border-emerald-300",
-            check: "bg-emerald-50 text-emerald-600",
-            panel: "from-emerald-950 to-emerald-900 border-emerald-800/50",
-            fade: "from-emerald-950 via-emerald-950/60 to-transparent",
-            dot: "bg-emerald-500/20 text-emerald-300",
         },
     },
     {
@@ -117,42 +137,52 @@ const areas = [
         cardTitle: L("Recursos Humanos", "Human Resources"),
         cardShort: L("Planilla, contratación y capacitación.", "Payroll, hiring and training."),
         badge: L("Capital Humano", "Human Capital"),
-        title: L("Outsourcing de Recursos Humanos", "Human Resources Outsourcing"),
+        title: L("Administración de Capital Humano y RRHH", "Human Capital & HR Administration"),
         intro: L(
-            "Gestionamos la administración del personal de su empresa, desde el ingreso de un nuevo colaborador hasta el pago de la planilla. Nos encargamos de los procesos y documentos laborales para que su equipo directivo se concentre en el negocio y no en los trámites.",
-            "We manage your company's personnel administration, from the onboarding of a new employee to payroll payment. We handle labor processes and paperwork so your leadership team can focus on the business, not the red tape."
+            "Potenciamos el motor principal de su empresa: su gente. Nos encargamos de administrar el ciclo de vida laboral de los colaboradores con procesos justos, eficientes y alineados con la legislación laboral local, fomentando un clima organizacional óptimo.",
+            "We empower your company's main engine: your people. We manage the employee lifecycle with fair, efficient processes aligned with local labor legislation, fostering an optimal organizational climate."
         ),
         services: [
             {
-                title: L("Planilla y cargas sociales", "Payroll and social contributions"),
-                desc: L("Cálculo de salarios, deducciones, cargas sociales y beneficios de ley, con boletas y reportes.", "Calculation of salaries, deductions, social contributions and legal benefits, with payslips and reports."),
+                title: L("Gestión de planillas y cargas", "Payroll & Contributions Management"),
+                desc: L("Cálculo exacto de nóminas, deducciones de ley, provisiones, aguinaldos y gestión de cargas sociales.", "Exact calculation of payroll, statutory deductions, provisions, bonuses, and social security management."),
             },
             {
-                title: L("Contratación e inducción", "Hiring and onboarding"),
-                desc: L("Contratos de trabajo, expedientes del personal y proceso de ingreso de nuevos colaboradores.", "Employment contracts, personnel files and the onboarding process for new hires."),
+                title: L("Administración de expedientes y contratos", "File & Contract Administration"),
+                desc: L("Elaboración blindada de contratos laborales, adendum, control de vacaciones y gestión legal de personal.", "Secure drafting of employment contracts, addendums, vacation tracking, and legal personnel management."),
             },
             {
-                title: L("Capacitación y desarrollo", "Training and development"),
-                desc: L("Planes de formación según las necesidades de cada puesto y de la empresa.", "Training plans based on the needs of each role and of the company."),
+                title: L("Desarrollo organizacional y clima", "Organizational Development & Climate"),
+                desc: L("Diseño de programas de capacitación continua, evaluaciones de desempeño y encuestas de clima laboral.", "Design of continuous training programs, performance reviews, and work climate surveys."),
             },
             {
-                title: L("Clima y evaluación del desempeño", "Work climate and performance reviews"),
-                desc: L("Encuestas, evaluaciones y planes de mejora para retener a su talento.", "Surveys, evaluations and improvement plans to retain your talent."),
+                title: L("Salud ocupacional y bienestar", "Occupational Health & Wellness"),
+                desc: L("Coordinación de comités de salud ocupacional, prevención de riesgos y programas de bienestar integral.", "Coordination of occupational health committees, risk prevention, and comprehensive wellness programs."),
             },
         ],
-        panelTitle: L("Qué incluye la gestión", "What the service includes"),
+        extraInfo: {
+            title: L("Estrategia de Bienestar y Retención de Talento", "Wellness & Talent Retention Strategy"),
+            description: L(
+                "Fomentamos un entorno de trabajo saludable y estructurado mediante planes de carrera, incentivos corporativos, y el estricto cumplimiento de los reglamentos internos y de salud ocupacional exigidos por la ley.",
+                "We foster a healthy and structured work environment through career plans, corporate incentives, and strict compliance with internal regulations and occupational health laws."
+            ),
+            items: [
+                L("Diseño de planes de compensación y beneficios competitivos", "Design of competitive compensation and benefits plans"),
+                L("Programas estructurados de integración y retención de talento", "Structured talent integration and retention programs"),
+                L("Digitalización integral de expedientes laborales y legales", "Comprehensive digitalization of labor and legal records"),
+                L("Gestión de relaciones laborales y resolución de conflictos", "Labor relations management and conflict resolution")
+            ]
+        },
+        panelTitle: L("Ventajas operativas de gestión", "Operational management advantages"),
         panelItems: [
-            L("Expedientes y trámites laborales al día", "Up-to-date personnel files and labor procedures"),
-            L("Cumplimiento de la legislación laboral vigente", "Compliance with current labor legislation"),
-            L("Reportes de personal y rotación", "Staffing and turnover reports"),
+            L("Cumplimiento normativo y laboral 100% garantizado", "100% guaranteed regulatory and labor compliance"),
+            L("Procesos de pago de planilla sin errores ni retrasos", "Error-free and timely payroll processing"),
+            L("Mayor retención de talento clave en su empresa", "Higher retention of key talent in your company"),
         ],
         theme: {
-            badge: "bg-purple-500/10 text-purple-700 border-purple-500/20",
+            badge: "bg-purple-500/10 text-purple-400 border-purple-500/20",
+            dotColor: "bg-purple-400",
             hover: "hover:border-purple-300",
-            check: "bg-purple-50 text-purple-600",
-            panel: "from-purple-950 to-purple-900 border-purple-800/50",
-            fade: "from-purple-950 via-purple-950/60 to-transparent",
-            dot: "bg-purple-500/20 text-purple-300",
         },
     },
     {
@@ -162,42 +192,52 @@ const areas = [
         cardTitle: "Marketing",
         cardShort: L("Estrategia, contenido y campañas digitales.", "Strategy, content and digital campaigns."),
         badge: L("Marketing y Comunicación", "Marketing & Communication"),
-        title: L("Outsourcing de Marketing", "Marketing Outsourcing"),
+        title: L("Estrategia de Marketing y Posicionamiento Digital", "Marketing Strategy & Digital Positioning"),
         intro: L(
-            "Planificamos y ejecutamos la comunicación de su marca para atraer clientes: definimos la estrategia, producimos el contenido y administramos las campañas. Medimos cada acción para que usted sepa qué resultados genera su inversión.",
-            "We plan and execute your brand's communication to attract customers: we define the strategy, produce the content and manage the campaigns. We measure every action so you know what results your investment generates."
+            "Impulsamos la presencia de su marca en el mercado mediante estrategias omnicanal basadas en datos. Desarrollamos campañas creativas y de alto rendimiento orientadas a la generación de demanda, conversión y fidelización de clientes.",
+            "We boost your brand's presence in the market through data-driven omnichannel strategies. We develop creative, high-performance campaigns aimed at demand generation, conversion, and customer loyalty."
         ),
         services: [
             {
-                title: L("Estrategia y marca", "Strategy and brand"),
-                desc: L("Definición de mensaje, público objetivo e identidad visual coherente.", "Definition of message, target audience and a consistent visual identity."),
+                title: L("Estrategia de marca y posicionamiento", "Brand Strategy & Positioning"),
+                desc: L("Definición de propuesta de valor, arquitectura de marca, identidad visual y segmentación de audiencias objetivo.", "Definition of value proposition, brand architecture, visual identity, and target audience segmentation."),
             },
             {
-                title: L("Redes sociales y contenido", "Social media and content"),
-                desc: L("Calendario editorial, diseño de piezas gráficas y gestión de sus perfiles.", "Editorial calendar, graphic design and management of your profiles."),
+                title: L("Marketing de contenidos y redes sociales", "Content Marketing & Social Media"),
+                desc: L("Creación de calendarios editoriales, producción audiovisual, diseño gráfico y gestión profesional de comunidades.", "Creation of editorial calendars, audiovisual production, graphic design, and professional community management."),
             },
             {
-                title: L("Campañas de pauta digital", "Digital ad campaigns"),
-                desc: L("Anuncios en buscadores y redes sociales orientados a generar contactos y ventas.", "Search and social media ads focused on generating leads and sales."),
+                title: L("Publicidad digital y pauta (Ads)", "Digital Advertising & Paid Media"),
+                desc: L("Gestión avanzada de campañas de pauta publicitaria en Google Ads, Meta Ads y redes B2B para generación de leads.", "Advanced management of paid ad campaigns on Google Ads, Meta Ads, and B2B networks for lead generation."),
             },
             {
-                title: L("Medición y reportes", "Measurement and reporting"),
-                desc: L("Análisis mensual de alcance, interacción y resultados comerciales.", "Monthly analysis of reach, engagement and commercial results."),
+                title: L("Analítica web y optimización de ROI", "Web Analytics & ROI Optimization"),
+                desc: L("Medición rigurosa de KPIs, auditoría de embudos de conversión y reportes mensuales de retorno de inversión.", "Rigorous KPI measurement, conversion funnel auditing, and monthly ROI reports."),
             },
         ],
-        panelTitle: L("Cómo trabajamos", "How we work"),
+        extraInfo: {
+            title: L("Innovación Comercial y Generación de Leads", "Commercial Innovation & Lead Generation"),
+            description: L(
+                "Diseñamos embudos de conversión automatizados y campañas orientadas a resultados comerciales directos, conectando su marca con prospectos altamente calificados y optimizando cada dólar invertido en publicidad.",
+                "We design automated conversion funnels and campaigns oriented toward direct commercial results, connecting your brand with highly qualified prospects and optimizing every dollar spent on advertising."
+            ),
+            items: [
+                L("Desarrollo de estrategias avanzadas de Inbound Marketing", "Development of advanced Inbound Marketing strategies"),
+                L("Diseño y optimización de pauta publicitaria hipersegmentada", "Design and optimization of hyper-segmented advertising"),
+                L("Construcción de dashboards analíticos de tráfico y ventas", "Construction of traffic and sales analytical dashboards"),
+                L("Optimización continua del costo por adquisición (CPA)", "Continuous optimization of cost per acquisition (CPA)")
+            ]
+        },
+        panelTitle: L("Impacto comercial directo", "Direct commercial impact"),
         panelItems: [
-            L("Plan de acción alineado a sus metas comerciales", "Action plan aligned with your business goals"),
-            L("Contenido propio para cada canal", "Tailored content for each channel"),
-            L("Informes con métricas claras", "Reports with clear metrics"),
+            L("Aumento sistemático de oportunidades comerciales (Leads)", "Systematic increase in commercial opportunities (Leads)"),
+            L("Consistencia comunicacional en todos los canales digitales", "Communicational consistency across all digital channels"),
+            L("Retorno de inversión medible y optimizado constantemente", "Measurable and constantly optimized return on investment"),
         ],
         theme: {
-            badge: "bg-amber-500/10 text-amber-700 border-amber-500/20",
+            badge: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+            dotColor: "bg-amber-400",
             hover: "hover:border-amber-300",
-            check: "bg-amber-50 text-amber-600",
-            panel: "from-amber-950 to-amber-900 border-amber-800/50",
-            fade: "from-amber-950 via-amber-950/60 to-transparent",
-            dot: "bg-amber-500/20 text-amber-300",
         },
     },
 ];
@@ -214,27 +254,51 @@ const talent = {
     badge: L("Gestión de Talento", "Talent Management"),
     title: L("Metodología Integral de Selección de Talento", "End-to-End Talent Selection Framework"),
     intro: L(
-        "Encontramos al candidato adecuado para cada puesto, operativo o ejecutivo, con un proceso estructurado que va de la definición del perfil a la contratación. Después damos seguimiento para confirmar que la persona se integra y cumple lo esperado.",
-        "We find the right candidate for every role, operational or executive, through a structured process that goes from defining the profile to hiring. Afterwards we follow up to confirm the person settles in and delivers as expected."
+        "Encontramos al candidato adecuado para cada puesto, operativo o ejecutivo, mediante un proceso estructurado, riguroso y científico que va desde el levantamiento del perfil hasta su integración exitosa a la cultura corporativa.",
+        "We find the right candidate for every role, operational or executive, through a structured, rigorous, and scientific process ranging from profile building to successful cultural integration."
     ),
     steps: [
         {
-            title: L("Definición del perfil", "Profile definition"),
-            desc: L("Levantamos con usted las funciones, requisitos y competencias que necesita el puesto.", "We work with you to define the duties, requirements and skills the role needs."),
+            title: L("Definición y levantamiento de perfil", "Profile definition and scoping"),
+            desc: L("Analizamos a fondo las competencias técnicas, blandas y objetivos estratégicos que el puesto exige.", "We thoroughly analyze the technical, soft skills, and strategic objectives required by the role."),
         },
         {
-            title: L("Reclutamiento y filtrado", "Recruiting and screening"),
-            desc: L("Convocatoria, revisión de currículos y preselección de los candidatos más afines.", "Job posting, résumé review and shortlisting of the best-matching candidates."),
+            title: L("Reclutamiento y filtrado masivo/ejecutivo", "Recruitment and screening"),
+            desc: L("Búsqueda activa en bases de datos, redes especializadas y preselección rigurosa de currículos.", "Active sourcing in databases, specialized networks, and rigorous resume pre-selection."),
         },
         {
-            title: L("Evaluación y entrevistas", "Assessment and interviews"),
-            desc: L("Entrevistas, pruebas técnicas y verificación de referencias de los finalistas.", "Interviews, technical tests and reference checks for the finalists."),
+            title: L("Evaluación técnica y entrevistas por competencias", "Technical assessment & competency interviews"),
+            desc: L("Aplicación de pruebas psicométricas, técnicas y entrevistas profundas para evaluar ajustes de encaje cultural.", "Application of psychometric and technical tests, plus deep interviews to evaluate cultural fit."),
         },
         {
-            title: L("Contratación y seguimiento", "Hiring and follow-up"),
-            desc: L("Apoyo en la oferta e ingreso, y seguimiento del desempeño durante el período inicial.", "Support with the offer and onboarding, and performance follow-up during the initial period."),
+            title: L("Contratación, inducción y seguimiento", "Hiring, onboarding, and tracking"),
+            desc: L("Acompañamiento en la oferta formal, proceso de incorporación y seguimiento continuo del desempeño inicial.", "Support in the formal offer, onboarding process, and continuous tracking of initial performance."),
         },
     ],
+    extraInfo: {
+        title: L("Acompañamiento y Garantía de Éxito", "Support & Success Guarantee"),
+        description: L(
+            "Nuestro compromiso va más allá de la contratación. Aseguramos la adaptación y el rendimiento óptimo del colaborador incorporado mediante un seguimiento cercano y métricas de desempeño comprobadas.",
+            "Our commitment goes beyond hiring. We ensure the adaptation and optimal performance of the onboarded collaborator through close follow-up and proven performance metrics."
+        ),
+        items: [
+            L("Seguimiento personalizado durante el periodo de prueba", "Personalized tracking during the probationary period"),
+            L("Garantía de respaldo y reemplazo bajo condiciones específicas", "Backup and replacement guarantee under specific conditions"),
+            L("Informes detallados sobre competencias y ajuste cultural", "Detailed reports on competencies and cultural fit"),
+            L("Evaluación de clima de integración con el equipo de trabajo", "Integration climate assessment with the work team")
+        ]
+    },
+    panelTitle: L("Garantía de Calidad", "Quality Assurance"),
+    panelItems: [
+        L("Evaluación continua orientada a métricas de rendimiento", "Continuous evaluation oriented to performance metrics"),
+        L("Controles rigurosos en cada etapa del proceso de selección", "Strict controls at each stage of the selection process"),
+        L("Aseguramiento total de la excelencia operativa interna", "Total assurance of internal operational excellence"),
+    ],
+    theme: {
+        badge: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+        dotColor: "bg-cyan-400",
+        hover: "hover:border-cyan-300",
+    },
 };
 
 const summaryCards = [...areas, talent];
@@ -300,13 +364,11 @@ const summaryCards = [...areas, talent];
                     </div>
                     <div class="p-5 flex-1 flex flex-col justify-between gap-4">
                         <div>
-                            <!-- Título cambia a amarillo en hover -->
                             <h3 class="font-bold text-slate-900 text-base mb-1 group-hover:text-tyta-amber transition-colors duration-300">
                                 {card.cardTitle}
                             </h3>
                             <p class="text-xs text-slate-500 leading-relaxed">{card.cardShort}</p>
                         </div>
-                        <!-- Texto 'Ver detalle' y flecha en color amarillo (text-tyta-amber) al hacer hover -->
                         <span class="inline-flex items-center gap-1.5 text-xs font-bold text-tyta-amber opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:gap-2.5 transition-all duration-300">
                             {L('Ver detalle', 'See details')}
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -317,65 +379,96 @@ const summaryCards = [...areas, talent];
         </div>
     </section>
 
-    <!-- Secciones Detalladas -->
-    {areas.map((area, index) => {
-        const reverse = index % 2 === 1;
-        return (
-            <section id={area.id} class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-b border-slate-200/60 scroll-mt-24 reveal-on-scroll">
-                <div class="grid lg:grid-cols-12 gap-10 items-center">
-                    <div class={`lg:col-span-7 space-y-6 ${reverse ? 'lg:order-2' : ''}`}>
-                        <div class={`inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase border ${area.theme.badge}`}>
+    <!-- Secciones Detalladas (Áreas) -->
+    {areas.map((area) => (
+        <section
+            id={area.id}
+            class="w-full p-0 border-b border-slate-200/60 scroll-mt-24 reveal-on-scroll mb-16"
+        >
+            <div class="space-y-12">
+                <!-- Banner Inmersivo de Fondo con Texto Sobrepuesto -->
+                <div class="relative w-full min-h-[680px] sm:min-h-[600px] lg:min-h-[560px] overflow-hidden flex items-center">
+                    <!-- Imagen de Fondo Principal -->
+                    <Image
+                        src={area.image}
+                        alt={area.imageAlt}
+                        width={1600}
+                        height={800}
+                        class="absolute inset-0 w-full h-full object-cover object-[center_top] md:object-[center_10%]"
+                    />
+
+                    <!-- Overlay de Degradado Oscuro -->
+                    <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/30"></div>
+
+                    <!-- Contenido sobrepuesto -->
+                    <div class="relative z-10 w-full px-6 py-16 sm:px-10 sm:py-16 lg:px-16 lg:py-20 max-w-5xl space-y-6 text-white">
+                        <!-- Etiqueta -->
+                        <div class={`inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-widest uppercase border border-white/15 shadow-md ${area.theme.badge.split(' ')[1]}`}>
                             {area.badge}
                         </div>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+
+                        <!-- Título -->
+                        <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white drop-shadow-sm">
                             {area.title}
                         </h2>
-                        <p class="text-slate-600 leading-relaxed">
+
+                        <!-- Descripción -->
+                        <p class="text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed font-normal max-w-3xl">
                             {area.intro}
                         </p>
-                        <div class="pt-2">
-                            <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-                                {L('Qué incluye', 'What it covers')}
-                            </p>
-                            <div class="grid sm:grid-cols-2 gap-4">
-                                {area.services.map((service) => (
-                                    <div class={`bg-white p-5 rounded-2xl border border-slate-200 shadow-sm transition-all ${area.theme.hover}`}>
-                                        <div class="flex items-start gap-3">
-                                            <span class={`mt-0.5 shrink-0 w-6 h-6 rounded-full flex items-center justify-center ${area.theme.check}`}>
-                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                            </span>
-                                            <div>
-                                                <h4 class="font-bold text-slate-900 text-sm mb-1">{service.title}</h4>
-                                                <p class="text-xs text-slate-500 leading-relaxed">{service.desc}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+
+                        <!-- Lista rápida de Píldoras -->
+                        <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-semibold text-slate-200">
+                            {area.panelItems.map((panelItem) => (
+                                <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
+                                    <span class={`w-2 h-2 rounded-full shrink-0 ${area.theme.dotColor}`}></span>
+                                    {panelItem}
+                                </div>
+                            ))}
                         </div>
                     </div>
+                </div>
 
-                    <div class={`lg:col-span-5 ${reverse ? 'lg:order-1' : ''}`}>
-                        <div class={`relative bg-gradient-to-br ${area.theme.panel} text-white rounded-3xl shadow-xl overflow-hidden border`}>
-                            <div class="relative h-44 sm:h-52 overflow-hidden group">
-                                <Image
-                                    src={area.image}
-                                    alt={area.cardTitle}
-                                    width={800}
-                                    height={420}
-                                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                                />
-                                <div class={`absolute inset-0 bg-gradient-to-t ${area.theme.fade} pointer-events-none`}></div>
+                <!-- Sub-sección: Tarjetas en Cuadrícula de Servicios (Sin iconos ni números) -->
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-8">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
+                        {L('Qué incluye la solución', 'What the solution covers')}
+                    </h3>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {area.services.map((service) => (
+                            <div class={`bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col p-6 group ${area.theme.hover}`}>
+                                <h4 class="font-extrabold text-slate-900 text-base mb-2 group-hover:text-tyta-amber transition-colors">
+                                    {service.title}
+                                </h4>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    {service.desc}
+                                </p>
                             </div>
-                            <div class="relative px-8 pb-8 -mt-4">
-                                <h3 class="text-xl font-bold mb-4">{area.panelTitle}</h3>
-                                <ul class="space-y-3 text-sm text-slate-200">
-                                    {area.panelItems.map((item) => (
-                                        <li class="flex items-start gap-3">
-                                            <span class={`mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center ${area.theme.dot}`}>
-                                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-                                            </span>
-                                            <span>{item}</span>
+                        ))}
+                    </div>
+
+                    {/* Información adicional / Subsección extra fuera de las tarjetas principales */}
+                    <div class="mt-10 bg-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-800 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+                            <div class="lg:col-span-7 space-y-3">
+                                <span class="text-tyta-amber font-black text-xs uppercase tracking-widest">
+                                    {L('Enfoque Estratégico', 'Strategic Approach')}
+                                </span>
+                                <h4 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                                    {area.extraInfo.title}
+                                </h4>
+                                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                    {area.extraInfo.description}
+                                </p>
+                            </div>
+                            <div class="lg:col-span-5">
+                                <ul class="space-y-2.5 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
+                                    {area.extraInfo.items.map((extraItem) => (
+                                        <li class="flex items-center gap-2.5 text-xs text-slate-200 font-medium">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-tyta-amber shrink-0"></span>
+                                            {extraItem}
                                         </li>
                                     ))}
                                 </ul>
@@ -383,66 +476,103 @@ const summaryCards = [...areas, talent];
                         </div>
                     </div>
                 </div>
-            </section>
-        );
-    })}
+            </div>
+        </section>
+    ))}
 
-    <!-- Gestión de Talento -->
-    <section id={talent.id} class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 scroll-mt-24 reveal-on-scroll">
-        <div class="grid lg:grid-cols-12 gap-12 items-center">
-            <div class="lg:col-span-7 space-y-8">
-                <div>
-                    <div class="inline-flex items-center gap-2 bg-tyta-amber/10 text-tyta-amber px-3 py-1 rounded-full text-xs font-bold tracking-widest uppercase mb-3 border border-tyta-amber/20">
+    <!-- Gestión de Talento (Actualizado al Banner Inmersivo, Cuadrícula limpia y Subsección extra) -->
+    <section
+        id={talent.id}
+        class="w-full p-0 border-b border-slate-200/60 scroll-mt-24 reveal-on-scroll mb-16"
+    >
+        <div class="space-y-12">
+            <!-- Banner Inmersivo de Fondo con Texto Sobrepuesto -->
+            <div class="relative w-full min-h-[680px] sm:min-h-[600px] lg:min-h-[560px] overflow-hidden flex items-center">
+                <!-- Imagen de Fondo Principal -->
+                <Image
+                    src={talent.image}
+                    alt={talent.imageAlt}
+                    width={1600}
+                    height={800}
+                    class="absolute inset-0 w-full h-full object-cover object-[center_top] md:object-[center_10%]"
+                />
+
+                <!-- Overlay de Degradado Oscuro -->
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/30"></div>
+
+                <!-- Contenido sobrepuesto -->
+                <div class="relative z-10 w-full px-6 py-16 sm:px-10 sm:py-16 lg:px-16 lg:py-20 max-w-5xl space-y-6 text-white">
+                    <!-- Etiqueta -->
+                    <div class={`inline-flex items-center gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-widest uppercase border border-white/15 shadow-md ${talent.theme.badge.split(' ')[1]}`}>
                         {talent.badge}
                     </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+
+                    <!-- Título -->
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-white drop-shadow-sm">
                         {talent.title}
                     </h2>
-                    <p class="text-slate-600 mt-4 leading-relaxed text-base">
+
+                    <!-- Descripción -->
+                    <p class="text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed font-normal max-w-3xl">
                         {talent.intro}
                     </p>
-                </div>
 
-                <div class="grid sm:grid-cols-2 gap-5">
-                    {talent.steps.map((step, index) => {
-                        const isBlue = index % 2 === 0;
-                        return (
-                            <div class={`relative bg-white p-7 rounded-3xl border border-slate-200/80 shadow-md shadow-slate-100 hover:shadow-xl transition-all duration-300 group overflow-hidden ${isBlue ? 'hover:border-tyta-blue/40' : 'hover:border-tyta-amber/50'}`}>
-                                <div class={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r opacity-0 group-hover:opacity-100 transition-opacity ${isBlue ? 'from-tyta-blue to-cyan-500' : 'from-tyta-amber to-amber-400'}`}></div>
-                                <div class={`w-12 h-12 rounded-2xl flex items-center justify-center font-extrabold text-base mb-5 group-hover:scale-110 transition-transform ${isBlue ? 'bg-tyta-blue/10 text-tyta-blue' : 'bg-tyta-amber/10 text-tyta-amber'}`}>
-                                    {`0${index + 1}`}
-                                </div>
-                                <h4 class="font-extrabold text-slate-900 text-lg mb-2">{step.title}</h4>
-                                <p class="text-sm text-slate-600 leading-relaxed">{step.desc}</p>
+                    <!-- Lista rápida de Píldoras -->
+                    <div class="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-semibold text-slate-200">
+                        {talent.panelItems.map((panelItem) => (
+                            <div class="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-3 py-2 rounded-xl border border-white/10">
+                                <span class={`w-2 h-2 rounded-full shrink-0 ${talent.theme.dotColor}`}></span>
+                                {panelItem}
                             </div>
-                        );
-                    })}
+                        ))}
+                    </div>
                 </div>
             </div>
 
-            <!-- Tarjeta de Garantía de Calidad -->
-            <div class="lg:col-span-5">
-                <div class="relative bg-gradient-to-br from-[#060b19] via-[#0b132b] to-[#00529B] text-white rounded-3xl shadow-2xl overflow-hidden border border-white/10">
-                    <div class="relative h-44 sm:h-52 overflow-hidden group">
-                        <Image
-                            src={talent.image}
-                            alt={talent.cardTitle}
-                            width={800}
-                            height={420}
-                            class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#060b19] via-[#060b19]/60 to-transparent pointer-events-none"></div>
-                    </div>
-                    <div class="relative px-8 pb-8 -mt-4 z-10">
-                        <h3 class="text-2xl sm:text-3xl font-extrabold mb-3 text-white tracking-tight">
-                            {L('Garantía de Calidad', 'Quality Assurance')}
-                        </h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            {L(
-                                'Nuestro propósito fundamental es asegurar la excelencia operativa mediante métricas, controles rigurosos y evaluación continua.',
-                                'Our primary objective is to guarantee service excellence through metrics, strict controls, and continuous evaluation.'
-                            )}
-                        </p>
+            <!-- Sub-sección: Fases / Pasos de Selección de Talento en Cuadrícula (Sin números) -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-8">
+                <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">
+                    {L('Fases del Proceso de Selección', 'Selection Process Phases')}
+                </h3>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {talent.steps.map((step) => (
+                        <div class="bg-white rounded-3xl border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col p-6 group hover:border-tyta-amber/50">
+                            <h4 class="font-extrabold text-slate-900 text-base mb-2 group-hover:text-tyta-amber transition-colors">
+                                {step.title}
+                            </h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                {step.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Información adicional / Subsección extra para Gestión de Talento */}
+                <div class="mt-10 bg-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-800 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+                        <div class="lg:col-span-7 space-y-3">
+                            <span class="text-tyta-amber font-black text-xs uppercase tracking-widest">
+                                {L('Enfoque Estratégico', 'Strategic Approach')}
+                            </span>
+                            <h4 class="text-xl sm:text-2xl font-extrabold text-white tracking-tight">
+                                {talent.extraInfo.title}
+                            </h4>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                                {talent.extraInfo.description}
+                            </p>
+                        </div>
+                        <div class="lg:col-span-5">
+                            <ul class="space-y-2.5 border-t lg:border-t-0 lg:border-l border-slate-800 pt-4 lg:pt-0 lg:pl-6">
+                                {talent.extraInfo.items.map((extraItem) => (
+                                    <li class="flex items-center gap-2.5 text-xs text-slate-200 font-medium">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-tyta-amber shrink-0"></span>
+                                        {extraItem}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

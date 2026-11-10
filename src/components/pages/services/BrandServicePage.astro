@@ -57,7 +57,7 @@ const brandData: Record<BrandKey, BrandInfo> = {
         solutionsSubtitle: isEn ? "Designed to meet the most demanding business continuity standards." : "Diseñadas para cumplir con los estándares más exigentes de continuidad del negocio.",
         solutions: [
             {
-                title: isEn ? "Backup & Replication" : "Backup & Replication",
+                title: isEn ? "Backup & Replication" : "Copias de seguridad y replicación",
                 desc: isEn ? "Fast, reliable, and secure data backup and instant recovery for all your critical workloads." : "Respaldo de datos rápido, confiable y seguro, con recuperación instantánea para todas tus cargas críticas."
             },
             {
@@ -276,23 +276,22 @@ const brandData: Record<BrandKey, BrandInfo> = {
 const content = brandData[brand];
 ---
 
-<main class="animate-fade-in py-16 px-4 md:px-8 max-w-7xl mx-auto space-y-24">
-    <!-- Hero Section Moderno con Efecto Glow y Tarjeta Multimedia -->
-    <section class="relative bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 py-20 px-6 md:px-16 text-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-slate-800/80">
+<main class="animate-fade-in bg-slate-50 overflow-hidden">
+    <!-- Hero Section Full-Width -->
+    <section class="relative w-full bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 py-20 lg:py-24 px-4 sm:px-6 md:px-8 text-white overflow-hidden">
         <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/25 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
         <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-500/15 rounded-full blur-[100px] pointer-events-none"></div>
         
-        <div class="grid lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class="lg:col-span-7 space-y-6 text-left">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
+            <div class={`${brand !== 'veeam' && content.heroImage ? 'lg:col-span-7' : 'lg:col-span-12'} space-y-6 text-left`}>
                 <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-widest shadow-inner">
-                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-ping"></span>
                     {content.badge ?? (isEn ? "Enterprise Technology Partner" : "Partner Tecnológico Autorizado")}
                 </span>
-                <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
                     {content.name}
                 </h1>
                 <div class="w-24 h-1.5 bg-tyta-amber rounded-full shadow-lg shadow-amber-500/20"></div>
-                <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light">
+                <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-3xl">
                     {content.tagline}
                 </p>
                 <div class="pt-2 flex flex-wrap gap-4">
@@ -327,139 +326,140 @@ const content = brandData[brand];
         </div>
     </section>
 
-    <!-- Sección exclusiva para Veeam -->
-    {brand === 'veeam' && (
+    <!-- Contenedor centrado para el resto de la página -->
+    <div class="py-16 px-4 md:px-8 max-w-7xl mx-auto space-y-24">
+        <!-- Sección exclusiva para Veeam -->
+        {brand === 'veeam' && (
+            <section class="space-y-12">
+                <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-blue-500/40 transition-all duration-300">
+                    <div class="order-2 md:order-1 space-y-4">
+                        <span class="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-blue-100">
+                            {isEn ? "Ecosystem Integration" : "Integración del Ecosistema"}
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                            {isEn ? "Unified Protection Across Any Workload" : "Protección Unificada en Cualquier Carga de Trabajo"}
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed text-base">
+                            {isEn 
+                                ? "Seamlessly connect and protect physical workloads, public clouds, SaaS services, identity providers, and AI platforms from a single centralized dashboard." 
+                                : "Conecta y protege sin problemas cargas de trabajo físicas, nubes públicas, servicios SaaS, proveedores de identidad y plataformas de IA desde un panel centralizado único."
+                            }
+                        </p>
+                    </div>
+                    <div class="order-1 md:order-2 rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
+                        <Image src={veeamEcosystemImg} alt="Veeam Data Platform Ecosystem" class="w-full h-auto object-contain rounded-xl" />
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-amber-500/40 transition-all duration-300">
+                    <div class="rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
+                        <Image src={veeamDashboardImg} alt="Veeam Data Platform Scorecard" class="w-full h-auto object-contain rounded-xl" />
+                    </div>
+                    <div class="space-y-4">
+                        <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-amber-100">
+                            {isEn ? "Data Platform Scorecard" : "Métricas de Resiliencia"}
+                        </span>
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+                            {isEn ? "Complete Visibility and Compliance Health" : "Visibilidad Completa y Salud de Cumplimiento"}
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed text-base">
+                            {isEn 
+                                ? "Monitor your security compliance, data recovery health, protection status, and immutability readiness in real time with automated intelligence." 
+                                : "Monitorea tu cumplimiento de seguridad, la salud de recuperación de datos, el estado de protección y la preparación de inmutabilidad en tiempo real con inteligencia automatizada."
+                            }
+                        </p>
+                    </div>
+                </div>
+            </section>
+        )}
+
+        <!-- Sección de Soluciones y Portafolio -->
         <section class="space-y-12">
-            <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-blue-500/40 transition-all duration-300">
-                <div class="order-2 md:order-1 space-y-4">
-                    <span class="inline-block bg-blue-50 text-blue-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-blue-100">
-                        {isEn ? "Ecosystem Integration" : "Integración del Ecosistema"}
-                    </span>
-                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
-                        {isEn ? "Unified Protection Across Any Workload" : "Protección Unificada en Cualquier Carga de Trabajo"}
-                    </h3>
-                    <p class="text-slate-600 leading-relaxed text-base">
-                        {isEn 
-                            ? "Seamlessly connect and protect physical workloads, public clouds, SaaS services, identity providers, and AI platforms from a single centralized dashboard." 
-                            : "Conecta y protege sin problemas cargas de trabajo físicas, nubes públicas, servicios SaaS, proveedores de identidad y plataformas de IA desde un panel centralizado único."
-                        }
-                    </p>
-                </div>
-                <div class="order-1 md:order-2 rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
-                    <Image src={veeamEcosystemImg} alt="Veeam Data Platform Ecosystem" class="w-full h-auto object-contain rounded-xl" />
-                </div>
+            <div class="text-center max-w-3xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">{content.solutionsTitle}</h2>
+                <div class="w-20 h-1.5 bg-tyta-amber mx-auto mb-4 rounded-full"></div>
+                <p class="text-slate-600 text-lg">{content.solutionsSubtitle}</p>
             </div>
 
-            <div class="bg-gradient-to-br from-white to-slate-50 p-6 md:p-10 rounded-[2rem] border border-slate-200/80 shadow-lg grid md:grid-cols-2 gap-8 items-center group hover:border-amber-500/40 transition-all duration-300">
-                <div class="rounded-2xl overflow-hidden shadow-md bg-white border border-slate-100 p-3">
-                    <Image src={veeamDashboardImg} alt="Veeam Data Platform Scorecard" class="w-full h-auto object-contain rounded-xl" />
-                </div>
-                <div class="space-y-4">
-                    <span class="inline-block bg-amber-50 text-amber-700 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider border border-amber-100">
-                        {isEn ? "Data Platform Scorecard" : "Métricas de Resiliencia"}
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {content.solutions.map((sol, index) => (
+                    <div class="group relative overflow-hidden rounded-3xl bg-white border border-slate-200/80 p-8 transition-all duration-500 hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1.5 flex flex-col justify-between">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-amber-500/5 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-125"></div>
+                        <div>
+                            
+                            <h3 class="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-yellow-600 transition-colors">{sol.title}</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">{sol.desc}</p>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-400 group-hover:text-yellow-600 transition-colors">
+                            <span>{isEn ? "Enterprise Spec" : "Especificación Enterprise"}</span>
+                            <span class="ml-auto transform transition-transform duration-300 group-hover:translate-x-1">→</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </section>
+
+        <!-- Sección de Beneficios y CTA -->
+        <section class="grid lg:grid-cols-12 gap-12 items-center pt-6">
+            <div class="lg:col-span-6 space-y-6">
+                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">{content.whyTitle}</h2>
+                <p class="text-slate-600 leading-relaxed text-base md:text-lg">{content.whyText}</p>
+                <ul class="space-y-4 pt-2">
+                    {content.benefits.map((item) => (
+                        <li class="flex items-start gap-4 text-slate-700 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm transition-all duration-300 hover:border-blue-500/40 hover:shadow-md hover:bg-slate-50/50">
+                            <span class="text-tyta-amber bg-slate-900 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mt-0.5 shrink-0 shadow">✓</span> 
+                            <span class="leading-snug font-medium text-sm md:text-base text-slate-800">{item}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+
+            <div class="lg:col-span-6 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 md:p-12 rounded-[2.5rem] text-white shadow-2xl border border-slate-800 relative overflow-hidden group">
+                <div class="absolute -top-24 -right-24 w-64 h-64 bg-tyta-amber/20 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
+                <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="relative z-auto">
+                    <span class="inline-block bg-tyta-amber/10 text-tyta-amber border border-tyta-amber/20 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-6">
+                        {isEn ? "Actionable Next Step" : "Siguiente Paso Estratégico"}
                     </span>
-                    <h3 class="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
-                        {isEn ? "Complete Visibility and Compliance Health" : "Visibilidad Completa y Salud de Cumplimiento"}
-                    </h3>
-                    <p class="text-slate-600 leading-relaxed text-base">
-                        {isEn 
-                            ? "Monitor your security compliance, data recovery health, protection status, and immutability readiness in real time with automated intelligence." 
-                            : "Monitorea tu cumplimiento de seguridad, la salud de recuperación de datos, el estado de protección y la preparación de inmutabilidad en tiempo real con inteligencia automatizada."
-                        }
-                    </p>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white tracking-tight">{content.cardTitle}</h3>
+                    <p class="text-slate-300 leading-relaxed mb-8 text-base font-light">{content.cardText}</p>
+                    <div>
+                        <a
+                            href={contactHref}
+                            class="inline-flex items-center justify-center w-full sm:w-auto bg-tyta-amber text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-0.5"
+                        >
+                            {content.ctaLabel}
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
-    )}
 
-    <!-- Sección de Soluciones y Portafolio -->
-    <section class="space-y-12">
-        <div class="text-center max-w-3xl mx-auto">
-            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">{content.solutionsTitle}</h2>
-            <div class="w-20 h-1.5 bg-tyta-amber mx-auto mb-4 rounded-full"></div>
-            <p class="text-slate-600 text-lg">{content.solutionsSubtitle}</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {content.solutions.map((sol, index) => (
-                <div class="group relative overflow-hidden rounded-3xl bg-white border border-slate-200/80 p-8 transition-all duration-500 hover:border-blue-500/60 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1.5 flex flex-col justify-between">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-amber-500/5 rounded-bl-full pointer-events-none transition-transform duration-500 group-hover:scale-125"></div>
-                    <div>
-                        <div class="w-14 h-14 bg-slate-900 text-tyta-amber rounded-2xl flex items-center justify-center font-bold text-xl mb-6 group-hover:bg-tyta-amber group-hover:text-slate-950 transition-all duration-300 shadow-md group-hover:rotate-6">
-                            0{index + 1}
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors">{sol.title}</h3>
-                        <p class="text-slate-600 text-sm leading-relaxed">{sol.desc}</p>
-                    </div>
-                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center text-xs font-semibold text-slate-400 group-hover:text-blue-600 transition-colors">
-                        <span>{isEn ? "Enterprise Spec" : "Especificación Enterprise"}</span>
-                        <span class="ml-auto transform transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </div>
-                </div>
-            ))}
-        </div>
-    </section>
-
-    <!-- Sección de Beneficios y CTA -->
-    <section class="grid lg:grid-cols-12 gap-12 items-center pt-6">
-        <div class="lg:col-span-6 space-y-6">
-            <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">{content.whyTitle}</h2>
-            <p class="text-slate-600 leading-relaxed text-base md:text-lg">{content.whyText}</p>
-            <ul class="space-y-4 pt-2">
-                {content.benefits.map((item) => (
-                    <li class="flex items-start gap-4 text-slate-700 bg-white p-4.5 rounded-2xl border border-slate-200/80 shadow-sm transition-all duration-300 hover:border-blue-500/40 hover:shadow-md hover:bg-slate-50/50">
-                        <span class="text-tyta-amber bg-slate-900 rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold mt-0.5 shrink-0 shadow">✓</span> 
-                        <span class="leading-snug font-medium text-sm md:text-base text-slate-800">{item}</span>
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-        <div class="lg:col-span-6 bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-8 md:p-12 rounded-[2.5rem] text-white shadow-2xl border border-slate-800 relative overflow-hidden group">
-            <div class="absolute -top-24 -right-24 w-64 h-64 bg-tyta-amber/20 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-150"></div>
-            <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="relative z-auto">
-                <span class="inline-block bg-tyta-amber/10 text-tyta-amber border border-tyta-amber/20 text-xs font-semibold px-3.5 py-1.5 rounded-full uppercase tracking-wider mb-6">
-                    {isEn ? "Actionable Next Step" : "Siguiente Paso Estratégico"}
-                </span>
-                <h3 class="text-2xl md:text-3xl font-bold mb-4 text-white tracking-tight">{content.cardTitle}</h3>
-                <p class="text-slate-300 leading-relaxed mb-8 text-base font-light">{content.cardText}</p>
-                <div>
+        <!-- Banner Inferior -->
+        <section class="bg-gradient-to-r from-slate-900 via-slate-950 to-blue-950 text-white rounded-[2rem] p-8 md:p-14 text-center shadow-2xl relative overflow-hidden border border-slate-800">
+            <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
+            <div class="relative z-10 max-w-3xl mx-auto space-y-6">
+                <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight">
+                    {isEn ? "Architected for Absolute Reliability" : "Infraestructura Tecnológica de Alta Confiabilidad"}
+                </h3>
+                <p class="text-slate-300 text-base md:text-lg leading-relaxed font-light">
+                    {isEn 
+                        ? "Integrate high-end infrastructure solutions tailored to your operational environment, backed by expert deployment and authorized local support." 
+                        : "Integre soluciones de infraestructura de alta gama adaptadas a su entorno operativo, respaldadas por despliegue experto y soporte local autorizado en T&TA de Centroamérica."
+                    }
+                </p>
+                <div class="pt-2">
                     <a
                         href={contactHref}
-                        class="inline-flex items-center justify-center w-full sm:w-auto bg-tyta-amber text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 transform hover:-translate-y-0.5"
+                        class="inline-flex items-center gap-2 bg-white text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-slate-100 transition-all shadow-lg hover:shadow-white/10"
                     >
-                        {content.ctaLabel}
+                        {isEn ? "Consult an Engineer" : "Consultar con un Ingeniero T&TA"} →
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Banner Inferior -->
-    <section class="bg-gradient-to-r from-slate-900 via-slate-950 to-blue-950 text-white rounded-[2rem] p-8 md:p-14 text-center shadow-2xl relative overflow-hidden border border-slate-800">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent pointer-events-none"></div>
-        <div class="relative z-10 max-w-3xl mx-auto space-y-6">
-            <h3 class="text-2xl md:text-3xl font-extrabold tracking-tight">
-                {isEn ? "Architected for Absolute Reliability" : "Infraestructura Tecnológica de Alta Confiabilidad"}
-            </h3>
-            <p class="text-slate-300 text-base md:text-lg leading-relaxed font-light">
-                {isEn 
-                    ? "Integrate high-end infrastructure solutions tailored to your operational environment, backed by expert deployment and authorized local support." 
-                    : "Integre soluciones de infraestructura de alta gama adaptadas a su entorno operativo, respaldadas por despliegue experto y soporte local autorizado en T&TA de Centroamérica."
-                }
-            </p>
-            <div class="pt-2">
-                <a
-                    href={contactHref}
-                    class="inline-flex items-center gap-2 bg-white text-slate-950 px-8 py-4 rounded-xl font-bold hover:bg-slate-100 transition-all shadow-lg hover:shadow-white/10"
-                >
-                    {isEn ? "Consult an Engineer" : "Consultar con un Ingeniero T&TA"} →
-                </a>
-            </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </main>
 
 <style>

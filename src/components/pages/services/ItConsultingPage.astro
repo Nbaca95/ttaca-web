@@ -7,6 +7,9 @@ const t = getTranslations(locale);
 const content = t.servicesPages.itConsulting;
 const contactHref = localizedPath(locale, "/contact");
 
+// Atajo para textos bilingües
+const L = (es: string, en: string) => (locale === 'en' ? en : es);
+
 const brands = [
     { 
         key: 'veeam', 
@@ -40,112 +43,153 @@ const brands = [
     },
 ] as const;
 
-const consultingAreas = [
-    { 
-        title: locale === 'en' ? 'IT Management' : 'Gestión de TI', 
-        icon: '📋', 
-        desc: locale === 'en' ? 'Strategic governance and operational alignment.' : 'Gobierno estratégico y alineación operativa tecnológica.' 
+// Áreas de consultoría agrupadas por pilares estratégicos para mayor orden
+const consultingPillars = [
+    {
+        category: L('Gobierno, Gestión y Optimización', 'Governance, Management & Optimization'),
+        desc: L('Estrategia, arquitectura y auditoría de procesos tecnológicos.', 'Strategy, architecture, and technology process auditing.'),
+        themeBorder: 'border-l-4 border-blue-600',
+        items: [
+            { 
+                title: L('Gestión de TI', 'IT Management'), 
+                desc: L('Gobierno estratégico, alineación operativa tecnológica y definición de políticas de servicio corporativo.', 'Strategic governance, operational alignment, and corporate service policy definition.') 
+            },
+            { 
+                title: L('Evaluación y Optimización', 'Assessment & Optimization'), 
+                desc: L('Auditorías profundas de arquitectura, análisis de cuellos de botella y ajuste de rendimiento operativo.', 'Deep architecture audits, bottleneck analysis, and operational performance tuning.') 
+            },
+            { 
+                title: L('Actualización, Adecuación y Migración', 'Upgrades & Migration'), 
+                desc: L('Transiciones planificadas y sin fricción hacia plataformas, sistemas y versiones de software modernas.', 'Planned, seamless transitions to modern platforms, systems, and software versions.') 
+            },
+            { 
+                title: L('Integración Cloud e Híbrida', 'Cloud & Hybrid Integration'), 
+                desc: L('Conexión segura y eficiente de sistemas locales (On-Premise) con entornos multi-nube y arquitecturas híbridas.', 'Bridging on-premises systems securely with multi-cloud environments and hybrid architectures.') 
+            }
+        ]
     },
-    { 
-        title: locale === 'en' ? 'Assessment & Optimization' : 'Evaluación y Optimización', 
-        icon: '🔍', 
-        desc: locale === 'en' ? 'Deep architecture audits and performance tuning.' : 'Auditorías profundas de arquitectura y ajuste de rendimiento.' 
+    {
+        category: L('Infraestructura, Cómputo y Resiliencia', 'Infrastructure, Compute & Resilience'),
+        desc: L('Alta disponibilidad, almacenamiento avanzado y continuidad de negocio.', 'High availability, advanced storage, and business continuity.'),
+        themeBorder: 'border-l-4 border-tyta-amber',
+        items: [
+            { 
+                title: L('Virtualización, Aplicaciones y Protección', 'Virtualization & Protection'), 
+                desc: L('Entornos virtualizados seguros, consolidación inteligente de cargas y alta disponibilidad de aplicaciones.', 'Secure virtualized environments, smart workload consolidation, and application high availability.') 
+            },
+            { 
+                title: L('Almacenamiento de Datos', 'Data Storage'), 
+                desc: L('Diseño e implementación de arreglos de almacenamiento escalables, de ultra bajo tiempo de respuesta y alta capacidad.', 'Design and implementation of scalable, low-latency, high-capacity storage arrays.') 
+            },
+            { 
+                title: L('Protección, Redundancia y Disponibilidad', 'Redundancy & Availability'), 
+                desc: L('Continuidad de negocio, esquemas de replicación y marcos sólidos de recuperación ante desastres (DRP).', 'Business continuity, replication schemes, and robust disaster recovery frameworks (DRP).') 
+            },
+            { 
+                title: L('Servidores, Cómputo e Hiperconvergencia', 'Servers, Compute & Hyperconvergence'), 
+                desc: L('Dimensionamiento de hardware de alta densidad e integración de cómputo, almacenamiento y seguridad por software.', 'High-density hardware sizing and software-defined integration of compute, storage, and security.') 
+            }
+        ]
     },
-    { 
-        title: locale === 'en' ? 'Virtualization & Protection' : 'Virtualización, Aplicaciones y Protección', 
-        icon: '💻', 
-        desc: locale === 'en' ? 'Secure environments and application availability.' : 'Entornos seguros y disponibilidad de aplicaciones.' 
-    },
-    { 
-        title: locale === 'en' ? 'Upgrades & Migration' : 'Actualización, Adecuación y Migración', 
-        icon: '🔄', 
-        desc: locale === 'en' ? 'Seamless transitions to modern platforms.' : 'Transiciones sin fricción hacia plataformas modernas.' 
-    },
-    { 
-        title: locale === 'en' ? 'Data Storage' : 'Almacenamiento de Datos', 
-        icon: '🗄️', 
-        desc: locale === 'en' ? 'Scalable, high-performance storage arrays.' : 'Arreglos de almacenamiento escalables y de alto rendimiento.' 
-    },
-    { 
-        title: locale === 'en' ? 'Redundancy & Availability' : 'Protección, Redundancia y Disponibilidad', 
-        icon: '🛡️', 
-        desc: locale === 'en' ? 'Business continuity and disaster recovery frameworks.' : 'Continuidad de negocio y marcos de recuperación.' 
-    },
-    { 
-        title: locale === 'en' ? 'Servers & Compute' : 'Servidores y Cómputo', 
-        icon: '⚡', 
-        desc: locale === 'en' ? 'High-density compute hardware implementations.' : 'Implementaciones de hardware de cómputo de alta densidad.' 
-    },
-    { 
-        title: locale === 'en' ? 'Hyperconvergence & Security' : 'Hiperconvergencia, Seguridad y Rendimiento', 
-        icon: '🔐', 
-        desc: locale === 'en' ? 'Integrated compute, storage, and advanced security.' : 'Cómputo integrado, almacenamiento y seguridad avanzada.' 
-    },
-    { 
-        title: locale === 'en' ? 'Networks & Mobility' : 'Redes y Movilidad', 
-        icon: '📶', 
-        desc: locale === 'en' ? 'Robust connectivity solutions for modern enterprises.' : 'Soluciones de conectividad robustas para empresas.' 
-    },
-    { 
-        title: locale === 'en' ? 'Wireless & Wired Design' : 'Diseño, Optimización Wireless y Cableadas', 
-        icon: '🌐', 
-        desc: locale === 'en' ? 'End-to-end network layout and tuning.' : 'Diseño y calibración integral de infraestructura de red.' 
-    },
-    { 
-        title: locale === 'en' ? 'Cybersecurity & Perimeter' : 'Ciberseguridad y Perímetro', 
-        icon: '🔒', 
-        desc: locale === 'en' ? 'Advanced threat protection and firewall deployment.' : 'Protección avanzada contra amenazas y despliegue de firewalls.' 
-    },
-    { 
-        title: locale === 'en' ? 'Cloud & Hybrid Integration' : 'Integración Cloud e Híbrida', 
-        icon: '☁️', 
-        desc: locale === 'en' ? 'Bridging on-premises systems with multi-cloud environments.' : 'Conexión de sistemas locales con entornos multi-nube.' 
+    {
+        category: L('Conectividad, Redes y Ciberseguridad', 'Connectivity, Networks & Cybersecurity'),
+        desc: L('Redes corporativas robustas y protección perimetral avanzada.', 'Robust corporate networks and advanced perimeter protection.'),
+        themeBorder: 'border-l-4 border-slate-900',
+        items: [
+            { 
+                title: L('Redes y Movilidad', 'Networks & Mobility'), 
+                desc: L('Soluciones de conectividad robustas, segmentación lógica segura y acceso remoto confiable para empresas.', 'Robust connectivity solutions, secure logical segmentation, and reliable enterprise remote access.') 
+            },
+            { 
+                title: L('Diseño y Optimización Wireless / Cableadas', 'Wireless & Wired Design'), 
+                desc: L('Diseño estructural, estudios de cobertura (mapas de calor) y calibración integral de redes LAN/Wi-Fi.', 'Structural design, coverage surveys (heatmaps), and end-to-end LAN/Wi-Fi network tuning.') 
+            },
+            { 
+                title: L('Ciberseguridad y Perímetro', 'Cybersecurity & Perimeter'), 
+                desc: L('Protección avanzada contra amenazas, despliegue de firewalls de nueva generación (NGFW) y políticas de acceso.', 'Advanced threat protection, next-gen firewall (NGFW) deployment, and strict access policies.') 
+            },
+            { 
+                title: L('Auditoría y Hardening de Redes', 'Network Auditing & Hardening'), 
+                desc: L('Fortalecimiento de dispositivos de red, escaneo preventivo de vulnerabilidades y cumplimiento de normativas.', 'Network device hardening, preventive vulnerability scanning, and regulatory compliance checks.') 
+            }
+        ]
     }
 ];
+
+const methodologyInfo = {
+    title: L('Diagnóstico, Arquitectura y Ejecución Controlada', 'Diagnosis, Architecture & Controlled Execution'),
+    description: L(
+        'Cada proyecto de consultoría parte de un levantamiento técnico riguroso. Evaluamos la capacidad actual de su centro de datos, identificamos riesgos operativos y diseñamos una hoja de ruta escalable que minimiza el impacto en la operación diaria.',
+        'Every consulting project starts with a rigorous technical assessment. We evaluate your current data center capacity, identify operational risks, and design a scalable roadmap that minimizes impact on daily operations.'
+    ),
+    items: [
+        L('Levantamiento de infraestructura y análisis de brechas', 'Infrastructure assessment and gap analysis'),
+        L('Diseño de arquitectura de referencia y dimensionamiento', 'Reference architecture design and sizing'),
+        L('Plan de migración por fases con ventanas de mantenimiento', 'Phased migration plan with maintenance windows'),
+        L('Documentación técnica completa y transferencia de conocimiento', 'Complete technical documentation and knowledge transfer')
+    ]
+};
 
 const certifications = [
     {
         name: 'Hewlett Packard Enterprise (HPE)',
-        category: locale === 'en' ? 'Enterprise Infrastructure Partner' : 'Socio de Infraestructura Empresarial',
+        category: L('Socio de Infraestructura Empresarial', 'Enterprise Infrastructure Partner'),
         badgeId: 'hpe'
     },
     {
         name: 'VMware Certified Professional',
-        category: locale === 'en' ? 'Virtualization & Cloud Expert' : 'Experto en Virtualización y Nube',
+        category: L('Experto en Virtualización y Nube', 'Virtualization & Cloud Expert'),
         badgeId: 'vmware'
     },
     {
         name: 'Veeam Modern Data Protection',
-        category: locale === 'en' ? 'Backup & Recovery Specialist' : 'Especialista en Resguardo y Recuperación',
+        category: L('Especialista en Resguardo y Recuperación', 'Backup & Recovery Specialist'),
         badgeId: 'veeam'
     },
     {
         name: 'HPE Aruba Networking',
-        category: locale === 'en' ? 'Edge-to-Cloud Connectivity' : 'Conectividad de Extremo a Nube',
+        category: L('Conectividad de Extremo a Nube', 'Edge-to-Cloud Connectivity'),
         badgeId: 'aruba'
     },
     {
         name: 'Dell Technologies Partner',
-        category: locale === 'en' ? 'Servers & Storage Solutions' : 'Soluciones de Servidores y Almacenamiento',
+        category: L('Soluciones de Servidores y Almacenamiento', 'Servers & Storage Solutions'),
         badgeId: 'dell'
     },
     {
         name: 'Lenovo Enterprise Solutions',
-        category: locale === 'en' ? 'Datacenter Hardware Expert' : 'Experto en Hardware de Centro de Datos',
+        category: L('Experto en Hardware de Centro de Datos', 'Datacenter Hardware Expert'),
         badgeId: 'lenovo'
     },
     {
         name: 'Cisco Select Partner',
-        category: locale === 'en' ? 'Networking & Security' : 'Redes y Seguridad',
+        category: L('Redes y Seguridad', 'Networking & Security'),
         badgeId: 'cisco'
     },
     {
         name: 'Microsoft Solutions Partner',
-        category: locale === 'en' ? 'Cloud Platform & Infrastructure' : 'Plataforma en la Nube e Infraestructura',
+        category: L('Plataforma en la Nube e Infraestructura', 'Cloud Platform & Infrastructure'),
         badgeId: 'microsoft'
     }
 ];
 ---
+
+<style>
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
 
 <main class="bg-slate-50 overflow-hidden">
     <!-- Hero Section -->
@@ -153,68 +197,124 @@ const certifications = [
         <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:400px]"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-[#060b19]/80 via-transparent to-transparent"></div>
 
-        <div class="relative max-w-4xl mx-auto text-center z-10">
+        <div class="relative max-w-4xl mx-auto text-center z-10 reveal-on-scroll">
             <div class="inline-block mb-4">
                 <span class="bg-white/10 backdrop-blur-md border border-white/15 text-tyta-amber font-bold tracking-widest uppercase text-xs px-4 py-1.5 rounded-full shadow-lg">
-                    {locale === 'en' ? 'Enterprise Technology Consulting' : 'Consultoría y Actualización Tecnológica'}
+                    {L('Consultoría y Actualización Tecnológica', 'Enterprise Technology Consulting')}
                 </span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight mt-2 mb-6">
                 {content.title}
             </h1>
             <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed">
-                {locale === 'en'
-                    ? 'At T&TA de Centroamérica, we provide IT consulting services specializing in infrastructure and technology upgrades, delivering high-impact solutions.'
-                    : 'En T&TA de Centroamérica ofrecemos servicios de consultoría en TI, especializados en infraestructura y actualización tecnológica, con soluciones de alto impacto.'}
+                {L(
+                    'En T&TA de Centroamérica ofrecemos servicios de consultoría en TI, especializados en infraestructura y actualización tecnológica, con soluciones de alto impacto.',
+                    'At T&TA de Centroamérica, we provide IT consulting services specializing in infrastructure and technology upgrades, delivering high-impact solutions.'
+                )}
             </p>
         </div>
         <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 w-3/4 h-20 bg-tyta-amber/15 blur-3xl pointer-events-none rounded-full"></div>
     </section>
 
-    <!-- Áreas de Consultoría -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-            <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">Expertise Integral</span>
-            <h2 class="text-3xl font-extrabold text-slate-900 mt-2">
-                {locale === 'en' ? 'Our Consulting Core Areas' : 'Áreas Clave de Consultoría'}
+    <!-- ==================================================================== -->
+    <!-- SECCIÓN DE CONSULTORÍA ESPECIALIZADA (DISEÑO LIMPIO Y POR PILARES)   -->
+    <!-- ==================================================================== -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 scroll-mt-24 reveal-on-scroll">
+        <!-- Cabecera de la sección -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <span class="inline-flex items-center gap-2 bg-blue-500/10 text-tyta-blue px-3.5 py-1.5 rounded-full text-xs font-extrabold tracking-widest uppercase border border-blue-500/20">
+                {L('Expertise Integral', 'Comprehensive Expertise')}
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                {L('Áreas Clave de Consultoría y Arquitectura', 'Core Consulting & Architecture Areas')}
             </h2>
+            <p class="text-slate-600 text-base leading-relaxed">
+                {L(
+                    'Estructuramos nuestro acompañamiento técnico en pilares estratégicos para garantizar que cada componente de su infraestructura evolucione con orden, seguridad y alto rendimiento.',
+                    'We structure our technical guidance into strategic pillars to ensure every component of your infrastructure evolves with order, security, and high performance.'
+                )}
+            </p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {consultingAreas.map((area) => (
-                <div class="bg-white p-7 rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-700 flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform duration-300 shadow-sm">
-                            {area.icon}
-                        </div>
-                        <h4 class="font-extrabold text-slate-900 text-lg mb-2 group-hover:text-tyta-blue transition-colors">
-                            {area.title}
-                        </h4>
-                        <p class="text-xs text-slate-500 leading-relaxed">
-                            {area.desc}
+        <!-- Pilares y Tarjetas organizadas -->
+        <div class="space-y-16">
+            {consultingPillars.map((pillar) => (
+                <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-lg border border-slate-200/80 space-y-8">
+                    <!-- Título del pilar -->
+                    <div class={`pl-4 ${pillar.themeBorder} space-y-1`}>
+                        <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
+                            {pillar.category}
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-500">
+                            {pillar.desc}
                         </p>
+                    </div>
+
+                    <!-- Cuadrícula de servicios del pilar -->
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {pillar.items.map((item) => (
+                            <div class="bg-slate-50/70 p-6 rounded-2xl border border-slate-200/60 hover:bg-white hover:border-tyta-blue/40 hover:shadow-md transition-all duration-300 flex flex-col justify-between group">
+                                <div>
+                                    <h4 class="font-extrabold text-slate-900 text-sm mb-2 group-hover:text-tyta-blue transition-colors">
+                                        {item.title}
+                                    </h4>
+                                    <p class="text-xs text-slate-600 leading-relaxed">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             ))}
         </div>
+
+        <!-- Subsección informativa adicional: Metodología de Trabajo -->
+        <div class="mt-16 bg-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-slate-800 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-80 h-80 bg-tyta-amber/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 grid lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-7 space-y-4">
+                    <span class="text-tyta-amber font-black text-xs uppercase tracking-widest">
+                        {L('Metodología de Trabajo', 'Work Methodology')}
+                    </span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                        {methodologyInfo.title}
+                    </h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        {methodologyInfo.description}
+                    </p>
+                </div>
+                <div class="lg:col-span-5">
+                    <ul class="space-y-3 border-t lg:border-t-0 lg:border-l border-slate-800 pt-6 lg:pt-0 lg:pl-8">
+                        {methodologyInfo.items.map((item) => (
+                            <li class="flex items-center gap-3 text-xs sm:text-sm text-slate-200 font-medium">
+                                <span class="w-2 h-2 rounded-full bg-tyta-amber shrink-0"></span>
+                                {item}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Fondo Azul: Ingenieros Certificados y Marcas -->
-    <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden reveal-on-scroll">
         <div class="absolute inset-0 bg-[url('/assets/content.png')] opacity-10 bg-repeat bg-[length:300px]"></div>
         
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
-                    {locale === 'en' ? 'Certified Engineers' : 'Ingenieros Certificados'}
+                    {L('Ingenieros Certificados', 'Certified Engineers')}
                 </span>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4 tracking-tight">
-                    {locale === 'en' ? 'Brands & Technological Ecosystems' : 'Marcas y Ecosistemas Tecnológicos'}
+                    {L('Marcas y Ecosistemas Tecnológicos', 'Brands & Technological Ecosystems')}
                 </h2>
                 <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
-                    {locale === 'en' 
-                        ? 'At T&TA de Centroamérica features highly qualified and certified engineers across top-tier market solutions:'
-                        : 'En T&TA de Centroamérica contamos con ingenieros altamente calificados y certificados en las principales soluciones del mercado:'}
+                    {L(
+                        'En T&TA de Centroamérica contamos con ingenieros altamente calificados y certificados en las principales soluciones del mercado:',
+                        'T&TA de Centroamérica features highly qualified and certified engineers across top-tier market solutions:'
+                    )}
                 </p>
             </div>
 
@@ -232,8 +332,8 @@ const certifications = [
                                 {locale === 'en' ? brand.descEn : brand.descEs}
                             </p>
                         </div>
-                        <div class="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center justify-center text-xs font-bold text-tyta-amber">
-                            {locale === 'en' ? 'Explore solution →' : 'Explorar solución →'}
+                        <div class="mt-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300 inline-flex items-center text-xs font-bold text-tyta-amber">
+                            {L('Explorar solución →', 'Explore solution →')}
                         </div>
                     </a>
                 ))}
@@ -241,19 +341,20 @@ const certifications = [
         </div>
     </section>
 
-    <!-- Nueva Sección: Certificaciones Oficiales y Alianzas -->
-    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <!-- Certificaciones Oficiales y Alianzas -->
+    <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal-on-scroll">
         <div class="text-center max-w-2xl mx-auto mb-16">
             <span class="text-tyta-amber font-bold tracking-widest uppercase text-xs">
-                {locale === 'en' ? 'Official Badges & Partnerships' : 'Insignias y Alianzas Oficiales'}
+                {L('Insignias y Alianzas Oficiales', 'Official Badges & Partnerships')}
             </span>
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-2 mb-4">
-                {locale === 'en' ? 'Our Accreditations & Certifications' : 'Nuestras Acreditaciones y Certificaciones'}
+                {L('Nuestras Acreditaciones y Certificaciones', 'Our Accreditations & Certifications')}
             </h2>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
-                {locale === 'en'
-                    ? 'Endorsements from world-class technology leaders guaranteeing the highest execution standards for your business projects.'
-                    : 'Avales de líderes tecnológicos globales que garantizan los más altos estándares de ejecución para los proyectos de su empresa.'}
+                {L(
+                    'Avales de líderes tecnológicos globales que garantizan los más altos estándares de ejecución para los proyectos de su empresa.',
+                    'Endorsements from world-class technology leaders guaranteeing the highest execution standards for your business projects.'
+                )}
             </p>
         </div>
 
@@ -266,7 +367,7 @@ const certifications = [
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
                         <span class="text-[11px] font-medium text-slate-400 group-hover:text-tyta-blue">
-                            {locale === 'en' ? 'Upload Badge Image' : 'Cargar insignia oficial'}
+                            {L('Cargar insignia oficial', 'Upload Badge Image')}
                         </span>
                     </div>
 
@@ -282,23 +383,48 @@ const certifications = [
     </section>
 
     <!-- CTA Final -->
-    <section class="bg-white py-20 px-4 border-t border-slate-200/60">
+    <section class="bg-white py-20 px-4 border-t border-slate-200/60 reveal-on-scroll">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
-                {locale === 'en' ? 'Ready to elevate your IT infrastructure?' : '¿Listo para llevar su infraestructura de TI al siguiente nivel?'}
+                {L('¿Listo para llevar su infraestructura de TI al siguiente nivel?', 'Ready to elevate your IT infrastructure?')}
             </h2>
             <p class="text-slate-600 mb-8 max-w-2xl mx-auto text-base sm:text-lg">
-                {locale === 'en' 
-                    ? 'Contact our team of certified specialists to design a customized strategy for your business.'
-                    : 'Póngase en contacto con nuestro equipo de especialistas certificados para diseñar una estrategia a la medida de su empresa.'}
+                {L(
+                    'Póngase en contacto con nuestro equipo de especialistas certificados para diseñar una estrategia a la medida de su empresa.',
+                    'Contact our team of certified specialists to design a customized strategy for your business.'
+                )}
             </p>
             <a href={contactHref} class="group relative inline-flex items-center justify-center bg-tyta-blue text-white text-sm font-bold tracking-wider uppercase px-8 py-4 rounded-full overflow-hidden transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-xl hover:-translate-y-0.5">
                 <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-emerald-500/0 via-white/20 to-emerald-500/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out"></span>
                 <span class="relative z-10 flex items-center gap-2">
-                    {locale === 'en' ? 'Schedule a Consultation' : 'Solicitar Consultoría'}
+                    {L('Solicitar Consultoría', 'Schedule a Consultation')}
                     <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </span>
             </a>
         </div>
     </section>
 </main>
+
+<!-- Script para activar la animación al hacer scroll -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-on-scroll').forEach(section => {
+            observer.observe(section);
+        });
+    });
+</script>
