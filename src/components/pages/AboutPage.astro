@@ -120,10 +120,10 @@ const certifications = [
     </section>
 
     <!-- Misión y Visión -->
-    <section class="bg-slate-50 py-20 px-6">
+    <section class="bg-slate-50 py-24 px-6">
         <div class="max-w-7xl mx-auto">
             <!-- Píldora de sección general (Fondo Blanco) -->
-            <div class="text-center max-w-2xl mx-auto mb-16">
+            <div class="text-center max-w-2xl mx-auto mb-12">
               <!--  <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-blue-50 text-tyta-blue rounded-full border border-blue-100 shadow-sm">
                     {locale === 'en' ? 'Purpose & Direction' : 'Propósito y Dirección'}
                 </span>
@@ -132,45 +132,125 @@ const certifications = [
                 </h2> -->
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
-                    <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🔍</div>
-                    <h3 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.mission}</h3>
-                    <p class="text-slate-600 leading-relaxed">{t.aboutPage.missionVision.missionText}</p>
+            <div class="grid md:grid-cols-2 gap-10 lg:gap-12 items-stretch">
+                <!-- Misión (Tarjeta Clara) -->
+                <div class="reveal bg-white p-10 md:p-12 rounded-3xl shadow-[0_8px_30px_rgb(15,23,42,0.05)] border border-slate-200/80 text-center flex flex-col justify-between group hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgb(15,23,42,0.09)] hover:border-tyta-amber/60 transition-all duration-300">
+                    <div>
+                        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-tyta-amber mb-3">
+                             {locale === 'en' ? 'Our Purpose' : 'Nuestro Propósito'}
+                        </span>
+                        <h3 class="text-3xl font-extrabold mb-4 text-slate-900 group-hover:text-tyta-blue transition-colors duration-300">
+                            {t.about.mission}
+                        </h3>
+                        <div class="w-14 h-1 bg-tyta-amber rounded-full mx-auto mb-6"></div>
+                        <p class="text-slate-600 leading-relaxed text-base md:text-lg max-w-xl mx-auto">
+                            {t.aboutPage.missionVision.missionText}
+                        </p>
+                    </div>
                 </div>
 
-                <div class="reveal bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:shadow-xl hover:border-tyta-amber/50 transition-all duration-300">
-                    <div class="text-4xl text-tyta-blue mb-4 transform group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">🚀</div>
-                    <h3 class="text-2xl font-bold mb-6 text-tyta-blue group-hover:text-tyta-amber transition-colors duration-300">{t.about.vision}</h3>
-                    <p class="text-slate-600 leading-relaxed">{t.aboutPage.missionVision.visionText}</p>
+                <!-- Visión (Tarjeta Oscura de Contraste) -->
+                <div class="reveal bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 p-10 md:p-12 rounded-3xl text-white shadow-2xl border border-slate-800 text-center relative overflow-hidden flex flex-col justify-between group hover:-translate-y-1.5 hover:border-tyta-amber/50 transition-all duration-300">
+                    <div class="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl pointer-events-none transition-transform duration-700 group-hover:scale-125"></div>
+                    <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-tyta-amber/15 rounded-full blur-3xl pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <span class="inline-block text-xs font-extrabold uppercase tracking-widest text-sky-400 mb-3">
+                             {locale === 'en' ? 'Future Projection' : 'Proyección Estratégica'}
+                        </span>
+                        <h3 class="text-3xl font-extrabold mb-4 text-white group-hover:text-tyta-amber transition-colors duration-300">
+                            {t.about.vision}
+                        </h3>
+                        <div class="w-14 h-1 bg-tyta-amber rounded-full mx-auto mb-6"></div>
+                        <p class="text-slate-300 leading-relaxed text-base md:text-lg font-light max-w-xl mx-auto">
+                            {t.aboutPage.missionVision.visionText}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Nuestros Valores -->
-    <section class="relative py-20 px-6 bg-gradient-to-b from-[#060b19] via-[#0b132b] to-[#111d42] overflow-hidden">
+    <section class="relative py-24 px-6 bg-gradient-to-b from-[#060b19] via-[#0b132b] to-[#111d42] overflow-hidden">
         <div class="absolute inset-0 z-0 pointer-events-none">
             <div
                 class="absolute inset-0 bg-repeat opacity-[0.09] mix-blend-overlay"
                 style={`background-image: url(${bgCircuit.src}); background-size: 450px;`}
             ></div>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[760px] h-[280px] bg-tyta-amber/10 rounded-full blur-3xl"></div>
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto text-center">
             <!-- Píldora superior armonizada con Home (Fondo Oscuro) -->
-            <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-slate-800 rounded-full text-tyta-amber border border-slate-700 shadow-md">
+            <span class="inline-block px-6 py-2 mb-4 text-xs font-extrabold uppercase tracking-widest bg-slate-800/90 rounded-full text-tyta-amber border border-slate-700 shadow-md">
                 {locale === 'en' ? 'Our Values' : 'Nuestros Valores'}
             </span>
             <!-- <h2 class="reveal text-3xl sm:text-4xl font-extrabold text-white mb-4">{t.aboutPage.values.title}</h2> -->
-            <p class="reveal text-slate-300 mb-12 max-w-2xl mx-auto">{t.aboutPage.values.subtitle}</p>
+            <p class="reveal text-slate-300 text-base md:text-lg mb-14 max-w-2xl mx-auto leading-relaxed">
+                {t.aboutPage.values.subtitle}
+            </p>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {t.aboutPage.values.items.map((value) => (
-                    <div class="reveal relative overflow-hidden p-8 bg-slate-800/70 backdrop-blur-sm rounded-2xl border border-slate-700/80 text-center group hover:-translate-y-2 hover:shadow-xl hover:shadow-tyta-amber/10 hover:border-tyta-amber transition-all duration-300 flex flex-col items-center">
-                        <div class="text-5xl mb-4 transform group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-300">{value.icon}</div>
-                        <h4 class="font-bold text-tyta-amber mb-3 text-xl group-hover:text-amber-400 transition-colors">{value.title}</h4>
-                        <p class="text-sm text-slate-300 leading-relaxed flex-grow">{value.desc}</p>
+                {t.aboutPage.values.items.map((value, index) => (
+                    <div class="reveal relative overflow-hidden p-8 md:p-10 bg-slate-900/75 backdrop-blur-md rounded-3xl border border-slate-700/70 border-t-2 border-t-tyta-amber/50 text-center group hover:-translate-y-1.5 hover:border-tyta-amber hover:shadow-[0_20px_45px_rgba(0,0,0,0.45)] transition-all duration-300 flex flex-col items-center">
+                        <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-tyta-amber/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                        <div class="relative z-10 text-tyta-amber mb-5 transform group-hover:-translate-y-1 group-hover:scale-110 transition-all duration-300">
+                            {index === 0 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="9" />
+                                    <circle cx="12" cy="12" r="5" />
+                                    <circle cx="12" cy="12" r="1.5" />
+                                </svg>
+                            )}
+                            {index === 1 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+                                    <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4" />
+                                    <path d="m21 3 1 11h-2" />
+                                    <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3" />
+                                    <path d="M3 4h8" />
+                                </svg>
+                            )}
+                            {index === 2 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5" />
+                                    <path d="M9 18h6" />
+                                    <path d="M10 22h4" />
+                                </svg>
+                            )}
+                            {index === 3 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                    <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z" />
+                                    <path d="M7 21h10" />
+                                    <path d="M12 3v18" />
+                                    <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2" />
+                                </svg>
+                            )}
+                            {index === 4 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                                    <path d="m9 12 2 2 4-4" />
+                                </svg>
+                            )}
+                            {index > 4 && (
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                    <circle cx="9" cy="7" r="4" />
+                                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                                </svg>
+                            )}
+                        </div>
+
+                        <h4 class="relative z-10 font-bold text-white mb-3 text-xl tracking-tight group-hover:text-tyta-amber transition-colors duration-300">
+                            {value.title}
+                        </h4>
+                        <p class="relative z-10 text-sm text-slate-300 leading-relaxed max-w-xs mx-auto flex-grow">
+                            {value.desc}
+                        </p>
                     </div>
                 ))}
             </div>

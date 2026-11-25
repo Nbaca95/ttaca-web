@@ -12,6 +12,45 @@ import servicio2Img from "../../assets/images/consultoria.jpg";
 import servicio3Img from "../../assets/images/soporte-hpe.jpg";
 import servicio4Img from "../../assets/images/site-survey.jpg";
 
+// -------------------------------------------------------------------------
+// 1. LOGOS DE SOCIOS TECNOLÓGICOS (12 espacios configurados)
+// Reemplaza las rutas "../../assets/images/..." por tus archivos reales
+// -------------------------------------------------------------------------
+import logoHpe from "../../assets/images/Hpe.jpg";
+import logoVmware from "../../assets/images/Vmware.jpg";
+import logoDell from "../../assets/images/Dell1.png";
+import logoMicrosoft from "../../assets/images/Microsoft.jpg";
+import logoVeeam from "../../assets/images/Veeam.jpg";
+import logoSymantec from "../../assets/images/Symantec.png";
+// 4 espacios adicionales para Socios Tecnológicos:
+//import logoSocio9 from "../../assets/images/RECOPE.png";
+//import logoSocio10 from "../../assets/images/INS.png";
+//import logoSocio11 from "../../assets/images/RECOPE.png";
+import Lenovo from "../../assets/images/Lenovo.png";
+
+// -------------------------------------------------------------------------
+// 2. LOGOS DE EMPRESAS QUE CONFÍAN EN NOSOTROS (10 espacios configurados)
+// Reemplaza las rutas "../../assets/images/..." por tus archivos reales
+// -------------------------------------------------------------------------
+import logoRecope from "../../assets/images/RECOPE.png";
+import logoIns from "../../assets/images/INS.png";
+import logoLafise from "../../assets/images/Lafise.png";
+import logoCCSS from "../../assets/images/ccss.png";
+import logoBanpro from "../../assets/images/BANPRO.png";
+import logoPopular from "../../assets/images/Popular.png";
+import logoEvertec from "../../assets/images/Evertec.png";
+// 4 espacios adicionales para Empresas que confían en nosotros:
+import logoLiberty from "../../assets/images/Liberty.png";
+import logoClaro from "../../assets/images/Claro.png";
+import logoRegistro from "../../assets/images/Registro.png";
+import logoIntel from "../../assets/images/Intel.png";
+import logoHp from "../../assets/images/Hp.png";
+import logoFIFCO from "../../assets/images/FIFCO.jpg";
+import logoWalmart from "../../assets/images/Walmart.jpg";
+import logoUCR from "../../assets/images/UCR.jpg";
+import logoUNA from "../../assets/images/UNA.png";
+import logoMarriot from "../../assets/images/Marriott.jpg";
+
 const locale = getLocaleFromUrl(Astro.url);
 const t = getTranslations(locale);
 const contactHref = localizedPath(locale, "/contact");
@@ -20,15 +59,42 @@ const serviceHref = (slug: string) => localizedPath(locale, `/services/${slug}`)
 const newsImages = [noti1Img, noti2Img, noti3Img];
 const serviceImages = [servicio1Img, servicio2Img, servicio3Img, servicio4Img];
 
+// Lista individual de Socios Tecnológicos
 const partnerLogos = [
-    { name: 'Kaspersky', colorClass: 'hover:text-[#005B94]' },
-    { name: 'VMware', colorClass: 'hover:text-[#607078]' },
-    { name: 'Thales', colorClass: 'hover:text-[#00A3E0]' },
-    { name: 'Microsoft', colorClass: 'hover:text-[#00A4EF]' },
-    { name: 'Veeam', colorClass: 'hover:text-[#00B259]' },
-    { name: 'Trend Micro', colorClass: 'hover:text-[#D71920]' },
-    { name: 'Micro Focus', colorClass: 'hover:text-[#38C6F4]' },
-    { name: 'Fortinet', colorClass: 'hover:text-[#EE3124]' },
+    { name: 'HPE', logo: logoHpe, colorClass: 'hover:border-[#01A982]/50' },
+    { name: 'VMware', logo: logoVmware, colorClass: 'hover:border-[#607078]/50' },
+    { name: 'Dell Technologies', logo: logoDell, colorClass: 'hover:border-[#007DB8]/50' },
+    { name: 'Microsoft', logo: logoMicrosoft, colorClass: 'hover:border-[#00A4EF]/50' },
+    { name: 'Veeam', logo: logoVeeam, colorClass: 'hover:border-[#00B259]/50' },
+    { name: 'Symantec', logo: logoSymantec, colorClass: 'hover:border-[#FDBB30]/60' },
+    
+    // 4 nuevos espacios agregados:
+    //{ name: 'Socio Tecnológico 9', logo: logoSocio9, colorClass: 'hover:border-tyta-blue/40' },
+    //{ name: 'Socio Tecnológico 10', logo: logoSocio10, colorClass: 'hover:border-tyta-blue/40' },
+    //{ name: 'Socio Tecnológico 11', logo: logoSocio11, colorClass: 'hover:border-tyta-blue/40' },
+    { name: 'Lenovo', logo: Lenovo, colorClass: 'hover:border-[#E2231A]/50' },
+];
+
+// Lista individual de Empresas que confían en nosotros
+const clientLogos = [
+    { name: 'RECOPE', logo: logoRecope },
+    { name: 'INS', logo: logoIns },
+    { name: 'Banco LAFISE', logo: logoLafise },
+    { name: 'CCSS', logo: logoCCSS },
+    { name: 'BANPRO', logo: logoBanpro },
+    { name: 'Banco Popular', logo: logoPopular },
+    { name: 'EVERTEC', logo: logoEvertec },
+    // 4 nuevos espacios agregados:
+    { name: 'LIBERTY', logo: logoLiberty },
+    { name: 'CLARO', logo: logoClaro },
+    { name: 'Registro Nacional', logo: logoRegistro },
+    { name: 'HP', logo: logoHp },
+    { name: 'MARRIOTT', logo: logoMarriot },
+    { name: 'FIFCO', logo: logoFIFCO },
+    { name: 'WALMART', logo: logoWalmart },
+    { name: 'UCR', logo: logoUCR },
+    { name: 'UNA', logo: logoUNA },
+    { name: 'INTEL', logo: logoIntel },
 ];
 ---
 
@@ -62,6 +128,16 @@ const partnerLogos = [
         width: 28px;
         border-radius: 6px;
         background: #0f172a;
+    }
+
+    /* ---------- Carruseles continuos (Logos Partners & Clientes) ---------- */
+    .logo-marquee-swiper .swiper-wrapper {
+        transition-timing-function: linear !important;
+    }
+
+    .logo-marquee-mask {
+        -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+        mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
     }
 
     /* ---------- Tarjetas de servicios ---------- */
@@ -206,44 +282,80 @@ const partnerLogos = [
     </div>
 </section>
 
-<!-- Partners Tecnológicos -->
-<section class="py-20 bg-slate-50">
+<!-- Partners Tecnológicos (Carrusel Continuo con Logos) -->
+<section class="py-24 bg-gradient-to-b from-slate-50 via-slate-50/80 to-white border-t border-slate-100 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 text-center">
-        <div class="reveal">
-            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+        <div class="reveal max-w-2xl mx-auto">
+            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200/80 shadow-sm">
                 {locale === 'es' ? 'Socios Tecnológicos' : 'Technology Partners'}
             </span>
-            <p class="text-slate-600 mb-16">{t.homePage.partners.subtitle}</p>
+            <p class="text-slate-600 text-lg mb-14">{t.homePage.partners.subtitle}</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6 items-center">
-            {partnerLogos.map((socio, index) => (
-                <div class="reveal group cursor-pointer" style={`transition-delay: ${(index % 4) * 80}ms`}>
-                    <div class={`h-16 flex items-center justify-center font-bold text-slate-400 border border-slate-100 rounded-lg bg-white grayscale group-hover:grayscale-0 ${socio.colorClass} transition-all duration-300 hover:scale-105 hover:shadow-md`}>
-                        {socio.name}
-                    </div>
+
+        <div class="reveal logo-marquee-mask py-4">
+            <div class="partners-swiper logo-marquee-swiper swiper">
+                <div class="swiper-wrapper items-center">
+                    {partnerLogos.map((socio) => (
+                        <div class="swiper-slide py-3">
+                            <div
+                                title={socio.name}
+                                class={`group relative h-32 md:h-36 px-7 flex items-center justify-center border border-slate-200/70 rounded-3xl bg-white shadow-[0_8px_30px_rgb(15,23,42,0.04)] grayscale opacity-80 hover:grayscale-0 hover:opacity-100 ${socio.colorClass} transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_38px_rgb(15,23,42,0.09)] cursor-pointer`}
+                            >
+                                {socio.logo ? (
+                                    <Image
+                                        src={socio.logo}
+                                        alt={socio.name}
+                                        width={320}
+                                        height={160}
+                                        class="max-h-20 md:max-h-24 w-auto max-w-[85%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <span class="font-bold text-slate-500 text-base">{socio.name}</span>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Clientes -->
-<section class="py-20 bg-white">
+<!-- Clientes (Carrusel Continuo con Logos) -->
+<section class="py-24 bg-white border-t border-slate-100/80 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6 text-center">
-        <div class="reveal">
-            <span class="inline-block px-4 py-1.5 mb-4 text-sm font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200">
+        <div class="reveal max-w-2xl mx-auto">
+            <span class="inline-block px-4 py-1.5 mb-4 text-xs font-bold tracking-widest uppercase bg-slate-100 text-tyta-blue rounded-full border border-slate-200/80 shadow-sm">
                 {locale === 'es' ? 'Empresas que confían en nosotros' : 'Trusted Companies'}
             </span>
-            <p class="text-slate-600 mb-16">{t.homePage.clients.subtitle}</p>
+            <p class="text-slate-600 text-lg mb-14">{t.homePage.clients.subtitle}</p>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-center">
-            {t.homePage.clients.items.map((cliente, index) => (
-                <div class="reveal group cursor-pointer" style={`transition-delay: ${(index % 3) * 100}ms`}>
-                    <div class="h-16 flex items-center justify-center px-2 text-center text-sm font-bold text-slate-400 border border-slate-100 rounded-lg bg-slate-50/50 grayscale group-hover:grayscale-0 group-hover:text-tyta-blue transition-all duration-300 hover:scale-105 hover:shadow-md hover:bg-white">
-                        {cliente.name}
-                    </div>
+
+        <div class="reveal logo-marquee-mask py-4">
+            <div class="clients-swiper logo-marquee-swiper swiper">
+                <div class="swiper-wrapper items-center">
+                    {clientLogos.map((cliente) => (
+                        <div class="swiper-slide py-3">
+                            <div
+                                title={cliente.name}
+                                class="group relative h-32 md:h-36 px-7 flex items-center justify-center border border-slate-200/70 rounded-3xl bg-white shadow-[0_8px_30px_rgb(15,23,42,0.04)] grayscale opacity-80 hover:grayscale-0 hover:opacity-100 hover:border-tyta-blue/35 transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_38px_rgb(15,23,42,0.09)] cursor-pointer"
+                            >
+                                {cliente.logo ? (
+                                    <Image
+                                        src={cliente.logo}
+                                        alt={cliente.name}
+                                        width={320}
+                                        height={160}
+                                        class="max-h-20 md:max-h-24 w-auto max-w-[85%] object-contain mix-blend-multiply transition-transform duration-500 ease-out group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <span class="text-center text-base font-bold text-slate-500">{cliente.name}</span>
+                                )}
+                            </div>
+                        </div>
+                    ))}
                 </div>
-            ))}
+            </div>
         </div>
     </div>
 </section>
@@ -347,6 +459,46 @@ const partnerLogos = [
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" is:inline></script>
 <script define:vars={{ numberLocale: locale === 'es' ? 'es-CR' : 'en-US' }} is:inline>
     document.addEventListener('DOMContentLoaded', () => {
+        // Carrusel continuo de Socios Tecnológicos
+        new Swiper('.partners-swiper', {
+            loop: true,
+            speed: 3800,
+            allowTouchMove: true,
+            slidesPerView: 2,
+            spaceBetween: 24,
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 3, spaceBetween: 28 },
+                768: { slidesPerView: 4, spaceBetween: 32 },
+                1024: { slidesPerView: 5, spaceBetween: 36 },
+            }
+        });
+
+        // Carrusel continuo de Clientes (en dirección opuesta)
+        new Swiper('.clients-swiper', {
+            loop: true,
+            speed: 4200,
+            allowTouchMove: true,
+            slidesPerView: 2,
+            spaceBetween: 24,
+            autoplay: {
+                delay: 0,
+                reverseDirection: true,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            breakpoints: {
+                640: { slidesPerView: 3, spaceBetween: 28 },
+                768: { slidesPerView: 4, spaceBetween: 32 },
+                1024: { slidesPerView: 5, spaceBetween: 36 },
+            }
+        });
+
+        // Carrusel de Testimonios
         new Swiper('.testimonials-swiper', {
             loop: true, 
             slidesPerView: 1, 
