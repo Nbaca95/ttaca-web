@@ -4,6 +4,10 @@ import { getLocaleFromUrl, localizedPath } from "../../../i18n";
 import { Image } from "astro:assets";
 import veeamEcosystemImg from "../../../assets/images/Veeam.png";
 import veeamDashboardImg from "../../../assets/images/Veeam2.png";
+import vmwareHeroImg from "../../../assets/images/VMware.png";
+import dellHeroImg from "../../../assets/images/Dell.jpg";
+import lenovoHeroImg from "../../../assets/images/Lenovof.png";
+import veeamHeroImg from "../../../assets/images/Veeamf.png";
 
 type BrandKey = 'veeam' | 'arubaNetworks' | 'vmware' | 'dell' | 'lenovo';
 
@@ -77,10 +81,14 @@ const brandData: Record<BrandKey, BrandInfo> = {
         cardText: isEn 
             ? "Request a tailored architecture assessment with our certified Veeam engineers to audit your recovery readiness and eliminate vulnerabilities." 
             : "Solicita una evaluación de arquitectura personalizada con nuestros ingenieros certificados en Veeam para auditar tu preparación de recuperación y eliminar vulnerabilidades.",
-        ctaLabel: isEn ? "Schedule Veeam Assessment" : "Agendar Evaluación Veeam"
+        ctaLabel: isEn ? "Schedule Veeam Assessment" : "Agendar Evaluación Veeam",
+        heroImage: veeamHeroImg.src
+        
     },
     vmware: {
-        name: isEn ? "VMware by Broadcom – Cloud Foundation & Virtualization" : "VMware by Broadcom – Cloud Foundation y Virtualización",
+        name: isEn
+            ? "VMware by Broadcom – Enterprise Virtualization & Cloud Foundation"
+            : "VMware de Broadcom – Virtualización y Cloud Foundation",
         tagline: isEn 
             ? "Modernize your infrastructure with VMware. Transform traditional datacenters into virtualized, automated, and private cloud-ready platforms spanning compute, storage, networking, and modern applications." 
             : "Modernice su infraestructura con VMware. Diseñamos e implementamos soluciones VMware para transformar centros de datos tradicionales en plataformas virtualizadas, automatizadas y preparadas para la nube privada.",
@@ -125,7 +133,7 @@ const brandData: Record<BrandKey, BrandInfo> = {
             : "Conecte con nuestros ingenieros expertos para evaluar, diseñar o migrar su entorno hacia una plataforma moderna impulsada por VMware.",
         ctaLabel: isEn ? "Request VMware Consultation" : "Solicitar asesoría VMware →",
         badge: "VMware Cloud Foundation",
-        heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"
+        heroImage: vmwareHeroImg.src
     },
     dell: {
         name: isEn ? "Dell Technologies – Enterprise Infrastructure" : "Dell Technologies – Infraestructura Empresarial",
@@ -173,7 +181,7 @@ const brandData: Record<BrandKey, BrandInfo> = {
             : "Solicite configuraciones a la medida, cotizaciones de listas de materiales y soporte técnico especializado de la mano de nuestros ingenieros.",
         ctaLabel: isEn ? "Request Dell Proposal" : "Solicitar Propuesta Dell →",
         badge: "Dell Enterprise Solutions",
-        heroImage: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1200&q=80"
+        heroImage: dellHeroImg.src
     },
     lenovo: {
         name: isEn ? "Lenovo Enterprise Solutions – Datacenter & Workplace" : "Soluciones Lenovo Enterprise – Data Center y Dispositivos",
@@ -221,10 +229,10 @@ const brandData: Record<BrandKey, BrandInfo> = {
             : "Descubra cómo las soluciones de hardware Lenovo y los servicios de infraestructura flexible pueden optimizar los costos operativos y acelerar la evolución de su organización.",
         ctaLabel: isEn ? "Explore Lenovo Solutions" : "Conocer soluciones Lenovo →",
         badge: "Lenovo Data Center",
-        heroImage: "https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80"
+        heroImage: lenovoHeroImg.src
     },
     arubaNetworks: {
-        name: isEn ? "Aruba Networks – Edge-to-Cloud Networking" : "Aruba Networks – Redes de Extremo a Nube",
+        name: isEn ? "Aruba Networks – Edge-to-Cloud Networking" : "Redes de Aruba – Redes de Extremo a Nube",
         tagline: isEn 
             ? "Deliver secure, high-performance wired, wireless, and SD-WAN connectivity powered by AI-driven automation and zero-trust security." 
             : "Ofrece conectividad cableada, inalámbrica y SD-WAN segura y de alto rendimiento, impulsada por automatización basada en IA y seguridad Zero-Trust.",
@@ -277,54 +285,64 @@ const content = brandData[brand];
 ---
 
 <main class="animate-fade-in bg-slate-50 overflow-hidden">
-    <!-- Hero Section Full-Width -->
-    <section class="relative w-full bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 py-20 lg:py-24 px-4 sm:px-6 md:px-8 text-white overflow-hidden">
-        <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/25 rounded-full blur-[100px] pointer-events-none animate-pulse"></div>
-        <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-500/15 rounded-full blur-[100px] pointer-events-none"></div>
-        
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 items-center relative z-10">
-            <div class={`${brand !== 'veeam' && content.heroImage ? 'lg:col-span-7' : 'lg:col-span-12'} space-y-6 text-left`}>
-                <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-widest shadow-inner">
-                    {content.badge ?? (isEn ? "Enterprise Technology Partner" : "Partner Tecnológico Autorizado")}
-                </span>
-                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
-                    {content.name}
-                </h1>
-                <div class="w-24 h-1.5 bg-tyta-amber rounded-full shadow-lg shadow-amber-500/20"></div>
-                <p class="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-3xl">
-                    {content.tagline}
-                </p>
-                <div class="pt-2 flex flex-wrap gap-4">
-                    <a
-                        href={contactHref}
-                        class="inline-flex items-center gap-2 bg-tyta-amber text-slate-950 px-7 py-3.5 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/10 transform hover:-translate-y-0.5"
-                    >
-                        {isEn ? "Request Solution Consultation" : "Solicitar Asesoría Experta"} →
-                    </a>
-                </div>
+    
+<!-- Hero Section Full-Width con imagen de fondo -->
+<section class="relative w-full bg-slate-950 py-20 lg:py-28 px-4 sm:px-6 md:px-8 text-white overflow-hidden">
+
+    <!-- Imagen de fondo dinámica -->
+    {content.heroImage && (
+        <div
+            class={`absolute inset-0 bg-no-repeat ${
+                brand === 'vmware'
+                    ? 'bg-[length:auto_75%] bg-[position:right_8%_center]'
+                    : 'bg-cover bg-center'
+            }`}
+            style={`background-image: url('${content.heroImage}')`}
+        ></div>
+    )}
+
+    <!-- Overlay oscuro para mejorar la legibilidad -->
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/60"></div>
+
+    <!-- Degradado inferior -->
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-950/20"></div>
+
+    <!-- Efectos decorativos -->
+    <div class="absolute -top-32 -right-32 w-96 h-96 bg-blue-600/15 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="absolute -bottom-32 -left-32 w-96 h-96 bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+    <!-- Contenido -->
+    <div class="max-w-7xl mx-auto relative z-10">
+
+        <div class="max-w-3xl space-y-6 text-left">
+
+            <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-semibold px-4 py-2 rounded-full uppercase tracking-widest shadow-inner">
+                {content.badge ?? (isEn ? "Enterprise Technology Partner" : "Partner Tecnológico Autorizado")}
+            </span>
+
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+                {content.name}
+            </h1>
+
+            <div class="w-24 h-1.5 bg-tyta-amber rounded-full shadow-lg shadow-amber-500/20"></div>
+
+            <p class="text-base sm:text-lg text-slate-200 leading-relaxed font-light max-w-3xl">
+                {content.tagline}
+            </p>
+
+            <div class="pt-2 flex flex-wrap gap-4">
+                <a
+                    href={contactHref}
+                    class="inline-flex items-center gap-2 bg-tyta-amber text-slate-950 px-7 py-3.5 rounded-xl font-bold hover:bg-amber-400 transition-all shadow-lg shadow-amber-500/20 transform hover:-translate-y-0.5"
+                >
+                    {isEn ? "Request Solution Consultation" : "Solicitar Asesoría Experta"} →
+                </a>
             </div>
 
-            <!-- Imagen Hero para marcas distintas a Veeam -->
-            {brand !== 'veeam' && content.heroImage && (
-                <div class="lg:col-span-5 relative">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-600/30 to-amber-500/20 rounded-2xl filter blur-xl transform scale-95 opacity-70"></div>
-                    <div class="relative rounded-2xl overflow-hidden border border-slate-700/60 shadow-2xl bg-slate-900/50 backdrop-blur-sm group">
-                        <img 
-                            src={content.heroImage} 
-                            alt={content.name}
-                            class="w-full h-[320px] md:h-[380px] object-cover object-center transform transition-transform duration-700 group-hover:scale-105"
-                        />
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-6">
-                            <div class="text-sm font-semibold text-slate-200 flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 bg-tyta-amber rounded-full shadow"></span>
-                                {isEn ? "Certified Enterprise Architecture" : "Arquitectura Empresarial Certificada"}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
-    </section>
+    </div>
+</section>
+
 
     <!-- Contenedor centrado para el resto de la página -->
     <div class="py-16 px-4 md:px-8 max-w-7xl mx-auto space-y-24">
